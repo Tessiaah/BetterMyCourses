@@ -1,0 +1,226 @@
+/* Confirmed class families in the live Aalto stylesheet; canvas pixels are untouched. */
+html[data-better-my-courses='dark']
+  .intelliboard-page
+  :is(
+    .intelliboard-origin-head a,
+    .intelliboard-dropdown button,
+    .intelliboard-dropdown ul,
+    .intelliboard-menu ul,
+    .intelliboard-grade,
+    .intsettings-box,
+    .filter-box
+  ) {
+  background-color: var(--bmc-control);
+  color: var(--bmc-text);
+  border-color: var(--bmc-border);
+  box-shadow: none;
+}
+/* Upstream explicitly marks this button's foreground !important. */
+html[data-better-my-courses='dark'] .intelliboard-dropdown button {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  .intelliboard-page
+  :is(
+    .intelliboard-origin-head a,
+    .intelliboard-dropdown li,
+    .intelliboard-menu li
+  ):hover {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark'] .intelliboard-origin :is(p.user, p.site) {
+  color: var(--bmc-accent);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] .intelliboard-origin p span {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .intelliboard-fade60 {
+  color: var(--bmc-muted);
+  opacity: 1;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .intelliboard-icon,
+    .intelliboard-courses-grid li .course-info .icon,
+    .intelliboard-courses-grid li .course-more,
+    .intelliboard-content .table .info-average
+  ) {
+  background-color: var(--bmc-border);
+  color: var(--bmc-text);
+  text-shadow: none;
+}
+html[data-better-my-courses='dark'] .intelliboard-courses-grid li {
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] .intelliboard-progress {
+  background-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark'] .intelliboard-progress span {
+  background-color: var(--bmc-accent);
+  color: var(--bmc-control);
+  text-shadow: none;
+}
+html[data-better-my-courses='dark'] input:checked + .intelliboard-slider {
+  background-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark'] .intelliboard-slider {
+  background-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark'] .intelliboard-slider::before {
+  background-color: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  :is(.chart-tooltip, .google-visualization-tooltip) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-border);
+  box-shadow: none;
+}
+html[data-better-my-courses='dark']
+  :is(.chart-tooltip-header, .chart-tooltip-body div) {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .chart-tooltip-body div span {
+  color: var(--bmc-text);
+}
+/* Upstream student ComboChart/LineChart use these exact presentation colors.
+   Map only inside their known containers; preserve data, event targets and geometry. */
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  text {
+  fill: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  [fill='#1d7fb3' i] {
+  fill: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  [stroke='#1d7fb3' i] {
+  stroke: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  [fill='#1db34f' i] {
+  fill: var(--bmc-link-hover);
+}
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  [stroke='#1db34f' i] {
+  stroke: var(--bmc-link-hover);
+}
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  :is([fill='#cccccc' i], [fill='#e6e6e6' i]) {
+  fill: var(--bmc-border);
+}
+html[data-better-my-courses='dark']
+  :is(#intelliboard-chart, #intelliboard-chart-combo)
+  svg
+  :is([stroke='#cccccc' i], [stroke='#e6e6e6' i]) {
+  stroke: var(--bmc-border);
+}
+html[data-better-my-courses='dark']
+  :is(
+    [id^='page-local-intelliboard'],
+    [id^='page-local-intelliboard'] #region-main
+  ) {
+  background-color: var(--bmc-page);
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .intelliboard-table-wrapper,
+    .intelliboard-table-content,
+    .intelliboard-chart,
+    .intelliboard-box,
+    .intelliboard-content
+  ) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  :is(
+    .panel,
+    .panel-heading,
+    .panel-body,
+    .table-panel,
+    .tab-content,
+    .nav-tabs
+  ) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  :is(table, th, td) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-secondary);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] [id^='page-local-intelliboard'] th {
+  background-color: var(--bmc-hover);
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  tr:hover
+  td {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .intelliboard-table-wrapper .actions,
+    .intelliboard-table-wrapper .filter-item,
+    .intelliboard-table-wrapper .clear-icon
+  ) {
+  color: var(--bmc-secondary);
+}
+/* Highcharts uses stable class names. Never select arbitrary instructor SVGs. */
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  .highcharts-background {
+  fill: var(--bmc-panel);
+}
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  :is(
+    .highcharts-title,
+    .highcharts-subtitle,
+    .highcharts-axis-labels text,
+    .highcharts-axis-title,
+    .highcharts-legend-item text
+  ) {
+  fill: var(--bmc-secondary) !important;
+  color: var(--bmc-secondary) !important;
+}
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  :is(.highcharts-grid-line, .highcharts-axis-line, .highcharts-tick) {
+  stroke: var(--bmc-border);
+}
+/* Limit recoloring to the first series; additional semantic series keep their identity. */
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  .highcharts-series-0
+  .highcharts-point {
+  fill: var(--bmc-accent);
+  stroke: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  [id^='page-local-intelliboard']
+  .highcharts-series-0
+  .highcharts-graph {
+  stroke: var(--bmc-accent);
+}

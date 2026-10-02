@@ -1,0 +1,29 @@
+/* Only explicit user banner preferences replace the original image. Heights and
+   course banners remain intact; disabled mode restores every native banner. */
+html[data-better-my-courses='dark'][data-bmc-home-banner='custom']
+  #page-site-index
+  .aaltositepageheader {
+  background-image: var(--bmc-home-banner) !important;
+  background-size: var(--bmc-home-banner-size, cover) !important;
+  background-repeat: no-repeat !important;
+  background-color: var(--bmc-page) !important;
+  background-position: var(--bmc-home-banner-position, center) !important;
+}
+html[data-better-my-courses='dark'][data-bmc-dashboard-banner='custom']
+  #page-my-index
+  .aaltouserpageheader {
+  background-image: var(--bmc-dashboard-banner) !important;
+  background-size: var(--bmc-dashboard-banner-size, cover) !important;
+  background-repeat: no-repeat !important;
+  background-color: var(--bmc-page) !important;
+  background-position: var(--bmc-dashboard-banner-position, center) !important;
+}
+html[data-better-my-courses='dark'][data-bmc-home-banner='plain']
+  #page-site-index
+  .aaltositepageheader,
+html[data-better-my-courses='dark'][data-bmc-dashboard-banner='plain']
+  #page-my-index
+  .aaltouserpageheader {
+  background-image: none !important;
+  background-color: var(--bmc-page) !important;
+}

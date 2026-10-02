@@ -1,0 +1,326 @@
+/* Reference-led Home redesign. Native content, handlers, language groups,
+   course feedback, skip links and block editing controls remain available.
+   All Home accent details follow the user's link-color preference. */
+html[data-better-my-courses='dark'] #page-site-index {
+  --bmc-home-width: 1600px;
+  --bmc-home-gutter: clamp(16px, 5.25vw, 100px);
+  --bmc-home-edge: color-mix(in srgb, var(--bmc-link) 30%, var(--bmc-line));
+}
+/* Aalto adds 30px to #page-content; use one shared gutter so the banner,
+   secondary navigation and feed panels align as in the supplied reference. */
+html[data-better-my-courses='dark'] #page-site-index #page-content {
+  padding-inline: 0 !important;
+}
+html[data-better-my-courses='dark'] #page-site-index .aaltositepageheader {
+  width: calc(100% - 2 * var(--bmc-home-gutter));
+  max-width: var(--bmc-home-width);
+  margin-inline: auto;
+  margin-bottom: 18px;
+  min-height: clamp(220px, 16vw, 300px) !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--bmc-line);
+  position: relative;
+  overflow: hidden;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .aaltositepageheader.bmc-home-hero {
+  display: flex;
+  align-items: flex-end;
+  height: auto !important;
+  padding: 0;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-hero-copy {
+  position: relative;
+  z-index: 1;
+  margin: 24px;
+  padding: 14px 18px;
+  max-width: min(680px, calc(100% - 48px));
+  background-color: rgb(0 0 0 / 65%);
+  border-radius: 6px;
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .bmc-home-hero-copy
+  :is(.page-context-header, .page-header-headings) {
+  padding: 0;
+  margin: 0 !important;
+  background: transparent !important;
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-hero-copy h1 {
+  color: var(--bmc-text) !important;
+  margin: 0;
+  font-size: clamp(32px, 3.35vw, 56px);
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-hero-copy p {
+  margin: 8px 0 0;
+  color: var(--bmc-text);
+  font-size: clamp(14px, 1.25vw, 20px);
+  line-height: 1.5;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .contextpage-context-header-content[data-bmc-title-moved='true'] {
+  display: none;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .contextpage-context-header-content:not([data-bmc-title-moved]) {
+  max-width: var(--bmc-home-width);
+  margin-inline: auto;
+  padding: 20px var(--bmc-home-gutter);
+}
+html[data-better-my-courses='dark'] #page-site-index .secondary-navigation {
+  width: calc(100% - 2 * var(--bmc-home-gutter));
+  max-width: var(--bmc-home-width);
+  margin: 0 auto 32px;
+  background: var(--bmc-raised) !important;
+  border: 1px solid var(--bmc-border);
+  border-radius: 8px;
+  min-height: 54px;
+  padding: 4px;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .secondary-navigation
+  :where(.navigation, .moremenu, .nav-tabs) {
+  background: transparent !important;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .secondary-navigation
+  .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  padding: 10px 20px;
+  color: var(--bmc-secondary) !important;
+  background: transparent !important;
+  /* Native dark-mode tab rules remove borders on active/hover. Keep all
+     states inside the bar's 4px inset without clipping its dropdown menus. */
+  border: 1px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 4px;
+  margin: 0 !important;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .secondary-navigation
+  .nav-link.active {
+  color: var(--bmc-link) !important;
+  background: color-mix(
+    in srgb,
+    var(--bmc-link) 10%,
+    var(--bmc-raised)
+  ) !important;
+  border-color: var(--bmc-home-edge) !important;
+  border-bottom-color: var(--bmc-link) !important;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .secondary-navigation
+  .nav-link:is(:hover, :focus-visible) {
+  color: var(--bmc-link-hover) !important;
+  background: var(--bmc-hover) !important;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .secondary-navigation
+  .nav-link:focus-visible {
+  outline-offset: -4px;
+}
+html[data-better-my-courses='dark'] #page-site-index .rssfeedarea {
+  width: calc(100% - 2 * var(--bmc-home-gutter)) !important;
+  max-width: var(--bmc-home-width);
+  margin: 0 auto;
+  padding: 16px 0 40px;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  #block-region-side-rsscontent {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 20px;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  #block-region-side-rsscontent
+  > .block_rss_client.card {
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+  margin: 0 !important;
+  border: 1px solid var(--bmc-border);
+  border-top-color: var(--bmc-home-edge);
+  border-radius: 10px;
+  background: var(--bmc-panel);
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .block_rss_client
+  .card-body {
+  padding: 24px !important;
+  border-radius: inherit;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-feed-heading {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .block_rss_client
+  .card-title {
+  font-size: clamp(21px, 1.65vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--bmc-link);
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .bmc-home-feed-heading
+  > .bmc-home-icon
+  svg {
+  width: 34px;
+  height: 34px;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-all-news {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  color: var(--bmc-link) !important;
+  font-size: 14px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+html[data-better-my-courses='dark'] #page-site-index .bmc-home-all-news svg {
+  width: 18px;
+  height: 18px;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .bmc-home-all-news:is(:hover, :focus-visible) {
+  color: var(--bmc-link-hover) !important;
+  text-decoration: underline;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .block_rss_client
+  .content {
+  margin-top: 0 !important;
+}
+html[data-better-my-courses='dark'] #page-site-index .block_rss_client .title {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--bmc-secondary);
+  padding: 14px 0 8px;
+  margin: 0;
+  border-bottom: 1px solid var(--bmc-separator);
+}
+html[data-better-my-courses='dark'] #page-site-index .block_rss_client .list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .block_rss_client
+  .list
+  li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 0 !important;
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--bmc-separator);
+  line-height: 1.5;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .block_rss_client
+  .list
+  li
+  :is(time, .date) {
+  color: var(--bmc-secondary);
+  font-size: 12px;
+  white-space: nowrap;
+}
+html[data-better-my-courses='dark'] #page-site-index .block_rss_client .link a {
+  color: var(--bmc-text) !important;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  .block_rss_client
+  .link
+  a:is(:hover, :focus-visible) {
+  color: var(--bmc-link-hover) !important;
+  text-decoration: underline;
+}
+html[data-better-my-courses='dark']
+  #page-site-index
+  #block-region-side-rsscontent
+  > :is(.skip-block-to, .visually-hidden-focusable, span[id^='sb-']) {
+  position: absolute;
+}
+@media (max-width: 800px) {
+  html[data-better-my-courses='dark']
+    #page-site-index
+    #block-region-side-rsscontent {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  html[data-better-my-courses='dark']
+    #page-site-index
+    .block_rss_client
+    .card-body {
+    padding: 20px !important;
+  }
+  html[data-better-my-courses='dark'] #page-site-index .bmc-home-hero-copy {
+    margin: 16px;
+    padding: 12px;
+    max-width: calc(100% - 32px);
+  }
+  html[data-better-my-courses='dark']
+    #page-site-index
+    .secondary-navigation
+    .nav-link {
+    padding-inline: 16px;
+    gap: 8px;
+  }
+  html[data-better-my-courses='dark']
+    #page-site-index
+    .block_rss_client
+    .list
+    li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+}

@@ -1,0 +1,53 @@
+/* Revised toward true ink per the user's live-site feedback. */
+html[data-better-my-courses='dark'] {
+  color-scheme: dark;
+  --bmc-page: #000000;
+  --bmc-raised: #030303;
+  --bmc-panel: #060606;
+  --bmc-hover: #111112;
+  --bmc-control: #080808;
+  --bmc-border: #303032;
+  --bmc-line: #202022;
+  --bmc-separator: #181819;
+  --bmc-text: #f1efea;
+  --bmc-secondary: #b3b0aa;
+  /* Slightly brighter than the suggested muted value for AA small text. */
+  --bmc-muted: #98958f;
+  --bmc-disabled: #77746f;
+  --bmc-accent: #d7b77a;
+  --bmc-link: var(--bmc-user-link, #d8c3a0);
+  --bmc-link-hover: var(--bmc-user-link-hover, #f0e2ca);
+  --bmc-danger: #e5a09b;
+  --bmc-danger-bg: #060606;
+  --bmc-success: #a8c5a5;
+  --bmc-success-bg: #060606;
+  --bmc-warning-bg: #060606;
+  /* Educational line art only; the surrounding quiz remains inky black. */
+  --bmc-quiz-paper: #f1f0ec;
+  --bs-body-bg: var(--bmc-page);
+  --bs-body-bg-rgb: 0, 0, 0;
+  --bs-body-color: var(--bmc-text);
+  --bs-body-color-rgb: 241, 239, 234;
+  --bs-secondary-color: var(--bmc-secondary);
+  --bs-secondary-color-rgb: 179, 176, 170;
+  --bs-secondary-bg: var(--bmc-panel);
+  --bs-secondary-bg-rgb: 6, 6, 6;
+  --bs-tertiary-bg: var(--bmc-raised);
+  --bs-tertiary-bg-rgb: 3, 3, 3;
+  --bs-emphasis-color: var(--bmc-text);
+  --bs-emphasis-color-rgb: 241, 239, 234;
+  --bs-border-color: var(--bmc-line);
+  --bs-border-color-translucent: var(--bmc-line);
+  --bs-link-color: var(--bmc-link);
+  --bs-link-color-rgb: var(--bmc-user-link-rgb, 216, 195, 160);
+  --bs-link-hover-color: var(--bmc-link-hover);
+  --bs-link-hover-color-rgb: var(--bmc-user-link-hover-rgb, 240, 226, 202);
+  --bs-primary: var(--bmc-accent);
+  --bs-primary-rgb: 215, 183, 122;
+  --bs-primary-text-emphasis: var(--bmc-accent);
+  --bs-primary-bg-subtle: var(--bmc-warning-bg);
+  --bs-primary-border-subtle: var(--bmc-border);
+  --bs-info-text-emphasis: var(--bmc-text);
+  --bs-info-bg-subtle: var(--bmc-panel);
+  --bs-info-border-subtle: var(--bmc-border);
+}

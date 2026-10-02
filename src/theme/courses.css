@@ -1,0 +1,80 @@
+html[data-better-my-courses='dark']
+  :is(
+    .block_myoverview,
+    .block_recentlyaccessedcourses,
+    .coursebox,
+    .course-summaryitem,
+    .course-listitem,
+    .dashboard-card
+  ) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .block_myoverview .block-cards,
+    .block_myoverview .list-group,
+    .coursebox .info,
+    .coursebox .content
+  ) {
+  border-color: var(--bmc-line);
+  background-color: transparent;
+}
+html[data-better-my-courses='dark']
+  :is(.course-listitem, .course-summaryitem, .coursebox):hover {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .course-category,
+    .coursecat,
+    .categoryname,
+    .coursedate,
+    .dashboard-card .text-muted
+  ) {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark']
+  :is(.course-listitem, .course-summaryitem, .dashboard-card)
+  :is(.progress-text, .progress-percentage) {
+  color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark'] .progress {
+  --bs-progress-bg: var(--bmc-border);
+  --bs-progress-bar-bg: var(--bmc-accent);
+  --bs-progress-bar-color: var(--bmc-control);
+  background-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark'] .progress-bar {
+  background-color: var(--bmc-accent);
+  color: var(--bmc-control);
+}
+/* No rules on .courseimage, .card-img, .summary-image or .list-image. */
+
+/* Moodle's view-list template uses a guttered row with a .menu.p-0 column.
+   Reserve a small edge inset rather than moving or clipping the dropdown. */
+html[data-better-my-courses='dark'] .course-listitem {
+  padding-inline-end: 20px !important;
+}
+html[data-better-my-courses='dark'] .course-listitem .menu {
+  padding-inline-end: 8px !important;
+}
+html[data-better-my-courses='dark']
+  :is(.course-listitem, .course-summaryitem, .dashboard-card)
+  .coursemenubtn {
+  margin-inline-end: 4px;
+}
+
+/* Stock .block .block-cards span.categoryname restores near-black metadata. */
+html[data-better-my-courses='dark']
+  :is(
+    .block_myoverview,
+    .block_recentlyaccessedcourses,
+    .course-listitem,
+    .course-summaryitem,
+    .dashboard-card
+  )
+  :is(.categoryname, .course-category, .coursecat, .muted, .text-muted) {
+  color: var(--bmc-secondary) !important;
+}

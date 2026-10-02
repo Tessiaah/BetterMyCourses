@@ -1,0 +1,9 @@
+node_modules
+.output
+.wxt
+.tools
+.agents
+UI Reference
+test-results
+playwright-report
+package-lock.json

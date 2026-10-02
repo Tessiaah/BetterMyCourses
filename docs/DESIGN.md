@@ -1,0 +1,110 @@
+# Design audit
+
+## Design read and scope
+
+Theme preservation for Aalto students. Native Moodle components with an inky black, neutral, calm palette. This is an aesthetic expressed in native CSS, not an adoption of a new component system.
+
+Taste dials: DESIGN_VARIANCE matches the existing site; MOTION_INTENSITY 2 (short interaction feedback); VISUAL_DENSITY matches the existing site. The follow-up brief authorizes Lexend/Rubik typography, compact timeline/footer spacing and restrained motion. Grids, navigation, menus and imagery remain upstream. No marketing-page redesign rules are applied to Moodle tables or widgets.
+
+## All four reference images
+
+| Reference suffix    | Page           | Observed direction                                                                                                                                                                                                      |
+| ------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `04_20_00 AM-1.png` | Course         | Near-black center; dark left index and right blocks; off-white headings; secondary gray body; champagne content links; thin section and tab borders. Preserve the two drawers and course structure.                     |
+| `04_20_05 AM-2.png` | My own courses | Graphite course rows and controls; warm course titles; gray departments; subtle separators; existing colorful thumbnails; subdued completion values. Preserve list/grid/summary modes and imagery.                      |
+| `04_20_09 AM-3.png` | IntelliBoard   | Dark chart ground; warm chart series and active tabs; neutral statistics and headers; restrained table lines; gray metadata; small progress indicators. No chart redesign or data alteration.                           |
+| `04_20_11 AM-4.png` | Dashboard      | Original architectural banner; neutral carousel and calendar panels; warm month navigation; subdued calendar cells; semantically distinct event markers. Preserve banner, course carousel shape, and calendar geometry. |
+
+The references contain small highlights and photographic variation. The extension uses solid surfaces, avoiding reproducing artificial texture, glows, gradients, or illuminated icon treatments. Their existing rounded shapes are not imposed on unrelated Moodle components.
+
+## Token interpretation
+
+Page `#000000`; raised `#030303`; panels `#060606`; hover `#111112`; controls `#080808`. Borders `#303032`, `#202022`, separators `#181819`. Primary text `#F1EFEA`; secondary `#B3B0AA`; muted `#98958F`. The muted value is brighter than the initial suggestion so small text stays at AA on all core surfaces. Links `#D8C3A0`; hover `#F0E2CA`; active/focus `#D7B77A`.
+
+Muted rose errors and sage success are semantic exceptions to the single warm interaction accent. Calendar types retain meaningful color distinction with warm orange, champagne, ivory, sage, rose, and gray markers. They are not decorative accent palettes.
+
+## DOM and stylesheet evidence
+
+The public homepage was inspected on 2026-10-02. Its theme is `aalto_mycourses`, built on Boost with Bootstrap 5. Confirmed selectors include `.navbar`, `.moremenu`, `.nav-link`, `#usernavigation`, `.drawer`, `#page`, `#topofscroll`, `#region-main`, `.aaltositepageheader`, `.aaltouserpageheader`, and `.block`/`.card`. Public styles confirm `.courseindex`, `.block_myoverview`, `.list-image`, `.summary-image`, `.maincalendar`, `.calendar-circle`, and `.intelliboard-table-wrapper`.
+
+The Aalto headers use background images. All root/container overrides therefore use **background-color**, not the background shorthand. There are no image URL or filter rules on course images or headers. Only existing monochrome Bootstrap close/toggler glyphs get a targeted contrast filter.
+
+Signed-in pages were not accessible without authentication. Additional stable Boost class families are covered conservatively and require authenticated confirmation. No authentication bypass was attempted.
+
+Sources: [public MyCourses](https://mycourses.aalto.fi/), [WXT content script CSS documentation](https://wxt.dev/guide/essentials/content-scripts.html), [IntelliBoard student implementation](https://github.com/intelliboard/intelliboard/blob/master/student/index.php), [upstream chart options](https://github.com/intelliboard/intelliboard/blob/master/locallib.php), and [IntelliBoard component styles](https://github.com/intelliboard/intelliboard/blob/master/assets/css/style.css).
+
+## Chart treatment
+
+Upstream student code instantiates `google.visualization.ComboChart` and `LineChart`, with known container IDs and blue `#1d7fb3`/green `#1db34f` presentation colors. Scoped SVG presentation-attribute rules map these two series to champagne and warm ivory. Grid colors are mapped to graphite, text to secondary gray, and HTML tooltips to dark panels. This affects appearance without reading data or changing chart options/events.
+
+If Aalto runs a different chart implementation or serializes colors differently, those exact rules may not match. No generic SVG recoloring, canvas filter, or chart-library monkeypatch is attempted. The Highcharts fallback only targets documented class names inside IntelliBoard pages.
+
+## Follow-up visual audit, version 1.1
+
+All four follow-up attachments were inspected: pure-black scribbles demonstrate the desired lower background value; timeline rows demonstrate oversized yellow icon circles and action wrapping; footer groups demonstrate excessive trailing spacing; clicked navigation demonstrates a pale focused panel with blue text. The revised theme directly addresses these with darker tokens and specificity against Aalto native-dark focus rules. Spacing is based on the official [Moodle 4.5 timeline template](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/blocks/timeline/templates/event-list-item.mustache) and Aalto’s public stylesheet (`.timeline-name` width and `.event-action` padding).
+
+Lexend and Rubik are registered as two Unicode faces of one local font family. This avoids text-node scans, number wrappers and mutation observation. Code, math, existing icon fonts and educational images are excluded. Font assets use [WXT public asset URLs](https://wxt.dev/guide/essentials/assets.html) and narrowly matched web-accessible resources.
+
+Motion lasts 140–160ms, affecting colors, borders, opacity and a 4px dialog-content entrance. Menus fade without overriding Popper’s positioning transform. Reduced-motion users get immediate state changes. No continuous animation, scroll listener or layout animation is introduced.
+
+## Version 1.2 follow-up
+
+All eight new attachments were inspected: persistent blue primary links, a charcoal download-button reference with pale edges, a gold pill-shaped New event button, slate calendar cells and scattered controls, blue course-index hover, pale course-heading overlay and low-contrast assignment instructions, and the existing Dashboard/Home photos.
+
+The button treatment uses an ink-charcoal surface, pale border and text, a lighter charcoal hover, and a 1px hover lift. It deliberately omits the reference’s decorative background and glow. The new calendar toolbar aligns controls while retaining the native seven-column calendar; month navigation uses three balanced columns because Aalto’s old 25%/50%/25% float widths conflict with gaps. Native Moodle header/new-event/month-navigation markup is used as selector evidence: [calendar header](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/calendar/templates/header.mustache), [event button](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/calendar/templates/add_event_button.mustache), [month navigation](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/calendar/templates/month_navigation.mustache).
+
+Verified native rules include `[data-bs-theme=dark] .navbar.navbar-expand .navbar-nav .nav-link`, important course-index hover rules and `.path-mod .activity-header:not(:empty)`. Overrides now match those families and correct locally inherited Bootstrap tokens. Course headings/assignment surfaces are themed; original course images remain intact.
+
+Banner replacement is a new explicit user-authorized exception to imagery preservation. Default images remain unchanged. Only separately selected Home/Dashboard photos, or a plain black banner, replace those backgrounds through scoped root attributes. All decoding/storage is local, images are bounded rasters, and turning Off restores originals. No remote image URLs or course-image replacement is introduced.
+
+## Version 1.3: Home editorial layout and reversible banner framing
+
+Reading this as a calm public-service Home page for students, leaning toward an editorial layout implemented in native CSS. DESIGN_VARIANCE 4, MOTION_INTENSITY 2, VISUAL_DENSITY 5. Existing Moodle remains the design system; there is no marketing-page framework or invented dashboard. The new request explicitly authorizes Home layout changes and user-selected image stretching/cropping.
+
+The two latest attachments were inspected: contain produced broad black side gutters around a sufficiently large image; the Home feed used narrow centered columns and an oversized full-width secondary tab strip. Fill is now the default for legacy and new uploads. Fit preserves the complete source with letterboxing; Stretch fills the banner while changing proportions. The options page shares crop geometry with live rendering, supports drag and keyboard sliders, retains the source, saves each page separately, and keeps unsaved page drafts when switching. A banner-only ResizeObserver is necessary for proportional zoom across changing native container dimensions.
+
+The public MyCourses DOM and native CSS confirm rssfeedarea and block-region-side-rsscontent as stable selectors. Native cards formerly used max-width 27% and min-width 350px. Home-only CSS replaces this with two minmax columns and a single column below 800px, consistent padding, restrained surfaces and compact secondary tabs. Invisible skip-link targets are excluded from grid flow, while keyboard skip links remain available. Native feed text, links, language groups, editing controls and course feedback remain intact. No course/dashboard content redesign is introduced.
+
+## Version 1.4 supplied Home reference
+
+The latest attachment was audited in full: inset banner with a left-aligned title, framed secondary navigation, two dense news panels with icons, accent edges, white headlines, category labels, right-aligned optional article dates and All news controls. Design dials remain 4/2/5. Every orange Home detail is mapped to the user-selected link token; the existing top-header selection animation is retained. Original true-black tokens, Lexend/Rubik typography and reduced-motion treatment are retained.
+
+The native title node is moved into a banner copy region using a reversible marker; its handlers and ID remain intact. Flat translucent black backing provides text contrast without a decorative gradient or photo filter. The title is not moved on public Home where the login panel occupies the banner. Native feed headings are wrapped with trusted local Phosphor icons and links to [Aalto news](https://www.aalto.fi/en/news) and [Student news](https://www.aalto.fi/en/student-news), verified on the official site. No feed articles are replaced or duplicated, and no publication dates are fabricated. Cleanup restores exact native feed/heading markup on Off.
+
+## Version 1.5: interaction, course and quiz audit
+
+All eight latest attachments were reviewed: secondary selection covers the bar edge; news panels meet the surface transition; mouse focus paints a thick header rectangle; course menu buttons overhang; section/resource headings retain a pale overlay; information pages need reading rhythm; STACK answer feedback and review navigation have white surfaces; transparent circuit diagrams vanish on black.
+
+Reading this as a refinement of a university learning service for students, with a calm inky-black language, leaning toward the existing Moodle/Boost system and native CSS. DESIGN_VARIANCE 4, MOTION_INTENSITY 2, VISUAL_DENSITY 5. The user's pure black request overrides the skill's default near-black guidance. The image-only paper backing is an explicit readability exception requested by the user; it does not invert any page section.
+
+The Home bar reserves 4px around each tab and retains dropdown overflow. Feed panels gain 16px top padding plus a 32px gap below the bar. Header presses change surface value without displacement; mouse outlines are suppressed while keyboard focus is inset. Course-list edge spacing follows the `.menu.p-0` column and `.coursemenubtn` in Moodle's [view-list template](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/blocks/myoverview/templates/view-list.mustache) and [action menu template](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/blocks/myoverview/templates/course-action-menu.mustache).
+
+Course overlays outside `#page-header` receive a dark surface and wrapping titles. Weekly summaries and Page resources use 18–28px reading padding, 1.7 line height, restrained borders and paragraph/list widths up to 76ch. Existing content order, media and actions remain intact.
+
+Question panel classes and quiz-navigation states are grounded in [Moodle quiz styles](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/mod/quiz/styles.css); answer-interpretation selectors in [STACK styles](https://github.com/maths/moodle-qtype_stack/blob/master/styles.css). Empty feedback keeps its native hidden state. Dark panels replace white/slate surfaces, while semantic traffic-light markers remain distinct. Quiz images receive a flat neutral backing under their pixels; dimensions, image sources, filters, inline math and drag-answer coordinates are preserved. No pixel inspection, content collection or plugin monkeypatching is needed. Hiding scrollbar tracks changes CSS only and preserves native overflow behavior.
+
+## Version 1.6 correction audit
+
+Reading this as: preservation of Aalto's individual course UI for students, with an inky neutral theme and native Moodle/Bootstrap structure. Dials remain DESIGN_VARIANCE 4 / MOTION_INTENSITY 2 / VISUAL_DENSITY 5. The five latest screenshots show lost icon artwork, faint summary glyphs, an unthemed quiz flag/diagram, a pale course-title wrapper and a pale course-link click state with nearly invisible department metadata.
+
+The latest explicit instruction supersedes 1.5's individual-course geometry refinements. Remove added title dimensions, wrap rules, summary padding, paragraph width/spacing and activity-card borders. Keep the user's requested fonts and colors. Do not rebuild or move course content. Home's separately authorized redesign and top-header animation remain intact.
+
+The public Aalto stylesheet confirms `.course-section .section-summary-activities .icon` and `.section_goto .icon` force `#212529`, while `.block .block-cards span.categoryname` uses the same near-black foreground. `.aalink:focus` adds a pale background and band shadows. Narrow theme rules beat these declarations, retain keyboard focus and follow `--bmc-link` for control glyphs. Font Awesome `.fas/.far/.fab` and related native families are excluded from typography overrides. No replacement icon asset or icon library is introduced in courses.
+
+Native `.activityiconcontainer.assessment .activityicon:not(.nofilter)` and analogous image rules force `brightness(0) invert(0) !important`. For opaque artwork, that destroys internal contrast and produces the black squares shown in the screenshot. Match that specificity and remove the filter only from native activity/calendar icon images. Sources, shapes, sizes and the native container treatment are retained.
+
+The course header's exact authenticated wrapper is unavailable. Stable known selectors cover title panels, and a fallback checks only each course/resource title's first six ancestors, skipping backgrounds containing images. It marks pale wrappers for CSS; only a legacy inline important paint requires changing one background-color property. The original attribute/style is restored on Off. No paragraph text, grades, question content, broad DOM traversal, observer or polling is involved.
+
+Quiz color rules use `.que` and STACK component classes directly, while review navigation also accepts stable `page-mod-quiz-*` body IDs. This covers missing page/question-type classes without touching plugin behavior. Direct formulation diagrams, including inline SVGs, receive an image-only paper backing; equations, icon images, drag/drop question assets and their coordinates are preserved. Plain text/number answer inputs remain dark and readable. The label behind Flag question follows the selected color rather than an assumed anchor selector.
+
+## Version 1.7 shared states, diagram mats and activity rhythm
+
+The latest four screenshots show a cramped activity-title transition, circuit artwork touching its light backing, an instructor-content autolink retaining Aalto's pale focus paint, and the Home title panel becoming opaque. Preserve native individual-course structure and original icons; adjust only the requested activity title/separator/intro spacing. Taste dials remain 4/2/5, with native Moodle/Bootstrap as the foundation.
+
+Ordinary link colors, native focus-band suppression and keyboard focus now have one owner in `links.css`, including anchors and role links. Buttons, navigation and quiz controls retain their deliberate component surfaces. Remove duplicate course-list focus workarounds and repeated global link/focus rules. Move the shared neutral button palette/states into `forms.css` and button movement into `motion.css`, removing overlapping older button definitions from `native-overrides.css`. Instructor-authored red notice text stays red; its link follows the user's chosen hue.
+
+The opaque Home title was caused by a generic course-title ancestor selector also matching the Home copy panel inside `#page-header`. Scope known course-header color rules to course/module contexts and remove that ancestor selector. The existing bounded course-header helper still handles legacy classless panels. Home's title now has a single translucent black paint at 65% opacity, with transparent nested heading wrappers and explicit off-white text. This maintains AA text contrast even over a white photograph without adding a gradient, image filter or blur.
+
+Quiz media receive a padded light matte (`#f1f0ec`). CSS uses each image's rendered box, adds 10–16px of space per edge and limits its total width to the question column. Desktop source-image dimensions remain unchanged inside the matte; narrow viewports scale the media proportionally. Raster, inline SVG and SVG objects use the same rule. Existing exclusions protect equations, icons and interactive drag/drop coordinates. No pixel analysis, measuring JavaScript, wrappers or observers are added.
+
+Activity pages gain 24px below the title, 20px around a direct separator and 20–28px around the introduction block. Course-week cards, summaries and content structure remain native. Header selection/press animation and the separately approved Home design are retained.

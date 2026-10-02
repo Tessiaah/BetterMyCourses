@@ -1,0 +1,74 @@
+/* Bootstrap color utilities are !important upstream. These narrow overrides must match. */
+html[data-better-my-courses='dark']
+  :is(.bg-white, .bg-light, .bg-body-secondary, .bg-body-tertiary, .bg-info) {
+  background-color: var(--bmc-panel) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.text-dark, .text-body, .text-black, .text-white) {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.text-muted, .text-secondary, .text-body-secondary) {
+  color: var(--bmc-secondary) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.text-primary, .text-info, .text-warning) {
+  color: var(--bmc-accent) !important;
+}
+html[data-better-my-courses='dark'] .text-danger {
+  color: var(--bmc-danger) !important;
+}
+html[data-better-my-courses='dark'] .text-success {
+  color: var(--bmc-success) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.border, .border-top, .border-bottom, .border-start, .border-end) {
+  border-color: var(--bmc-line) !important;
+}
+html[data-better-my-courses='dark'] .alert {
+  color: var(--bmc-text);
+  background-color: var(--bmc-panel);
+  border-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark'] .alert-danger {
+  color: var(--bmc-danger);
+  background-color: var(--bmc-danger-bg);
+  border-color: var(--bmc-danger);
+}
+html[data-better-my-courses='dark'] .alert-success {
+  color: var(--bmc-success);
+  background-color: var(--bmc-success-bg);
+  border-color: var(--bmc-success);
+}
+html[data-better-my-courses='dark'] .alert-warning {
+  color: var(--bmc-accent);
+  background-color: var(--bmc-warning-bg);
+  border-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.badge.bg-primary, .badge.bg-info, .badge.bg-warning) {
+  color: var(--bmc-control) !important;
+  background-color: var(--bmc-accent) !important;
+}
+html[data-better-my-courses='dark'] .page-link {
+  background-color: var(--bmc-control);
+  color: var(--bmc-link);
+  border-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark'] .page-link:hover {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark'] .page-item.active .page-link {
+  background-color: var(--bmc-accent);
+  color: var(--bmc-control) !important;
+  border-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark'] .page-item.disabled .page-link {
+  background-color: var(--bmc-raised);
+  color: var(--bmc-disabled) !important;
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.placeholder, .placeholders .bg-pulse-grey) {
+  background-color: var(--bmc-border);
+}

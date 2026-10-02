@@ -1,0 +1,207 @@
+/* Moodle question renderer + STACK feedback surfaces. Native component
+   backgrounds are fixed white rather than Bootstrap variables, so these
+   targeted declarations also beat inline author/plugin background colors. */
+html[data-better-my-courses='dark']
+  .que
+  :is(.info, .content, .formulation, .outcome, .comment, .history) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-border) !important;
+}
+
+html[data-better-my-courses='dark'] .que .content {
+  border-radius: 8px;
+}
+html[data-better-my-courses='dark'] .que :is(.outcome, .comment) {
+  background-color: var(--bmc-raised) !important;
+  border-top: 1px solid var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  .que
+  :is(.stackinputfeedback, .stackprtfeedback, .stackhint, .stack-hint) {
+  background-color: var(--bmc-hover) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-border) !important;
+  border-radius: 6px;
+}
+html[data-better-my-courses='dark'] .que .stackinputfeedback:not(.empty) {
+  margin: 12px 0;
+  padding: 12px 16px;
+}
+html[data-better-my-courses='dark'] .que .stackprtfeedback {
+  padding: 12px 16px;
+  margin-block: 8px;
+  border: 1px solid var(--bmc-border);
+}
+html[data-better-my-courses='dark']
+  .que
+  :is(.stackinputnotice, .stacksyntaxexample) {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .que .stackinputerror {
+  color: var(--bmc-danger);
+}
+/* STACK inputs and flag labels need not carry Bootstrap form/link classes. */
+html[data-better-my-courses='dark']
+  .que
+  :is(input:not([type]), input[type='text'], input[type='number'], textarea) {
+  background-color: var(--bmc-control) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-border) !important;
+}
+html[data-better-my-courses='dark'] .que :is(input, textarea):focus-visible {
+  border-color: var(--bmc-link) !important;
+}
+html[data-better-my-courses='dark']
+  .que
+  .questionflag
+  :is(label, label span, .icon) {
+  color: var(--bmc-link) !important;
+}
+html[data-better-my-courses='dark'] .que .questionflag label:hover {
+  color: var(--bmc-link-hover) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  table.quizreviewsummary
+  :is(th.cell, td.cell) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line);
+}
+
+/* The paper rectangle is sized automatically by the media's rendered box.
+   Content-box padding adds room outside its pixels; narrow screens constrain
+   only the available width. No pixel inspection, wrappers, filters or polling.
+   Inline equation/icon assets and interactive drag coordinates are excluded. */
+html[data-better-my-courses='dark']
+  .que
+  :is(.formulation, .generalfeedback, .specificfeedback)
+  :is(img, svg, object[type='image/svg+xml']):not(
+    .icon,
+    .emoticon,
+    .texrender,
+    .MathJax,
+    [src*='/filter/tex/'],
+    [src*='/filter/mathjaxloader/'],
+    .MathJax *,
+    mjx-container *,
+    [class*='MathJax'] *,
+    [class*='MathJax'],
+    .icon *,
+    .drag,
+    .drag *,
+    .draghome,
+    .draghome *,
+    .ddarea *,
+    .dropzone *
+  ) {
+  --bmc-quiz-paper-padding: clamp(10px, 1vw, 16px);
+  background-color: var(--bmc-quiz-paper) !important;
+  box-sizing: content-box;
+  padding: var(--bmc-quiz-paper-padding);
+  max-width: calc(100% - 2 * var(--bmc-quiz-paper-padding));
+  height: auto;
+  margin-block: 8px 16px;
+  border-radius: 6px;
+}
+
+/* Review/end links are anchors rather than .btn in Moodle's quiz block. */
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  :is(.block_quiz_nav, .block:has(.qn_buttons)) {
+  background-color: var(--bmc-panel) !important;
+  border-color: var(--bmc-line) !important;
+  border-radius: 8px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .othernav
+  a:any-link,
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  a:is(.endtestlink, .mod_quiz-next-nav, .mod_quiz-prev-nav):any-link {
+  display: block;
+  padding: 10px 14px;
+  margin-block: 12px;
+  border: 1px solid #858580;
+  /* Native .mod_quiz-next-nav sets an important black border. */
+  border-color: #858580 !important;
+  border-radius: 8px;
+  color: var(--bmc-text) !important;
+  background-color: #151516 !important;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.5;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .othernav
+  a:any-link:is(:hover, :focus-visible),
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  a:is(.endtestlink, .mod_quiz-next-nav, .mod_quiz-prev-nav):any-link:is(
+    :hover,
+    :focus-visible
+  ) {
+  color: #ffffff !important;
+  background-color: #29292b !important;
+  border-color: #eeece7 !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .othernav
+  a:any-link:active,
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  a:is(.endtestlink, .mod_quiz-next-nav, .mod_quiz-prev-nav):any-link:active {
+  background-color: #202022 !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .submitbtns
+  a:is(.endtestlink, .mod_quiz-next-nav, .mod_quiz-prev-nav):any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .qnbutton {
+  background-color: var(--bmc-control) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-border) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .qnbutton
+  :is(.thispageholder, .trafficlight) {
+  border-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .qnbutton.correct
+  .trafficlight {
+  background-color: #1c3020;
+  border-color: var(--bmc-success);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .qnbutton:is(.incorrect, .notanswered)
+  .trafficlight {
+  background-color: #351d1c;
+  border-color: var(--bmc-danger);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .qnbutton.partiallycorrect
+  .trafficlight {
+  background-color: #30291a;
+  border-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  .qnbutton.thispage {
+  outline: 1px solid var(--bmc-link);
+  outline-offset: 1px;
+}

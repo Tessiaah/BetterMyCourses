@@ -1,0 +1,101 @@
+/* Verified public Aalto native-dark override rules. Regression fixtures only. */
+/* Public native rules responsible for faint metadata/icons and click surfaces. */
+.block .block-cards span.categoryname,
+.block .block-cards .btn-link {
+  color: #212529;
+}
+.course-section .section-summary-activities .icon,
+.course-section .section_goto .icon {
+  color: #212529;
+}
+.aalink:focus,
+a.autolink:focus,
+.arrow_link:focus,
+a:not([class]):focus,
+[role='link']:focus {
+  outline: 0.25rem solid transparent;
+  color: #212529;
+  background-color: #9ba5ae;
+  box-shadow:
+    0 -0.25rem #9ba5ae,
+    0 0.25rem #373a3c;
+}
+.activityiconcontainer {
+  width: 52px;
+  height: 52px;
+  background-color: #ffcd00 !important;
+  border-radius: 50% !important;
+}
+.activityicon,
+.activityiconcontainer.assessment .activityicon:not(.nofilter),
+.activityiconcontainer.assessment .icon:not(.nofilter) {
+  filter: brightness(0) invert(0) !important;
+}
+/* Verified class-based Finish review rule, independent of the next-button ID. */
+.path-mod-quiz .mod_quiz-next-nav,
+.path-mod-quiz .mod_quiz-next-nav:hover,
+.path-mod-quiz .mod_quiz-next-nav:focus {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+}
+[data-bs-theme='dark'] .path-mod .activity-header:not(:empty) {
+  background-color: var(--bs-main-navbar-background, #393e4f);
+}
+[data-bs-theme='dark'] .courseindex .courseindex-item .courseindex-link,
+[data-bs-theme='dark'] .courseindex .courseindex-item .courseindex-chevron {
+  color: var(--bs-link-color, #98b6d9);
+}
+[data-bs-theme='dark'] .courseindex .courseindex-item .courseindex-link:hover,
+[data-bs-theme='dark'] .courseindex .courseindex-item .courseindex-link:focus,
+[data-bs-theme='dark']
+  .courseindex
+  .courseindex-item
+  .courseindex-chevron:hover,
+[data-bs-theme='dark']
+  .courseindex
+  .courseindex-item
+  .courseindex-chevron:focus {
+  color: var(--bs-link-hover-color, #aacbf2) !important;
+}
+[data-bs-theme='dark'] .navbar.navbar-expand .navbar-nav .nav-link {
+  color: var(--bs-link-color, #98b6d9) !important;
+}
+[data-bs-theme='dark'] .maincalendar .calendarmonth td,
+[data-bs-theme='dark'] .maincalendar .calendarmonth th {
+  background-color: #393e4f;
+  color: #b3b3b3;
+}
+.path-mod .contextpage-context-header-content {
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #212529;
+}
+.path-mod .contextpage-context-header-content h1 {
+  color: #212529;
+}
+
+.calendar-controls .previous,
+.calendar-controls .next,
+.calendar-controls .current {
+  display: block;
+  float: left;
+  width: 12%;
+}
+.calendar-controls .previous {
+  text-align: left;
+  border: 1px solid #fff0;
+  width: 25%;
+}
+.calendar-controls .current {
+  text-align: center;
+  width: 50%;
+}
+.calendar-controls .next {
+  text-align: right;
+  border: 1px solid #fff0;
+  width: 25%;
+}
+.calendar-controls .drop-target {
+  box-sizing: border-box;
+  border: 1px dashed #212529;
+}

@@ -1,0 +1,177 @@
+/* Neutral surfaces win over Aalto's native-dark and component-local colors.
+   Do not touch banner/image backgrounds, images, code samples or embedded media. */
+html[data-better-my-courses='dark']
+  :is(
+    #page,
+    #page-wrapper,
+    #page-content,
+    #region-main,
+    #region-main-box,
+    #topofscroll,
+    #page-footer,
+    .main-inner,
+    .secondary-navigation,
+    .header-courseend
+  ) {
+  background-color: var(--bmc-page) !important;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .navbar,
+    .drawer,
+    .drawerheader,
+    .drawercontent,
+    .courseindex,
+    .tertiary-navigation
+  ) {
+  background-color: var(--bmc-raised) !important;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .card,
+    .block,
+    .card-body,
+    .card-header,
+    .card-footer,
+    .list-group-item,
+    .activity-item,
+    .activity-description,
+    .description-inner,
+    .section-summary,
+    .dropdown-menu,
+    .modal-content,
+    .popover-region-container,
+    .popover-region-content-container,
+    .content-item-container,
+    .message-app,
+    .intelliboard-page,
+    .intelliboard-box,
+    .intelliboard-content,
+    .maincalendar,
+    .minicalendar
+  ) {
+  background-color: var(--bmc-panel) !important;
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .list-group-item-action,
+    .activity-item,
+    .course-listitem,
+    .course-summaryitem
+  ):hover {
+  background-color: var(--bmc-hover) !important;
+}
+
+/* The outer row now has room for the action. Stock .timeline-name {width:100%}
+   and .event-action {padding-left:5.55em} caused the empty second row. */
+html[data-better-my-courses='dark'] .block_timeline .timeline-event-list-item {
+  padding: 16px 12px !important;
+}
+html[data-better-my-courses='dark']
+  .block_timeline
+  .timeline-event-list-item
+  > .d-flex {
+  gap: 12px 18px;
+  align-items: center;
+  padding-bottom: 0 !important;
+}
+html[data-better-my-courses='dark'] .block_timeline .timeline-name {
+  flex: 1 1 320px;
+  width: auto;
+  min-width: 0;
+  align-items: center;
+  padding-bottom: 0 !important;
+}
+html[data-better-my-courses='dark'] .block_timeline .timeline-name > small {
+  min-width: 44px;
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .block_timeline .activityiconcontainer {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background-color: #ccc4b2;
+  border-radius: 10px;
+  margin: 0 14px !important;
+}
+html[data-better-my-courses='dark']
+  .block_timeline
+  .activityiconcontainer
+  .icon {
+  width: 24px;
+  height: 24px;
+}
+html[data-better-my-courses='dark'] .block_timeline .event-name-container {
+  flex-basis: auto !important;
+  min-width: 0;
+  line-height: 1.55;
+}
+html[data-better-my-courses='dark'] .block_timeline .event-name {
+  line-height: 1.5;
+}
+html[data-better-my-courses='dark']
+  .block_timeline
+  .event-name-container
+  > small {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .block_timeline .timeline-action-button {
+  margin: 0 0 0 auto;
+  flex: 0 0 auto;
+  align-self: center;
+}
+html[data-better-my-courses='dark'] .block_timeline .event-action {
+  padding: 0;
+  margin: 0;
+  flex-basis: auto !important;
+}
+html[data-better-my-courses='dark']
+  .block_timeline
+  .timeline-event-list-item
+  > .border-bottom {
+  padding-top: 0 !important;
+  margin-top: 16px;
+}
+html[data-better-my-courses='dark'] .block_timeline :is(h5, h6)[data-region],
+html[data-better-my-courses='dark']
+  .block_timeline
+  h5:not(.event-name, .event-action) {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Compact footer groups without reordering content or moving columns. */
+html[data-better-my-courses='dark'] #page-footer {
+  padding: 28px 20px !important;
+}
+html[data-better-my-courses='dark'] .footersettings .container-fluid {
+  margin-bottom: 16px !important;
+}
+html[data-better-my-courses='dark'] .footersettings h4 {
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+}
+html[data-better-my-courses='dark'] .footersettings ul {
+  margin-bottom: 22px;
+  padding-left: 20px;
+}
+html[data-better-my-courses='dark'] .footersettings li {
+  margin-bottom: 5px;
+  line-height: 1.6;
+}
+html[data-better-my-courses='dark'] .footersettings .row {
+  row-gap: 20px;
+}
+
+@media (max-width: 767px) {
+  html[data-better-my-courses='dark'] .block_timeline .timeline-name {
+    flex-basis: 100%;
+  }
+  html[data-better-my-courses='dark'] .block_timeline .timeline-action-button {
+    margin-left: 72px;
+  }
+  html[data-better-my-courses='dark'] .block_timeline .event-name {
+    white-space: normal;
+  }
+}

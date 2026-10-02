@@ -1,0 +1,245 @@
+/* Aalto native-dark styles use more specific selectors and locally inherited
+   Bootstrap tokens. Match the verified component families, without recoloring media. */
+html[data-better-my-courses='dark']
+  :is(
+    body,
+    .navbar,
+    .courseindex,
+    .maincalendar,
+    .activity-header,
+    .secondary-navigation
+  ) {
+  --bs-link-color: var(--bmc-link);
+  --bs-link-hover-color: var(--bmc-link-hover);
+  --bs-primary-color: var(--bmc-link);
+  --bs-main-navbar-background: var(--bmc-panel);
+  --bs-white: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  .navbar.navbar-expand
+  .navbar-nav
+  .nav-link:any-link,
+html[data-better-my-courses='dark'] .navbar .navbar-nav .nav-link:any-link {
+  color: var(--bmc-link) !important;
+  background-color: transparent !important;
+}
+html[data-better-my-courses='dark']
+  .navbar
+  .navbar-nav
+  .nav-link:any-link:is(:hover, :focus, :active, .active, .show) {
+  color: var(--bmc-link-hover) !important;
+  background-color: var(--bmc-hover) !important;
+  box-shadow: none !important;
+}
+/* Aalto's mouse-focus outline otherwise paints a thick box over adjacent
+   header links. Keep the existing underline, with quiet pressed feedback
+   and a separate, inset keyboard focus ring. No link moves when clicked. */
+html[data-better-my-courses='dark'] .navbar .navbar-nav .nav-link:any-link {
+  border-top-color: transparent !important;
+  border-inline-color: transparent !important;
+  transform: none;
+}
+html[data-better-my-courses='dark']
+  .navbar
+  .navbar-nav
+  .nav-link:any-link:not(.active, [aria-current='page']) {
+  border-bottom-color: transparent !important;
+}
+html[data-better-my-courses='dark']
+  .navbar
+  .navbar-nav
+  .nav-link:any-link:focus-visible {
+  outline-offset: -5px;
+}
+html[data-better-my-courses='dark']
+  .navbar
+  .navbar-nav
+  .nav-link:any-link:active {
+  background-color: #202022 !important;
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  .courseindex
+  .courseindex-item
+  :is(.courseindex-link, .courseindex-chevron):is(:hover, :focus),
+html[data-better-my-courses='dark']
+  .courseindex
+  .courseindex-item:is(:hover, :focus) {
+  color: var(--bmc-link-hover) !important;
+  background-color: var(--bmc-hover) !important;
+}
+html[data-better-my-courses='dark']
+  .path-mod
+  :is(
+    .activity-header:not(:empty),
+    .activity-description,
+    .description-inner,
+    .activity-information
+  ),
+html[data-better-my-courses='dark']
+  .path-mod-assign
+  :is(
+    .submissionstatustable,
+    .assignsubmission_file,
+    .filemanager,
+    .fp-content,
+    .filemanager-container,
+    .filemanager-toolbar,
+    .fm-empty-container
+  ) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line) !important;
+}
+html[data-better-my-courses='dark']
+  .path-mod-assign
+  .activity-header
+  :is(p, div, small, strong, em, span):not(
+    .icon,
+    .fa,
+    .badge,
+    .text-danger,
+    .text-success,
+    .text-warning,
+    pre *,
+    code *,
+    [class*='MathJax'] *,
+    mjx-container *
+  ) {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  .secondary-navigation
+  :is(.navigation, .moremenu) {
+  background-color: var(--bmc-panel) !important;
+}
+
+/* Override native slate cells, including table-level and cell-level variables. */
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .block_calendar_month)
+  .calendarmonth
+  :is(th, td) {
+  --bs-table-bg: var(--bmc-panel);
+  --bs-table-accent-bg: transparent;
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-secondary) !important;
+  border-color: var(--bmc-line) !important;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendarmonth th {
+  background-color: var(--bmc-hover) !important;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendarmonth td:hover {
+  background-color: var(--bmc-hover) !important;
+}
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendarmonth
+  td.today
+  .day-number-circle {
+  background-color: var(--bmc-text);
+  color: var(--bmc-page);
+}
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendarmonth
+  td
+  :is(a.day, a.day:focus) {
+  color: var(--bmc-link) !important;
+  background-color: transparent !important;
+}
+
+/* One compact toolbar; the native course selector's horizontal margins and
+   .btn {margin:auto} previously scattered these controls. Sidebar mini-calendars
+   keep their hidden toolbar and upstream responsive behavior. */
+html[data-better-my-courses='dark'] .maincalendar .header:not([hidden]) {
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+  overflow: visible;
+}
+html[data-better-my-courses='dark']
+  .maincalendar
+  .header
+  :is(.form-select, select, .custom-select) {
+  margin: 0 !important;
+  max-width: min(100%, 520px);
+  flex: 1 1 240px;
+  width: auto;
+}
+html[data-better-my-courses='dark']
+  .maincalendar
+  .header
+  > :is(
+    .dropdown,
+    .calendar-filter,
+    .single-select,
+    .singleselect,
+    .simplesearchform,
+    .float-start
+  ) {
+  margin: 0 !important;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+html[data-better-my-courses='dark'] .maincalendar .header :is(.buttons, .btn) {
+  margin: 0 !important;
+  float: none !important;
+}
+html[data-better-my-courses='dark'] .maincalendar .header .buttons,
+html[data-better-my-courses='dark']
+  .maincalendar
+  .header
+  .btn[data-action='new-event-button'] {
+  margin-left: auto !important;
+}
+html[data-better-my-courses='dark']
+  .maincalendar
+  .header
+  > :is(div, form):has(select) {
+  flex: 1 1 240px;
+  min-width: 0;
+  max-width: min(100%, 520px);
+  margin: 0 !important;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendar-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 16px;
+}
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-controls
+  :is(.previous, .current, .next) {
+  width: auto;
+  float: none;
+  min-width: 0;
+  grid-row: 1;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendar-controls .previous {
+  grid-column: 1;
+  justify-self: start;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendar-controls .current {
+  grid-column: 2;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendar-controls .next {
+  grid-column: 3;
+  justify-self: end;
+}
+html[data-better-my-courses='dark'] .maincalendar .calendar-controls .current {
+  margin: 0;
+  text-align: center;
+  font-size: 1.35rem;
+}
+
+@media (max-width: 600px) {
+  html[data-better-my-courses='dark'] .maincalendar .header .buttons {
+    margin-left: 0 !important;
+  }
+  html[data-better-my-courses='dark'] .maincalendar .calendar-controls {
+    gap: 8px;
+  }
+}

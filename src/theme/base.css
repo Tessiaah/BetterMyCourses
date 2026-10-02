@@ -1,0 +1,130 @@
+html[data-better-my-courses='dark'] {
+  background-color: var(--bmc-page);
+}
+
+html[data-better-my-courses='dark'] body {
+  color: var(--bmc-text);
+  background-color: var(--bmc-page);
+}
+
+/* Aalto/Boost's #page.drawers rules outrank a low-specificity surface family. */
+html[data-better-my-courses='dark'] #page.drawers .main-inner,
+html[data-better-my-courses='dark']
+  :is(.loginheader, .header-courseend, .footer-popover) {
+  background-color: var(--bmc-page);
+  border-color: var(--bmc-line);
+}
+/* Keep the existing black Aalto footer logo legible on its original link surface. */
+html[data-better-my-courses='dark']
+  .footersettings
+  a:has(> img[src*='/core_admin/logo/']) {
+  background-color: var(--bmc-text);
+}
+
+/* IDs beat the stock Boost ID rules. Only color is changed, never background images. */
+html[data-better-my-courses='dark']
+  :is(
+    #page,
+    #page-wrapper,
+    #page-content,
+    #region-main,
+    #region-main-box,
+    #topofscroll,
+    #page-footer
+  ) {
+  color: var(--bmc-text);
+  background-color: var(--bmc-page);
+  border-color: var(--bmc-line);
+}
+
+html[data-better-my-courses='dark']
+  :where(
+    .main-inner,
+    .secondary-navigation,
+    .breadcrumb,
+    .page-context-header,
+    .contextpage-context-header-content
+  ) {
+  background-color: var(--bmc-page);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+
+html[data-better-my-courses='dark']
+  :where(h1, h2, h3, h4, h5, h6, legend, .card-title, .page-header-headings) {
+  color: var(--bmc-text);
+}
+
+html[data-better-my-courses='dark'] ::selection {
+  background-color: #53462e;
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark'] hr {
+  border-color: var(--bmc-border);
+}
+
+html[data-better-my-courses='dark']
+  :where(.card, .block, .well, .panel, .list-group-item, .accordion-item) {
+  color: var(--bmc-text);
+  background-color: var(--bmc-panel);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :where(.card-header, .card-footer, .panel-heading, .accordion-button) {
+  background-color: var(--bmc-raised);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] :where(.list-group-item-action):hover {
+  background-color: var(--bmc-hover);
+}
+
+html[data-better-my-courses='dark'] :is(.table, .generaltable, table.flexible) {
+  --bs-table-color: var(--bmc-text);
+  --bs-table-bg: var(--bmc-panel);
+  --bs-table-border-color: var(--bmc-line);
+  --bs-table-striped-color: var(--bmc-text);
+  --bs-table-striped-bg: var(--bmc-raised);
+  --bs-table-hover-color: var(--bmc-text);
+  --bs-table-hover-bg: var(--bmc-hover);
+  --bs-table-active-color: var(--bmc-text);
+  --bs-table-active-bg: var(--bmc-hover);
+  color: var(--bmc-text);
+  background-color: var(--bmc-panel);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.table, .generaltable, table.flexible)
+  :is(th, td) {
+  border-color: var(--bmc-line);
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark']
+  :is(.table, .generaltable, table.flexible)
+  thead
+  th {
+  background-color: var(--bmc-hover);
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark'] .generaltable tbody tr {
+  background-color: var(--bmc-panel);
+}
+html[data-better-my-courses='dark'] .generaltable tbody tr:nth-of-type(2n) {
+  background-color: var(--bmc-raised);
+}
+html[data-better-my-courses='dark'] .generaltable tbody tr:hover {
+  background-color: var(--bmc-hover);
+}
+
+/* Hide tracks, not scroll containers: wheel, touch, keyboard and horizontal
+   scrolling continue to work. Removing the theme restores native scrollbars. */
+html[data-better-my-courses='dark'],
+html[data-better-my-courses='dark'] * {
+  scrollbar-width: none !important;
+}
+html[data-better-my-courses='dark']::-webkit-scrollbar,
+html[data-better-my-courses='dark'] *::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}

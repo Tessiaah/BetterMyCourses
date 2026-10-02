@@ -1,0 +1,112 @@
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .minicalendar, .calendarmonth) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .minicalendar)
+  :is(th, td) {
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] :is(.maincalendar, .minicalendar) th {
+  background-color: var(--bmc-hover);
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .maincalendar .calendarmonth td {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] .maincalendar .calendarmonth td:hover {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .minicalendar)
+  :is(.today, .day.today a) {
+  background-color: var(--bmc-hover);
+  color: var(--bmc-accent);
+  border-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.calendar-controls, .calendar-controls .current, .calendarmonth .day) {
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .calendar_event_course,
+    .calendar_event_group,
+    .calendar_event_user,
+    .calendar_event_site,
+    .calendar_event_category,
+    .calendar_event_other
+  ) {
+  background-color: var(--bmc-raised);
+  border-color: var(--bmc-line);
+}
+/* Preserve event-type distinction. Warm course/group/user, sage site, rose category. */
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .calendar_filters)
+  .calendar_event_course
+  :is(.calendar-circle, i),
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-circle.calendar_event_course {
+  background-color: #bd8863;
+  color: #bd8863;
+  border-color: #bd8863;
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .calendar_filters)
+  .calendar_event_group
+  :is(.calendar-circle, i),
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-circle.calendar_event_group {
+  background-color: var(--bmc-accent);
+  color: var(--bmc-accent);
+  border-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .calendar_filters)
+  .calendar_event_user
+  :is(.calendar-circle, i),
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-circle.calendar_event_user {
+  background-color: #c9c1ae;
+  color: #c9c1ae;
+  border-color: #c9c1ae;
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .calendar_filters)
+  .calendar_event_site
+  :is(.calendar-circle, i),
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-circle.calendar_event_site {
+  background-color: var(--bmc-success);
+  color: var(--bmc-success);
+  border-color: var(--bmc-success);
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .calendar_filters)
+  .calendar_event_category
+  :is(.calendar-circle, i),
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-circle.calendar_event_category {
+  background-color: var(--bmc-danger);
+  color: var(--bmc-danger);
+  border-color: var(--bmc-danger);
+}
+html[data-better-my-courses='dark']
+  :is(.maincalendar, .calendar_filters)
+  .calendar_event_other
+  :is(.calendar-circle, i),
+html[data-better-my-courses='dark']
+  .maincalendar
+  .calendar-circle.calendar_event_other {
+  background-color: var(--bmc-muted);
+  color: var(--bmc-muted);
+  border-color: var(--bmc-muted);
+}

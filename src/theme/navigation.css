@@ -1,0 +1,162 @@
+html[data-better-my-courses='dark'] .navbar {
+  --bs-navbar-color: var(--bmc-secondary);
+  --bs-navbar-hover-color: var(--bmc-text);
+  --bs-navbar-active-color: var(--bmc-accent);
+  background-color: var(--bmc-raised);
+  border-color: var(--bmc-border);
+  box-shadow: none;
+}
+
+/* Repeat stable families with enough specificity for Aalto's [data-bs-theme]
+   focus rules; mouse focus must not turn a selected item light or blue. */
+html[data-better-my-courses='dark']
+  :is(.navbar, .moremenu, .nav-tabs)
+  .nav-link:is(:focus, .focus, :active, [aria-expanded='true']) {
+  color: var(--bmc-text) !important;
+  background-color: var(--bmc-hover) !important;
+  border-color: transparent;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(.navbar, .moremenu, .nav-tabs)
+  .nav-link:is(.active, [aria-current='page'], [aria-selected='true']):is(
+    :focus,
+    .focus,
+    :active,
+    :hover
+  ) {
+  color: var(--bmc-text) !important;
+  background-color: var(--bmc-hover) !important;
+  border-bottom-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.navbar, .moremenu, .nav-tabs)
+  .nav-link {
+  color: var(--bmc-secondary) !important;
+  background-color: transparent;
+  border-color: transparent;
+}
+html[data-better-my-courses='dark']
+  :is(.navbar, .moremenu, .nav-tabs)
+  .nav-link:hover {
+  color: var(--bmc-text) !important;
+  background-color: var(--bmc-hover);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.navbar, .moremenu, .nav-tabs)
+  .nav-link:is(.active, [aria-current='page'], [aria-selected='true']) {
+  color: var(--bmc-accent) !important;
+  background-color: var(--bmc-panel);
+  border-color: var(--bmc-line);
+  border-bottom-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.nav-tabs, .moremenu, .secondary-navigation, #usernavigation) {
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.navbar, .drawer-toggles)
+  :is(.icon, .fa, .aabtn) {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark'] :is(.count-container, .navbar .badge) {
+  background-color: var(--bmc-accent);
+  color: var(--bmc-control);
+}
+
+html[data-better-my-courses='dark']
+  :is(
+    .drawer,
+    .drawercontent,
+    .drawerheader,
+    .drawer-toggles .drawer-toggle .btn
+  ) {
+  background-color: var(--bmc-raised);
+  color: var(--bmc-text);
+  border-color: var(--bmc-border);
+  box-shadow: none;
+}
+html[data-better-my-courses='dark'] :is(.drawer, .courseindex) a:any-link {
+  color: var(--bmc-secondary) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.drawer, .courseindex)
+  a:any-link:hover {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark'] .courseindex .courseindex-item {
+  background-color: transparent;
+  color: var(--bmc-secondary);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] .courseindex .courseindex-item:hover {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark'] .courseindex .courseindex-item.pageitem {
+  background-color: var(--bmc-hover);
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark'] .courseindex .courseindex-item.pageitem a {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark'] .courseindex .courseindex-section.current {
+  border-left-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark'] .courseindex .courseindex-section-title a {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark'] .courseindex .completioninfo {
+  color: var(--bmc-success);
+}
+
+html[data-better-my-courses='dark']
+  :is(
+    .dropdown-menu,
+    .popover,
+    .modal-content,
+    .moodle-dialogue-base .moodle-dialogue-wrap,
+    .yui3-panel-content
+  ) {
+  --bs-dropdown-bg: var(--bmc-panel);
+  --bs-dropdown-color: var(--bmc-text);
+  --bs-dropdown-link-color: var(--bmc-text);
+  --bs-dropdown-link-hover-bg: var(--bmc-hover);
+  --bs-dropdown-link-hover-color: var(--bmc-text);
+  --bs-dropdown-link-active-bg: var(--bmc-hover);
+  --bs-dropdown-link-active-color: var(--bmc-accent);
+  --bs-popover-bg: var(--bmc-panel);
+  --bs-popover-body-color: var(--bmc-text);
+  --bs-popover-header-bg: var(--bmc-raised);
+  --bs-popover-header-color: var(--bmc-text);
+  --bs-popover-border-color: var(--bmc-border);
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-border);
+  box-shadow: none;
+}
+html[data-better-my-courses='dark'] :is(.dropdown-item, .dropdown-menu a) {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  .dropdown-item:is(:hover, :focus, .active, :active) {
+  background-color: var(--bmc-hover);
+  color: var(--bmc-accent) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.dropdown-divider, .modal-header, .modal-footer, .popover-header) {
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.modal-header, .modal-footer, .moodle-dialogue-hd) {
+  background-color: var(--bmc-raised);
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark'] .tooltip {
+  --bs-tooltip-bg: var(--bmc-text);
+  --bs-tooltip-color: var(--bmc-control);
+}
+/* These are monochrome stock UI glyphs, not course imagery. */
+html[data-better-my-courses='dark'] :is(.btn-close, .navbar-toggler-icon) {
+  filter: invert(0.9);
+}

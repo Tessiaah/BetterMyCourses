@@ -1,0 +1,87 @@
+html[data-better-my-courses='dark'] {
+  --bmc-font: 'BMC UI', 'Lexend', system-ui, sans-serif;
+  --bs-body-font-family: var(--bmc-font);
+}
+
+/* Preserve icon-font, code and math families. All ordinary UI text uses Lexend;
+   BMC UI's Unicode faces resolve digit glyphs to Rubik, even within mixed text. */
+html[data-better-my-courses='dark']
+  :where(
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    option,
+    label,
+    legend,
+    td,
+    th,
+    caption,
+    small,
+    strong,
+    em,
+    summary,
+    time,
+    li,
+    dt,
+    dd,
+    span,
+    div
+  ):not(
+    :where(
+      .icon,
+      .fa,
+      .fas,
+      .far,
+      .fab,
+      .fal,
+      .fad,
+      .fak,
+      .bi,
+      [class*='bi-'],
+      [class*='fa-'],
+      [class*='ion-'],
+      [class*='icon-'],
+      .material-icons,
+      [class*='vjs-'],
+      pre *,
+      code *,
+      kbd *,
+      samp *,
+      mjx-container *,
+      [class*='MathJax'],
+      [class*='MathJax'] *,
+      .fa *,
+      :is(.fas, .far, .fab, .fal, .fad, .fak, .bi) *,
+      .material-icons *,
+      .icon *
+    )
+  ) {
+  font-family: var(--bmc-font) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.intelliboard-page, .intelliboard-chart)
+  svg
+  text {
+  font-family: var(--bmc-font) !important;
+}
+html[data-better-my-courses='dark']
+  :is(
+    time,
+    .count-container,
+    .progress,
+    .stats,
+    input[type='number'],
+    .calendarmonth
+  ) {
+  font-variant-numeric: tabular-nums;
+}

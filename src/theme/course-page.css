@@ -1,0 +1,155 @@
+/* Recolor title surfaces without removing Aalto's header/banner image. */
+html[data-better-my-courses='dark']
+  :is(#course-header, .course-header, .page-header-headings) {
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .course-content .section,
+    .course-section,
+    .section-item,
+    .activity-item
+  ) {
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .course-section-header,
+    .sectionname,
+    .section-summary,
+    .section .summary
+  ) {
+  color: var(--bmc-text);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .activity-item,
+    .activity-description,
+    .description-inner,
+    .activity-altcontent
+  ) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-secondary);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark'] .activity-item:hover {
+  background-color: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .activity-header,
+    .tertiary-navigation,
+    .completion-info,
+    .availabilityinfo
+  ) {
+  background-color: var(--bmc-raised);
+  color: var(--bmc-secondary);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.block_news_items, .block_calendar_upcoming)
+  :is(.post, .event, .footer) {
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.block_news_items, .block_calendar_upcoming)
+  :is(.date, .info, .head, .author) {
+  color: var(--bmc-secondary);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .forum-post-container,
+    .forumpost,
+    .path-mod-assign .submissionstatustable
+  ) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+/* Color only: retain Moodle's course/header/text geometry. Aalto's title
+   wrapper differs between full course, section and resource views. */
+html[data-better-my-courses='dark']
+  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    .contextpage-context-header-content,
+    .page-context-header,
+    .page-header-headings,
+    [data-bmc-course-title-panel]
+  ) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    #page-header,
+    #course-header,
+    .course-header,
+    .contextpage-context-header-content,
+    [data-bmc-course-title-panel]
+  )
+  h1 {
+  color: var(--bmc-text) !important;
+  background-color: transparent !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(.contextpage-context-header-content, [data-bmc-course-title-panel])
+  :is(.breadcrumb-item, .breadcrumb-item::before) {
+  color: var(--bmc-secondary) !important;
+}
+/* Only the requested activity title/separator/intro rhythm is adjusted.
+   Weekly course structure and activity placements keep their native layout. */
+html[data-better-my-courses='dark']
+  :is(.path-mod, [id^='page-mod-'])
+  #page-header {
+  margin-bottom: 24px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod, [id^='page-mod-'])
+  :is(#region-main > h2, .activity-header > h2) {
+  margin-block: 16px 24px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod, [id^='page-mod-'])
+  .activity-header:not(:empty) {
+  margin-block: 20px 28px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod, [id^='page-mod-'])
+  #region-main
+  > hr {
+  margin-block: 20px;
+}
+html[data-better-my-courses='dark']
+  :is(.course-content .section .summary, #page-mod-page-view .generalbox) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text);
+}
+
+/* Native summary glyphs are Font Awesome/currentColor icons. Preserve their
+   shapes and dimensions; beat Aalto's fixed #212529 icon rules. */
+html[data-better-my-courses='dark']
+  :is(
+    .section-summary-activities,
+    .section-summary-progress,
+    .section-summary-completion,
+    .section_goto,
+    .completion-info
+  )
+  :is(.icon, .fa, .fas, .far, [class*='fa-']) {
+  color: var(--bmc-link) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.section-summary-activities, .section-summary-progress, .section_goto)
+  svg.icon {
+  fill: currentColor;
+}
+/* Aalto's forced brightness(0) turns opaque native icon artwork into solid
+   squares. Show the original asset, without changing its source or geometry. */
+html[data-better-my-courses='dark']
+  :is(.activityiconcontainer, .block_calendar_upcoming)
+  img:is(.icon, .activityicon):not(.nofilter) {
+  filter: none !important;
+}

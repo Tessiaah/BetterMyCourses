@@ -1,0 +1,46 @@
+/* One owner for ordinary links and keyboard focus. Component surfaces such as
+   buttons, selected navigation and quiz controls keep their own state styles. */
+html[data-better-my-courses='dark'] :is(a:any-link, [role='link']) {
+  color: var(--bmc-link) !important;
+  text-decoration-color: currentColor;
+}
+html[data-better-my-courses='dark'] :is(a:any-link, [role='link']):hover {
+  color: var(--bmc-link-hover) !important;
+}
+html[data-better-my-courses='dark']
+  :where(.no-overflow, .summary, .description, .activity-description)
+  a:any-link {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+/* Native .aalink/.autolink/classless-anchor focus rules paint pale band
+   shadows. Apply this once sitewide, including mouse focus on role links. */
+html[data-better-my-courses='dark']
+  :is(a, [role='link']):is(:focus, .focus, :active) {
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(a, [role='link']):focus:not(:focus-visible) {
+  outline: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(a, [role='link']):not(
+    .btn,
+    .nav-link,
+    .dropdown-item,
+    .page-link,
+    .qnbutton,
+    .list-group-item-action,
+    .mod_quiz-next-nav,
+    .mod_quiz-prev-nav,
+    .endtestlink,
+    [role='button']
+  ):is(:focus, .focus, :active) {
+  background-color: transparent !important;
+}
+html[data-better-my-courses='dark']
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--bmc-link) !important;
+  outline-offset: 2px;
+  box-shadow: none !important;
+}

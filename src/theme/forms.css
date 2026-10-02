@@ -1,0 +1,169 @@
+html[data-better-my-courses='dark']
+  :is(
+    .form-control,
+    .form-select,
+    .custom-select,
+    textarea,
+    select,
+    input:not(
+      [type='checkbox'],
+      [type='radio'],
+      [type='submit'],
+      [type='button'],
+      [type='reset'],
+      [type='image'],
+      [type='range'],
+      [type='color'],
+      [type='hidden']
+    )
+  ) {
+  color: var(--bmc-text);
+  background-color: var(--bmc-control);
+  border-color: var(--bmc-border);
+  caret-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark']
+  :is(.form-control, textarea, input)::placeholder {
+  color: var(--bmc-muted);
+  opacity: 1;
+}
+html[data-better-my-courses='dark'] :is(input, select, textarea):focus {
+  border-color: var(--bmc-accent);
+  box-shadow: none;
+}
+html[data-better-my-courses='dark']
+  :is(input, select, textarea):is(:disabled, [readonly]) {
+  color: var(--bmc-disabled);
+  background-color: var(--bmc-raised);
+}
+html[data-better-my-courses='dark']
+  :is(input[type='checkbox'], input[type='radio'], input[type='range']) {
+  accent-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark'] .form-check-input {
+  background-color: var(--bmc-control);
+  border-color: var(--bmc-muted);
+}
+html[data-better-my-courses='dark'] .form-check-input:checked {
+  background-color: #75613e;
+  border-color: var(--bmc-accent);
+}
+html[data-better-my-courses='dark'] .form-check-input:focus {
+  border-color: var(--bmc-accent);
+  box-shadow: none;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .input-group-text,
+    .filemanager,
+    .filepicker-filelist,
+    .fp-content,
+    .fitem,
+    .editor_atto_toolbar,
+    .editor_atto_content,
+    .tox .tox-edit-area,
+    .tox .tox-toolbar,
+    .tox .tox-toolbar__primary,
+    .tox .tox-statusbar
+  ) {
+  color: var(--bmc-text);
+  background-color: var(--bmc-panel);
+  border-color: var(--bmc-line);
+}
+/* Shared button states, with enough specificity for native important colors.
+   Bootstrap variants inherit one neutral surface; semantic variants use edges. */
+html[data-better-my-courses='dark'] .btn,
+html[data-better-my-courses='dark'] input:is([type='submit'], [type='button']),
+html[data-better-my-courses='dark'] #mod_quiz-next-nav {
+  --bs-btn-color: var(--bmc-text);
+  --bs-btn-bg: #151516;
+  --bs-btn-border-color: #858580;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-hover-bg: #29292b;
+  --bs-btn-hover-border-color: #eeece7;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-active-bg: #202022;
+  --bs-btn-active-border-color: #eeece7;
+  --bs-btn-disabled-color: var(--bmc-disabled);
+  --bs-btn-disabled-bg: var(--bmc-control);
+  --bs-btn-disabled-border-color: var(--bmc-line);
+  color: var(--bs-btn-color) !important;
+  background-color: var(--bs-btn-bg) !important;
+  border-color: var(--bs-btn-border-color) !important;
+  border-radius: 8px;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(.btn, input[type='submit'], input[type='button']):is(
+    :hover,
+    :focus-visible
+  ) {
+  color: var(--bs-btn-hover-color) !important;
+  background-color: var(--bs-btn-hover-bg) !important;
+  border-color: var(--bs-btn-hover-border-color) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.btn, input[type='submit'], input[type='button']):is(
+    :active,
+    .active,
+    [aria-pressed='true']
+  ) {
+  color: var(--bs-btn-active-color) !important;
+  background-color: var(--bs-btn-active-bg) !important;
+  border-color: var(--bs-btn-active-border-color) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.btn, input[type='submit'], input[type='button']):is(
+    :disabled,
+    .disabled
+  ) {
+  color: var(--bs-btn-disabled-color) !important;
+  background-color: var(--bs-btn-disabled-bg) !important;
+  border-color: var(--bs-btn-disabled-border-color) !important;
+}
+html[data-better-my-courses='dark'] .btn.btn-danger {
+  --bs-btn-border-color: var(--bmc-danger);
+  --bs-btn-color: var(--bmc-danger);
+}
+html[data-better-my-courses='dark'] .btn.btn-success {
+  --bs-btn-border-color: var(--bmc-success);
+  --bs-btn-color: var(--bmc-success);
+}
+/* The deployed quiz submit input also has an ID-based native important rule. */
+html[data-better-my-courses='dark']
+  :is(#page-mod-quiz-attempt, #page-mod-quiz-summary, .path-mod-quiz)
+  #mod_quiz-next-nav {
+  background-color: var(--bs-btn-bg) !important;
+  color: var(--bs-btn-color) !important;
+  border-color: var(--bs-btn-border-color) !important;
+}
+html[data-better-my-courses='dark']
+  :is(#page-mod-quiz-attempt, #page-mod-quiz-summary, .path-mod-quiz)
+  #mod_quiz-next-nav:is(:hover, :focus-visible) {
+  background-color: var(--bs-btn-hover-bg) !important;
+  color: var(--bs-btn-hover-color) !important;
+  border-color: var(--bs-btn-hover-border-color) !important;
+}
+html[data-better-my-courses='dark'] a.btn:any-link {
+  color: var(--bs-btn-color) !important;
+}
+html[data-better-my-courses='dark'] a.btn:any-link:is(:hover, :focus-visible) {
+  color: var(--bs-btn-hover-color) !important;
+}
+html[data-better-my-courses='dark'] a.btn.disabled:any-link {
+  color: var(--bs-btn-disabled-color) !important;
+}
+/* Same Bootstrap select-chevron path, with its stroke corrected for contrast. */
+html[data-better-my-courses='dark'] .form-select {
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b3b0aa' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+html[data-better-my-courses='dark']
+  :is(.invalid-feedback, .form-control-feedback, .error) {
+  color: var(--bmc-danger);
+}
+html[data-better-my-courses='dark'] :is(.is-invalid, [aria-invalid='true']) {
+  border-color: var(--bmc-danger);
+}
+html[data-better-my-courses='dark'] :is(.form-description, .form-text) {
+  color: var(--bmc-secondary);
+}

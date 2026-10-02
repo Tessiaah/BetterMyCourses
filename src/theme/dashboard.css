@@ -1,0 +1,31 @@
+html[data-better-my-courses='dark']
+  :is(
+    .block_recentlyaccessedcourses,
+    .block_timeline,
+    .block_calendar_month,
+    .block_calendar_upcoming
+  ) {
+  background-color: var(--bmc-panel);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .block_recentlyaccessedcourses .card-body,
+    .block_timeline .list-group-item,
+    .block_timeline .timeline-event-list-item
+  ) {
+  background-color: var(--bmc-panel);
+  color: var(--bmc-secondary);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.carousel-control-prev, .carousel-control-next) {
+  color: var(--bmc-accent);
+  background-color: var(--bmc-control);
+  border-color: var(--bmc-border);
+}
+html[data-better-my-courses='dark']
+  :is(.block .block-controls, .block .block-header) {
+  color: var(--bmc-secondary);
+}
+/* Dashboard banner remains the site's original background-image. */

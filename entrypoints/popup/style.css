@@ -1,0 +1,248 @@
+:root {
+  color-scheme: dark;
+  font-family: 'BMC UI', system-ui, sans-serif;
+  background: #000000;
+  color: #f1efea;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  width: 320px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.banner-settings {
+  margin-top: 20px;
+  border-top: 1px solid #303032;
+  padding-top: 16px;
+}
+.banner-settings summary {
+  font-size: 13px;
+  cursor: pointer;
+  color: #eeeae2;
+  padding-bottom: 12px;
+}
+.banner-settings fieldset {
+  border: 0;
+  padding: 16px 0;
+  margin: 0;
+  border-bottom: 1px solid #202022;
+}
+.banner-settings legend {
+  font-size: 14px;
+  padding: 0;
+  font-weight: 550;
+}
+.banner-settings fieldset > label:not(.upload-button) {
+  font-size: 11px;
+  color: #b3b0aa;
+  display: block;
+  margin: 8px 0;
+}
+.banner-settings select {
+  width: 100%;
+  background: #101011;
+  color: #f1efea;
+  border: 1px solid #303032;
+  border-radius: 6px;
+  padding: 8px;
+  font: inherit;
+  font-size: 12px;
+}
+.banner-preview {
+  width: 100%;
+  height: 68px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+.upload-button,
+.banner-reset,
+#banner-editor {
+  display: inline-block;
+  font-size: 11px;
+  padding: 8px;
+  margin-top: 10px;
+  border: 1px solid #858580;
+  border-radius: 6px;
+  background: #151516;
+  color: #f1efea;
+  cursor: pointer;
+}
+.upload-button:hover,
+.banner-reset:hover,
+#banner-editor:hover {
+  background: #29292b;
+  border-color: #eeece7;
+}
+.banner-settings input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.banner-settings fieldset:has(input:focus-visible) .upload-button,
+.banner-settings :is(select, summary):focus-visible {
+  outline: 2px solid #eeeae2;
+  outline-offset: 3px;
+}
+.banner-settings fieldset:has(input:disabled) .upload-button {
+  opacity: 0.5;
+  cursor: wait;
+}
+#banner-status {
+  color: #98958f;
+  font-size: 11px;
+  line-height: 1.6;
+}
+main {
+  padding: 24px;
+}
+h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.4px;
+}
+header p {
+  margin: 6px 0 24px;
+  color: #b3b0aa;
+  font-size: 13px;
+}
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-top: 1px solid #27282a;
+  border-bottom: 1px solid #27282a;
+}
+label {
+  font-size: 15px;
+  font-weight: 550;
+}
+#theme-description {
+  margin: 4px 0 0;
+  color: #b3b0aa;
+  font-size: 12px;
+}
+button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0 8px 12px;
+  background: transparent;
+  border: 0;
+  color: #b3b0aa;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.track {
+  display: block;
+  width: 38px;
+  height: 22px;
+  border: 1px solid #85827d;
+  border-radius: 12px;
+  background: #191a1c;
+  padding: 3px;
+}
+.track span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #b3b0aa;
+}
+[aria-checked='true'] {
+  color: #e0c894;
+}
+[aria-checked='true'] .track {
+  background: #d7b77a;
+  border-color: #d7b77a;
+}
+[aria-checked='true'] .track span {
+  background: #101112;
+  transform: translateX(16px);
+}
+button:hover .track {
+  border-color: #f0e2ca;
+}
+button:focus-visible {
+  outline: 2px solid #e0c894;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+#status {
+  margin: 16px 0 24px;
+  min-height: 32px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #b3b0aa;
+}
+footer {
+  font-size: 11px;
+  color: #98958f;
+}
+.link-setting {
+  padding-top: 18px;
+}
+.link-setting p {
+  color: #98958f;
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+.color-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.preset {
+  padding: 7px 9px;
+  border: 1px solid #303032;
+  border-radius: 5px;
+  font-size: 11px;
+}
+.preset:hover {
+  background: #111112;
+  color: #f1efea;
+}
+.preset[aria-pressed='true'] {
+  border-color: #d8c3a0;
+  color: #f1efea;
+}
+#link-color {
+  width: 34px;
+  height: 32px;
+  padding: 3px;
+  background: #080808;
+  border: 1px solid #303032;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#link-color:focus-visible {
+  outline: 2px solid #e0c894;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .track span {
+    transition: transform 160ms ease;
+  }
+  button,
+  .track {
+    transition:
+      color 160ms ease,
+      background-color 160ms ease,
+      border-color 160ms ease;
+  }
+}
