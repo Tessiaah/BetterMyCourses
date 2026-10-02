@@ -80,13 +80,22 @@ test('quiz action spacing, visible inputs and feedback follow native grading wit
     ]) {
       await page.locator('#choice-question').evaluate((el, value) => {
         el.classList.remove('correct', 'partiallycorrect', 'incorrect');
-        el.classList.add(value!);
+        // Adaptive feedback records the latest grade separately from .que state.
+        el.classList.add('answersaved');
+        el.querySelector('.correctness')!.className =
+          `correctness ${value} badge`;
       }, state);
       await expect(page.locator('#choice-feedback')).toHaveCSS(
         'background-color',
         background!,
       );
     }
+    await page.locator('#choice-question').evaluate((el) => {
+      el.classList.remove('answersaved');
+      el.classList.add('correct');
+      el.querySelector('.correctness')!.className =
+        'correctness correct badge bg-success';
+    });
     const answer = page.locator('#numeric-answer');
     await expect(answer).toHaveCSS('border-top-style', 'solid');
     await expect(answer).toHaveCSS('border-top-width', '1px');

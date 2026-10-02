@@ -174,10 +174,9 @@ test('packaged MV3 extension: activation, popup, sync, persistence, scope and ov
     );
     const reopened = await context.newPage();
     await reopened.goto(`chrome-extension://${id}/popup.html`);
-    await expect(reopened.getByRole('switch')).toHaveAttribute(
-      'aria-checked',
-      'false',
-    );
+    await expect(
+      reopened.getByRole('switch', { name: 'Dark theme' }),
+    ).toHaveAttribute('aria-checked', 'false');
     const restored = await context.newPage();
     await restored.goto(origin);
     await expect(restored.locator('html')).not.toHaveAttribute(

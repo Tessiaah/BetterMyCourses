@@ -28,9 +28,10 @@ html[data-better-my-courses='dark'] .que .stackinputfeedback:not(.empty) {
   margin: 12px 0;
   padding: 12px 16px;
 }
-/* Moodle exposes overall correctness on .que; STACK exposes each graded
-   part inside .stackprtfeedback. Unmarked feedback stays neutral. Never infer
-   grades from answer text, numeric marks, badges or selected choice rows. */
+/* Moodle exposes overall correctness on .que, or the last adaptive result on
+   .im-feedback .correctness. The latter takes precedence over aggregate state.
+   STACK exposes each graded part inside .stackprtfeedback. Unmarked feedback
+   stays neutral; arbitrary badges, marks and choice rows do not set grades. */
 html[data-better-my-courses='dark'] .que :is(.outcome, .stackprtfeedback) {
   --bmc-feedback-bg: var(--bmc-raised);
   --bmc-feedback-edge: var(--bmc-border);
@@ -59,19 +60,46 @@ html[data-better-my-courses='dark']
   color: var(--bmc-feedback-edge) !important;
   background-color: transparent !important;
 }
-html[data-better-my-courses='dark'] .que.correct .outcome,
+html[data-better-my-courses='dark']
+  .que.correct
+  .outcome:not(
+    :has(
+      > .im-feedback .correctness:is(.correct, .partiallycorrect, .incorrect)
+    )
+  ),
+html[data-better-my-courses='dark']
+  .que
+  .outcome:has(> .im-feedback .correctness.correct),
 html[data-better-my-courses='dark'] .que .stackprtfeedback:has(> .correct) {
   --bmc-feedback-bg: var(--bmc-quiz-correct-bg);
   --bmc-feedback-edge: var(--bmc-quiz-correct-edge);
 }
-html[data-better-my-courses='dark'] .que.partiallycorrect .outcome,
+html[data-better-my-courses='dark']
+  .que.partiallycorrect
+  .outcome:not(
+    :has(
+      > .im-feedback .correctness:is(.correct, .partiallycorrect, .incorrect)
+    )
+  ),
+html[data-better-my-courses='dark']
+  .que
+  .outcome:has(> .im-feedback .correctness.partiallycorrect),
 html[data-better-my-courses='dark']
   .que
   .stackprtfeedback:has(> .partiallycorrect) {
   --bmc-feedback-bg: var(--bmc-quiz-partial-bg);
   --bmc-feedback-edge: var(--bmc-quiz-partial-edge);
 }
-html[data-better-my-courses='dark'] .que.incorrect .outcome,
+html[data-better-my-courses='dark']
+  .que.incorrect
+  .outcome:not(
+    :has(
+      > .im-feedback .correctness:is(.correct, .partiallycorrect, .incorrect)
+    )
+  ),
+html[data-better-my-courses='dark']
+  .que
+  .outcome:has(> .im-feedback .correctness.incorrect),
 html[data-better-my-courses='dark'] .que .stackprtfeedback:has(> .incorrect) {
   --bmc-feedback-bg: var(--bmc-quiz-incorrect-bg);
   --bmc-feedback-edge: var(--bmc-quiz-incorrect-edge);

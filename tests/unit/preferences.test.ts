@@ -43,7 +43,14 @@ describe('settings contract', () => {
       enabled: false,
       theme: 'inky-black',
       linkColor: DEFAULT_SETTINGS.linkColor,
+      studyAssist: false,
     });
+  });
+  it('enables Study Assist only with an explicit boolean preference', () => {
+    for (const value of [undefined, null, 1, 'true'])
+      expect(normalizeSettings({ studyAssist: value }).studyAssist).toBe(false);
+    expect(normalizeSettings({ studyAssist: true }).studyAssist).toBe(true);
+    expect(normalizeSettings({ studyAssist: false }).studyAssist).toBe(false);
   });
   it('reads only the settings key and defaults on first installation', async () => {
     storage.get.mockResolvedValue({});
@@ -75,6 +82,7 @@ describe('settings contract', () => {
       enabled: false,
       theme: 'inky-black',
       linkColor: DEFAULT_SETTINGS.linkColor,
+      studyAssist: false,
     });
     listener({ [SETTINGS_KEY]: {} }, 'sync');
     expect(callback).toHaveBeenLastCalledWith(DEFAULT_SETTINGS);

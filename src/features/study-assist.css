@@ -1,0 +1,66 @@
+/* Independent opt-in: also usable with the original MyCourses appearance. */
+html[data-bmc-study-assist='on'] .bmc-study-assist {
+  margin-block: 20px 8px;
+  border: 1px solid var(--bmc-border, #adb5bd);
+  border-radius: 8px;
+  background: var(--bmc-control, var(--bs-body-bg, #fff));
+  color: var(--bmc-text, var(--bs-body-color, #212529));
+  overflow: hidden;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist > summary {
+  padding: 12px 16px;
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--bmc-link, var(--bs-link-color, #005a9c));
+  font-weight: 550;
+  line-height: 1.5;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist > summary:hover {
+  background-color: var(--bmc-hover, #f0f1f2);
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist > summary:focus-visible {
+  outline: 2px solid var(--bmc-link, var(--bs-link-color, #005a9c));
+  outline-offset: -4px;
+  border-radius: 8px;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist[open] > summary {
+  border-bottom: 1px solid var(--bmc-border, #adb5bd);
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-body {
+  padding: 16px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-note {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--bmc-secondary, #495057);
+  font-size: 0.9em;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-body section {
+  margin-block-start: 20px;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-body h3 {
+  margin: 0 0 8px;
+  color: inherit;
+  font-size: 1em;
+  font-weight: 600;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-copy {
+  margin-block: 8px;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-copy :is(p, ul, ol, pre) {
+  margin-block: 8px;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-copy :is(pre, table, math) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+html[data-bmc-study-assist='on'] .bmc-study-assist-original {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-block-start: 16px;
+  min-height: 44px;
+  padding: 8px 14px;
+}

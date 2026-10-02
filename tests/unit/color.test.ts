@@ -10,6 +10,7 @@ it('migrates previous preferences without losing the disabled state', () => {
     enabled: false,
     theme: 'inky-black',
     linkColor: DEFAULT_LINK_COLOR,
+    studyAssist: false,
   });
 });
 it('rejects invalid color data and preserves readable colors', () => {

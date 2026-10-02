@@ -7,6 +7,7 @@ import './style.css';
 import { createBannerLayout } from '../../src/utils/banner-layout';
 import { createHomeLayout } from '../../src/utils/home-layout';
 import { createCourseHeaderTheme } from '../../src/utils/course-header';
+import { createStudyAssist } from '../../src/features/study-assist';
 import {
   applyBanners,
   defaultBanners,
@@ -23,6 +24,7 @@ export default defineContentScript({
     const bannerLayout = createBannerLayout();
     const homeLayout = createHomeLayout();
     const courseHeader = createCourseHeaderTheme();
+    const studyAssist = createStudyAssist();
     const renderBanners = () => {
       applyBanners(document.documentElement, banners, enabled);
       homeLayout.update(enabled);
@@ -55,6 +57,7 @@ export default defineContentScript({
       revision++;
       applyTheme(document.documentElement, settings);
       enabled = settings.enabled;
+      studyAssist.update(settings.studyAssist);
       renderBanners();
     });
     const initialRevision = revision;
@@ -63,6 +66,7 @@ export default defineContentScript({
         if (ctx.isValid && revision === initialRevision) {
           applyTheme(document.documentElement, settings);
           enabled = settings.enabled;
+          studyAssist.update(settings.studyAssist);
           renderBanners();
         }
       })
@@ -77,6 +81,7 @@ export default defineContentScript({
       bannerLayout.dispose();
       homeLayout.dispose();
       courseHeader.dispose();
+      studyAssist.dispose();
       applyBanners(document.documentElement, defaultBanners(), false);
     });
   },

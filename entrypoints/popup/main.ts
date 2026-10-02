@@ -16,6 +16,8 @@ const presets = [...document.querySelectorAll<HTMLButtonElement>('.preset')];
 
 const toggle = document.querySelector<HTMLButtonElement>('#enabled')!;
 const label = document.querySelector<HTMLElement>('#switch-text')!;
+const studyToggle = document.querySelector<HTMLButtonElement>('#study-assist')!;
+const studyLabel = document.querySelector<HTMLElement>('#study-assist-text')!;
 const status = document.querySelector<HTMLElement>('#status')!;
 let settings: Settings;
 let saving = false;
@@ -32,6 +34,8 @@ function render(value: Settings): void {
   }
   toggle.setAttribute('aria-checked', String(value.enabled));
   label.textContent = value.enabled ? 'On' : 'Off';
+  studyToggle.setAttribute('aria-checked', String(value.studyAssist));
+  studyLabel.textContent = value.studyAssist ? 'On' : 'Off';
   status.textContent = value.enabled
     ? 'Dark theme is enabled.'
     : 'Original MyCourses appearance.';
@@ -49,6 +53,7 @@ async function initialize(): Promise<void> {
     const value = await readSettings();
     if (revision === initialRevision) render(value);
     toggle.disabled = false;
+    studyToggle.disabled = false;
     color.disabled = false;
     for (const preset of presets) preset.disabled = false;
   } catch {
@@ -61,6 +66,7 @@ async function save(next: Settings): Promise<void> {
   if (saving) return;
   saving = true;
   toggle.disabled = true;
+  studyToggle.disabled = true;
   color.disabled = true;
   for (const preset of presets) preset.disabled = true;
   status.textContent = 'Saving preference...';
@@ -73,12 +79,16 @@ async function save(next: Settings): Promise<void> {
   } finally {
     saving = false;
     toggle.disabled = false;
+    studyToggle.disabled = false;
     color.disabled = false;
     for (const preset of presets) preset.disabled = false;
   }
 }
 toggle.addEventListener('click', () => {
   void save({ ...settings, enabled: !settings.enabled });
+});
+studyToggle.addEventListener('click', () => {
+  void save({ ...settings, studyAssist: !settings.studyAssist });
 });
 color.addEventListener('change', () => {
   void save({ ...settings, linkColor: normalizeLinkColor(color.value) });

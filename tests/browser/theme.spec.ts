@@ -626,7 +626,7 @@ test('theme geometry and production popup/content scripts with simulated storage
     });
     const popup = await context.newPage();
     await popup.goto('https://mycourses.aalto.fi/popup.html');
-    const toggle = popup.getByRole('switch');
+    const toggle = popup.getByRole('switch', { name: 'Dark theme' });
     await expect(toggle).toHaveAttribute('aria-checked', 'true');
     await popup.evaluate(() => document.fonts.ready);
     await popup.setViewportSize({ width: 320, height: 450 });

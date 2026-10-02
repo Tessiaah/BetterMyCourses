@@ -125,10 +125,20 @@ label {
   font-size: 15px;
   font-weight: 550;
 }
-#theme-description {
+.setting + .setting {
+  border-top: 0;
+}
+.setting > div {
+  max-width: 174px;
+}
+.setting > button {
+  flex-shrink: 0;
+}
+.setting p {
   margin: 4px 0 0;
   color: #b3b0aa;
   font-size: 12px;
+  line-height: 1.5;
 }
 button {
   display: flex;
