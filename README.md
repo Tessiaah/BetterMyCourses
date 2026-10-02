@@ -6,7 +6,7 @@ Independent project; not an official Aalto University product.
 
 ## Install in Brave, Chrome or Edge
 
-1. Download **better-mycourses-1.9.0-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
+1. Download **better-mycourses-1.9.1-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
 2. Extract the ZIP into a permanent folder. Find the folder containing `manifest.json`.
 3. Open `brave://extensions`, `chrome://extensions` or `edge://extensions` and enable **Developer mode**.
 4. Choose **Load unpacked** and select that folder.
@@ -14,7 +14,7 @@ Independent project; not an official Aalto University product.
 
 For a source build, load `.output/chrome-mv3` after running `npm run build`.
 
-To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.9.0**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place.
+To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.9.1**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place.
 
 The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turning it off restores the native theme. **Study Assist** is a separate, optional switch; turn it off to remove its question drawers. There is no browser-store listing yet.
 
@@ -29,6 +29,7 @@ The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turni
 - More space between activity titles, separators and introduction boxes.
 - Aligned Clear my choice/Check actions with larger gaps, clearer answer fields, and green/yellow/red feedback driven by native site grading.
 - Adaptive multiple-choice feedback uses the site's latest grading badge, including questions with a neutral overall state.
+- Compact dark quiz timer with a larger selected-color countdown, Hide/Show inside the panel, and native deadline urgency preserved.
 - Optional **Study Assist** drawers for released correct answers, feedback and hints in quiz attempts/reviews. Off by default; works with either theme.
 - Pure-black course-title panels; Home retains its translucent photo overlay.
 - Responsive Home banner and news panels, selected-color details and a translucent black title backing.
@@ -43,6 +44,8 @@ Banner uploads accept PNG, JPEG or WebP up to 10 MB. Images are decoded and re-e
 Enable **Study Assist** in the extension popup, then open its drawer below a quiz question. It shows the correct answer only when MyCourses has released one, along with available feedback/hints. Otherwise it explains that no correct answer is available. Quiz settings determine when answers appear; the extension cannot retrieve answers kept on the server or generate a solution.
 
 Text formatting and available MathML formulas are preserved in a read-only copy. Rich media stay in the original feedback, reachable with **View original feedback**. Hidden feedback, selected-answer fields and question text are not used to infer a solution. Nothing is submitted, graded, stored or sent to an external service by Study Assist. Turning it off removes the drawers immediately across open tabs.
+
+Requesting the standard [Moodle quiz API](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/mod/quiz/classes/external.php) does not expand the student's review permissions: it renders questions using the same display settings. Core [numerical-question exports](https://github.com/moodle/moodle/blob/MOODLE_405_STABLE/question/type/numerical/question.php) expose unit settings, rather than a raw answer number. Study Assist currently gathers published feedback; it does not independently solve a question or calculate a numeric distance from an unknown target. A partial grade is not a percentage measure of numerical closeness. MyCourses' deployed plugin-specific behavior remains unverified.
 
 ## Privacy and permissions
 
@@ -79,7 +82,7 @@ npm run test:theme
 npm run zip
 ```
 
-`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.9.0-chrome.zip`. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
+`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.9.1-chrome.zip`. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
 
 Install Playwright Chromium for browser tests:
 

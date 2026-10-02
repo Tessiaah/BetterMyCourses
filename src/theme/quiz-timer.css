@@ -1,0 +1,73 @@
+/* Keep Moodle's sticky position, timer updates and Hide/Show behavior.
+   The native script owns display/hidden/disabled; CSS only frames the panel. */
+html[data-better-my-courses='dark'] #quiz-timer-wrapper {
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  inline-size: fit-content;
+  max-inline-size: min(100%, 680px);
+  margin-block: 16px 24px !important;
+  margin-inline: auto 0;
+  padding: 16px 18px;
+  border: 1px solid var(--bmc-border);
+  border-radius: 10px;
+  background-color: var(--bmc-control) !important;
+  color: var(--bmc-text);
+  text-align: start;
+}
+html[data-better-my-courses='dark'] #quiz-timer-wrapper #quiz-timer {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  max-inline-size: 46ch;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background-color: transparent !important;
+  color: var(--bmc-secondary) !important;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+html[data-better-my-courses='dark'] #quiz-timer :is(p, div) {
+  margin-block: 0 6px;
+}
+html[data-better-my-courses='dark'] #quiz-time-left {
+  margin-inline-start: 6px;
+  color: var(--bmc-link);
+  font-size: 1.35em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+html[data-better-my-courses='dark'] #quiz-timer-wrapper #toggle-timer {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  min-block-size: 44px;
+  margin: 0 !important;
+  padding: 8px 14px;
+  line-height: 1.5;
+}
+/* Moodle adds timeleftN during its last 100 seconds and disables hiding.
+   Use its urgency state rather than parsing the clock or inventing a timer. */
+html[data-better-my-courses='dark']
+  #quiz-timer-wrapper:has(#quiz-timer[class*='timeleft']) {
+  border-color: var(--bmc-danger);
+  background-color: var(--bmc-quiz-incorrect-bg) !important;
+}
+html[data-better-my-courses='dark'] #quiz-timer[class*='timeleft'] {
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  #quiz-timer[class*='timeleft']
+  #quiz-time-left {
+  color: var(--bmc-danger);
+}
+@media (max-width: 600px) {
+  html[data-better-my-courses='dark'] #quiz-timer-wrapper {
+    inline-size: 100%;
+    gap: 12px;
+    padding: 14px;
+  }
+}

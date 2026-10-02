@@ -14,6 +14,7 @@
 @import '../../src/theme/motion.css';
 @import '../../src/theme/native-overrides.css';
 @import '../../src/theme/quiz.css';
+@import '../../src/theme/quiz-timer.css';
 @import '../../src/theme/banners.css';
 @import '../../src/theme/home.css';
 @import '../../src/features/study-assist.css';

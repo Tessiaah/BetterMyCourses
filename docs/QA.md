@@ -156,3 +156,16 @@ Recorded 2026-10-02 following the multiple-choice screenshot and explicit reques
 The production manifest remains MV3 with only `storage`, the exact MyCourses HTTPS host and bundled fonts. Study Assist's local opt-in feedback reading and quiz-region observer are documented explicitly. The observer disconnects and all feature nodes are removed on disable/invalidation; there is no document-wide observation, polling, backend answer request or remote solver. Production version: **1.9.0**; ZIP: `.output/better-mycourses-1.9.0-chrome.zip`.
 
 Authenticated Aalto markup and actual installed-extension browser restart remain manual checks under the previously documented browser automation limitation. Reload the updated extension, refresh MyCourses, check an adaptive multiple-choice result, then enable Study Assist and compare a released answer and an unavailable answer. Quiz review settings govern availability; not every question type provides a correct-response display.
+
+## Version 1.9.1 quiz timer
+
+Recorded 2026-10-03 after auditing the supplied timer screenshot and upstream Moodle timer template, behavior and Boost styles. Taste pre-flight preserves the native controls/copy, 4/2/5 dials, black surfaces, selected accent, keyboard focus and deadline urgency. Desktop (1440px), phone (390px) and urgent-state screenshots were visually reviewed. Hide/Show now sits at the top right inside a single dark timer panel; countdown text is larger and tabular.
+
+- TypeScript, ESLint/formatting and all **26 unit tests** pass. The new stylesheet remains behind the dark-theme root and adds no runtime dependency, remote asset or permission.
+- All **three targeted browser fixture tests** pass: timer, quiz controls and Study Assist. The complete nine-test browser suite passed for 1.9.0; it was not rerun in full for this change, which affects only timer IDs. `test:theme` now includes ten tests for future full runs.
+- At 1440/800/390/320px, the 44px Hide control stays within the panel border, aligned to its top padding, with no horizontal overflow. Its chosen-color keyboard outline remains visible.
+- The timer stays absent before native initialization. Native Hide/Show hides/restores the countdown without hiding the control. Timer role and ARIA references, sticky positioning and its native top offset remain unchanged.
+- Native urgent classes color the surrounding panel and countdown rose, while the native disabled Hide control remains disabled. Countdown text can still update. Theme Off restores native white/red timer paint and exact original DOM, after reverting deliberate fixture state changes. No timer script, autosubmit change or visibility override was added.
+- The quiz-control and Study Assist regressions still cover native submission handlers, released-answer visibility, selected accents, storage simulation and Off cleanup.
+
+Standard Moodle API review/display gates and the core numerical export were inspected to answer the user's retrieval question. No requests were sent to authenticated quiz endpoints and no server-answer feature was introduced. Aalto's actual version/plugins, authenticated rendering and browser-managed extension restart remain manual checks. Production version: **1.9.1**; ZIP: `.output/better-mycourses-1.9.1-chrome.zip`.
