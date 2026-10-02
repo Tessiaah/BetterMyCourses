@@ -69,7 +69,7 @@ export function createCourseHeaderTheme() {
             panel.style.getPropertyPriority('background-color');
           panel.style.setProperty(
             'background-color',
-            'var(--bmc-panel)',
+            'var(--bmc-page)',
             'important',
           );
           const appliedStyle = panel.getAttribute('style');

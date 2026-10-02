@@ -3,7 +3,7 @@
    targeted declarations also beat inline author/plugin background colors. */
 html[data-better-my-courses='dark']
   .que
-  :is(.info, .content, .formulation, .outcome, .comment, .history) {
+  :is(.info, .content, .formulation, .comment, .history) {
   background-color: var(--bmc-panel) !important;
   color: var(--bmc-text) !important;
   border-color: var(--bmc-border) !important;
@@ -12,13 +12,13 @@ html[data-better-my-courses='dark']
 html[data-better-my-courses='dark'] .que .content {
   border-radius: 8px;
 }
-html[data-better-my-courses='dark'] .que :is(.outcome, .comment) {
+html[data-better-my-courses='dark'] .que .comment {
   background-color: var(--bmc-raised) !important;
   border-top: 1px solid var(--bmc-line);
 }
 html[data-better-my-courses='dark']
   .que
-  :is(.stackinputfeedback, .stackprtfeedback, .stackhint, .stack-hint) {
+  :is(.stackinputfeedback, .stackhint, .stack-hint) {
   background-color: var(--bmc-hover) !important;
   color: var(--bmc-text) !important;
   border-color: var(--bmc-border) !important;
@@ -28,10 +28,53 @@ html[data-better-my-courses='dark'] .que .stackinputfeedback:not(.empty) {
   margin: 12px 0;
   padding: 12px 16px;
 }
+/* Moodle exposes overall correctness on .que; STACK exposes each graded
+   part inside .stackprtfeedback. Unmarked feedback stays neutral. Never infer
+   grades from answer text, numeric marks, badges or selected choice rows. */
+html[data-better-my-courses='dark'] .que :is(.outcome, .stackprtfeedback) {
+  --bmc-feedback-bg: var(--bmc-raised);
+  --bmc-feedback-edge: var(--bmc-border);
+  background-color: var(--bmc-feedback-bg) !important;
+  color: var(--bmc-text) !important;
+  border: 1px solid var(--bmc-feedback-edge) !important;
+  border-inline-start-width: 3px !important;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-block: 16px 0;
+}
 html[data-better-my-courses='dark'] .que .stackprtfeedback {
   padding: 12px 16px;
-  margin-block: 8px;
-  border: 1px solid var(--bmc-border);
+  margin-block: 12px;
+}
+/* Keep Moodle's result label readable within the colored feedback panel. */
+html[data-better-my-courses='dark'] .que .outcome .correctness {
+  background-color: transparent !important;
+  color: var(--bmc-text) !important;
+  border: 1px solid var(--bmc-feedback-edge);
+}
+html[data-better-my-courses='dark']
+  .que
+  .stackprtfeedback
+  > :is(.correct, .partiallycorrect, .incorrect) {
+  color: var(--bmc-feedback-edge) !important;
+  background-color: transparent !important;
+}
+html[data-better-my-courses='dark'] .que.correct .outcome,
+html[data-better-my-courses='dark'] .que .stackprtfeedback:has(> .correct) {
+  --bmc-feedback-bg: var(--bmc-quiz-correct-bg);
+  --bmc-feedback-edge: var(--bmc-quiz-correct-edge);
+}
+html[data-better-my-courses='dark'] .que.partiallycorrect .outcome,
+html[data-better-my-courses='dark']
+  .que
+  .stackprtfeedback:has(> .partiallycorrect) {
+  --bmc-feedback-bg: var(--bmc-quiz-partial-bg);
+  --bmc-feedback-edge: var(--bmc-quiz-partial-edge);
+}
+html[data-better-my-courses='dark'] .que.incorrect .outcome,
+html[data-better-my-courses='dark'] .que .stackprtfeedback:has(> .incorrect) {
+  --bmc-feedback-bg: var(--bmc-quiz-incorrect-bg);
+  --bmc-feedback-edge: var(--bmc-quiz-incorrect-edge);
 }
 html[data-better-my-courses='dark']
   .que
@@ -45,12 +88,75 @@ html[data-better-my-courses='dark'] .que .stackinputerror {
 html[data-better-my-courses='dark']
   .que
   :is(input:not([type]), input[type='text'], input[type='number'], textarea) {
-  background-color: var(--bmc-control) !important;
+  background-color: var(--bmc-quiz-field) !important;
   color: var(--bmc-text) !important;
-  border-color: var(--bmc-border) !important;
+  border: 1px solid var(--bmc-quiz-field-edge) !important;
+  border-radius: 6px;
+  box-sizing: border-box;
+  min-height: 40px;
+  max-width: 100%;
+  padding: 6px 10px;
+  line-height: 1.5;
+  caret-color: var(--bmc-link);
 }
-html[data-better-my-courses='dark'] .que :is(input, textarea):focus-visible {
+html[data-better-my-courses='dark']
+  .que
+  :is(
+    input:not([type]),
+    input[type='text'],
+    input[type='number'],
+    textarea
+  ):hover {
+  border-color: var(--bmc-secondary) !important;
+}
+html[data-better-my-courses='dark']
+  .que
+  :is(
+    input:not([type]),
+    input[type='text'],
+    input[type='number'],
+    textarea
+  ):focus-visible {
   border-color: var(--bmc-link) !important;
+}
+html[data-better-my-courses='dark']
+  .que
+  :is(input:not([type]), input[type='text'], input[type='number'], textarea):is(
+    .is-invalid,
+    [aria-invalid='true']
+  ) {
+  border-color: var(--bmc-danger) !important;
+}
+/* The clear-choice control belongs to the native answer fieldset. Keep that
+   grouping and its hidden radio intact; align both actions to the same edge. */
+html[data-better-my-courses='dark'] .que .qtype_multichoice_clearchoice {
+  margin-block: 24px 0;
+}
+html[data-better-my-courses='dark'] .que .qtype_multichoice_clearchoice label {
+  margin: 0;
+}
+html[data-better-my-courses='dark'] .que .qtype_multichoice_clearchoice .btn {
+  text-decoration: none;
+}
+html[data-better-my-courses='dark'] .que .im-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-block: 20px 4px;
+}
+html[data-better-my-courses='dark']
+  .que
+  :is(.qtype_multichoice_clearchoice, .im-controls)
+  .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  line-height: 1.5;
+  /* Moodle adds important ms-3/mt-n1 Bootstrap utilities to Clear choice. */
+  margin: 0 !important;
 }
 html[data-better-my-courses='dark']
   .que

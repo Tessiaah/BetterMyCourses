@@ -47,3 +47,21 @@ it('keeps body, metadata, placeholders, links and semantic text at WCAG AA', () 
   // Worst-case white photo behind the Home title's 65% black backdrop.
   expect(contrast(token('text'), '#595959')).toBeGreaterThanOrEqual(4.5);
 });
+
+it('keeps quiz answer boundaries and graded feedback readable', () => {
+  for (const state of ['correct', 'partial', 'incorrect']) {
+    const surface = token(`quiz-${state}-bg`);
+    expect(contrast(token('text'), surface)).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(token('secondary'), surface)).toBeGreaterThanOrEqual(4.5);
+    expect(
+      contrast(token(`quiz-${state}-edge`), surface),
+    ).toBeGreaterThanOrEqual(4.5);
+  }
+  expect(contrast(token('text'), token('quiz-field'))).toBeGreaterThanOrEqual(
+    4.5,
+  );
+  for (const surface of ['quiz-field', 'panel'])
+    expect(
+      contrast(token('quiz-field-edge'), token(surface)),
+    ).toBeGreaterThanOrEqual(3);
+});

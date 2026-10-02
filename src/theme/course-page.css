@@ -77,7 +77,7 @@ html[data-better-my-courses='dark']
     .page-header-headings,
     [data-bmc-course-title-panel]
   ) {
-  background-color: var(--bmc-panel) !important;
+  background-color: var(--bmc-page) !important;
   color: var(--bmc-text) !important;
 }
 html[data-better-my-courses='dark']

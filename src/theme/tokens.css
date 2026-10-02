@@ -22,6 +22,15 @@ html[data-better-my-courses='dark'] {
   --bmc-success: #a8c5a5;
   --bmc-success-bg: #060606;
   --bmc-warning-bg: #060606;
+  /* Quiz feedback is semantic, independent of the chosen link accent. */
+  --bmc-quiz-correct-bg: #101c15;
+  --bmc-quiz-correct-edge: #75b68a;
+  --bmc-quiz-partial-bg: #211d11;
+  --bmc-quiz-partial-edge: #d7bd69;
+  --bmc-quiz-incorrect-bg: #241414;
+  --bmc-quiz-incorrect-edge: #d89491;
+  --bmc-quiz-field: #151516;
+  --bmc-quiz-field-edge: #858580;
   /* Educational line art only; the surrounding quiz remains inky black. */
   --bmc-quiz-paper: #f1f0ec;
   --bs-body-bg: var(--bmc-page);

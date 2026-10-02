@@ -1,6 +1,6 @@
 {
   "name": "better-mycourses",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "private": true,
   "type": "module",
   "description": "A privacy-friendly, inky black theme for Aalto MyCourses.",
@@ -16,7 +16,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:browser": "playwright test extension.spec.ts",
-    "test:theme": "playwright test theme.spec.ts course-regression.spec.ts",
+    "test:theme": "playwright test theme.spec.ts course-regression.spec.ts quiz-controls.spec.ts",
     "postinstall": "wxt prepare"
   },
   "devDependencies": {

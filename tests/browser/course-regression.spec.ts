@@ -161,7 +161,7 @@ test('native course geometry and icons survive theming; legacy headers, quiz var
       if (kind !== 'courses') {
         await expect(page.locator('#legacy-title')).toHaveCSS(
           'background-color',
-          'rgb(6, 6, 6)',
+          'rgb(0, 0, 0)',
         );
         await expect(page.locator('h1')).toHaveCSS(
           'color',
@@ -246,7 +246,7 @@ test('native course geometry and icons survive theming; legacy headers, quiz var
           );
         await expect(page.locator('#answer')).toHaveCSS(
           'background-color',
-          'rgb(8, 8, 8)',
+          'rgb(21, 21, 22)',
         );
         await expect(page.locator('#answer')).toHaveValue('100');
         await expect(page.locator('.questionflag label span')).toHaveCSS(

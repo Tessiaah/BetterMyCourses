@@ -43,7 +43,7 @@ test('course and STACK quiz polish keeps diagrams readable, focus inside links a
         .evaluate((el) => el.setAttribute('data-better-my-courses', 'dark'));
       await expect(
         page.locator('.contextpage-context-header-content'),
-      ).toHaveCSS('background-color', 'rgb(6, 6, 6)');
+      ).toHaveCSS('background-color', 'rgb(0, 0, 0)');
       await expect(page.locator('h1')).toHaveCSS('color', 'rgb(241, 239, 234)');
       const header = page.locator('.navbar .nav-link').last();
       await header.click();
@@ -748,7 +748,7 @@ test('theme geometry and production popup/content scripts with simulated storage
           );
           await expect(
             page.locator('.contextpage-context-header-content'),
-          ).toHaveCSS('background-color', 'rgb(6, 6, 6)');
+          ).toHaveCSS('background-color', 'rgb(0, 0, 0)');
           await page.locator('.courseindex-link').hover();
           await expect(page.locator('.courseindex-link')).toHaveCSS(
             'color',
