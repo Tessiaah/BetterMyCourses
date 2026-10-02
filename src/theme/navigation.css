@@ -55,6 +55,25 @@ html[data-better-my-courses='dark']
   :is(.nav-tabs, .moremenu, .secondary-navigation, #usernavigation) {
   border-color: var(--bmc-line);
 }
+/* Boost paints the secondary menu/list white independently of its wrapper.
+   Theme the actual surfaces; keep the native tabs, geometry and animation. */
+html[data-better-my-courses='dark'] .secondary-navigation,
+html[data-better-my-courses='dark']
+  .secondary-navigation
+  :is(.moremenu, .nav-tabs, .navigation) {
+  --bs-nav-tabs-border-color: var(--bmc-line);
+  --bs-nav-tabs-link-active-bg: var(--bmc-panel);
+  --bs-nav-tabs-link-active-color: var(--bmc-link);
+  background-color: var(--bmc-page) !important;
+  border-color: var(--bmc-line);
+  box-shadow: none;
+}
+html[data-better-my-courses='dark']
+  .secondary-navigation
+  .nav-link:is(.active, [aria-current='page'], [aria-selected='true']) {
+  color: var(--bmc-link) !important;
+  border-bottom-color: var(--bmc-link);
+}
 html[data-better-my-courses='dark']
   :is(.navbar, .drawer-toggles)
   :is(.icon, .fa, .aabtn) {

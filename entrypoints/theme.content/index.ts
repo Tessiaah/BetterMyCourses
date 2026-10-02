@@ -57,7 +57,7 @@ export default defineContentScript({
       revision++;
       applyTheme(document.documentElement, settings);
       enabled = settings.enabled;
-      studyAssist.update(settings.studyAssist);
+      studyAssist.update(settings.studyAssist, settings.linkColor);
       renderBanners();
     });
     const initialRevision = revision;
@@ -66,7 +66,7 @@ export default defineContentScript({
         if (ctx.isValid && revision === initialRevision) {
           applyTheme(document.documentElement, settings);
           enabled = settings.enabled;
-          studyAssist.update(settings.studyAssist);
+          studyAssist.update(settings.studyAssist, settings.linkColor);
           renderBanners();
         }
       })

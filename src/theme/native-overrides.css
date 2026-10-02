@@ -108,12 +108,6 @@ html[data-better-my-courses='dark']
   ) {
   color: var(--bmc-text) !important;
 }
-html[data-better-my-courses='dark']
-  .secondary-navigation
-  :is(.navigation, .moremenu) {
-  background-color: var(--bmc-panel) !important;
-}
-
 /* Override native slate cells, including table-level and cell-level variables. */
 html[data-better-my-courses='dark']
   :is(.maincalendar, .block_calendar_month)

@@ -1,66 +1,191 @@
-/* Independent opt-in: also usable with the original MyCourses appearance. */
+/* Independent opt-in; native light theme has its own readable fallbacks. */
 html[data-bmc-study-assist='on'] .bmc-study-assist {
   margin-block: 20px 8px;
   border: 1px solid var(--bmc-border, #adb5bd);
   border-radius: 8px;
-  background: var(--bmc-control, var(--bs-body-bg, #fff));
-  color: var(--bmc-text, var(--bs-body-color, #212529));
+  background: var(--bmc-control, #fff);
+  color: var(--bmc-text, #212529);
   overflow: hidden;
 }
 html[data-bmc-study-assist='on'] .bmc-study-assist > summary {
   padding: 12px 16px;
-  min-height: 44px;
+  min-block-size: 44px;
   cursor: pointer;
-  color: var(--bmc-link, var(--bs-link-color, #005a9c));
+  color: var(--bmc-link, #005a9c);
   font-weight: 550;
   line-height: 1.5;
 }
 html[data-bmc-study-assist='on'] .bmc-study-assist > summary:hover {
   background-color: var(--bmc-hover, #f0f1f2);
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist > summary:focus-visible {
-  outline: 2px solid var(--bmc-link, var(--bs-link-color, #005a9c));
-  outline-offset: -4px;
-  border-radius: 8px;
-}
-html[data-bmc-study-assist='on'] .bmc-study-assist[open] > summary {
-  border-bottom: 1px solid var(--bmc-border, #adb5bd);
-}
-html[data-bmc-study-assist='on'] .bmc-study-assist-body {
-  padding: 16px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-html[data-bmc-study-assist='on'] .bmc-study-assist-note {
+html[data-bmc-study-assist='on'] .bmc-study-assist > p {
   margin: 0;
-  max-width: 72ch;
+  padding: 0 16px 16px;
   color: var(--bmc-secondary, #495057);
-  font-size: 0.9em;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist-body section {
-  margin-block-start: 20px;
+html[data-bmc-study-assist='on'] .bmc-drawing-surface {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist-body h3 {
-  margin: 0 0 8px;
+html[data-bmc-study-assist='on'] .bmc-drawing-canvas {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  touch-action: none;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-tools {
+  position: absolute;
+  inset-inline: 16px;
+  inset-block-end: max(16px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  inline-size: min(580px, calc(100% - 32px));
+  max-block-size: calc(100% - 32px);
+  overflow: auto;
+  margin-inline: auto;
+  padding: 16px;
+  border: 1px solid var(--bmc-border, #adb5bd);
+  border-radius: 12px;
+  background: var(--bmc-control, #fff);
+  color: var(--bmc-text, #212529);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 24%);
+  pointer-events: auto;
+  font: 400 14px/1.5 var(--bmc-font, system-ui, sans-serif);
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-header,
+html[data-bmc-study-assist='on'] .bmc-drawing-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-header {
+  justify-content: space-between;
+  gap: 12px;
+  margin-block-end: 12px;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-header h2 {
+  margin: 0;
   color: inherit;
-  font-size: 1em;
+  font-size: 17px;
   font-weight: 600;
+  line-height: 1.4;
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist-copy {
-  margin-block: 8px;
+html[data-bmc-study-assist='on'] .bmc-drawing-row + .bmc-drawing-row {
+  margin-block-start: 12px;
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist-copy :is(p, ul, ol, pre) {
-  margin-block: 8px;
-}
-html[data-bmc-study-assist='on'] .bmc-study-assist-copy :is(pre, table, math) {
-  max-width: 100%;
-  overflow-x: auto;
-}
-html[data-bmc-study-assist='on'] .bmc-study-assist-original {
+html[data-bmc-study-assist='on'] .bmc-drawing-tools button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-block-start: 16px;
-  min-height: 44px;
-  padding: 8px 14px;
+  gap: 6px;
+  min-block-size: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--bmc-border, #adb5bd);
+  border-radius: 7px;
+  background: var(--bmc-panel, #f8f9fa);
+  color: inherit;
+  box-shadow: none;
+  font: inherit;
+  cursor: pointer;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-tools button:hover {
+  background: var(--bmc-hover, #e9ecef);
+}
+html[data-bmc-study-assist='on']
+  .bmc-drawing-tools
+  button[aria-pressed='true'] {
+  border-color: var(--bmc-link, #005a9c);
+  color: var(--bmc-link, #005a9c);
+  background: var(--bmc-hover, #e9ecef);
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-tools button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-tools svg {
+  display: block;
+  inline-size: 18px;
+  block-size: 18px;
+  fill: currentColor;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-color,
+html[data-bmc-study-assist='on'] .bmc-drawing-width {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-color input {
+  box-sizing: border-box;
+  inline-size: 44px;
+  block-size: 44px;
+  padding: 5px;
+  border: 1px solid var(--bmc-border, #adb5bd);
+  border-radius: 7px;
+  background: var(--bmc-panel, #f8f9fa);
+  cursor: pointer;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-colors {
+  display: flex;
+  gap: 4px;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-colors button {
+  position: relative;
+  inline-size: 44px;
+  padding: 0;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-colors button::before {
+  content: '';
+  inline-size: 20px;
+  block-size: 20px;
+  border: 1px solid var(--bmc-muted, #6c757d);
+  border-radius: 50%;
+  background: var(--bmc-ink);
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-width {
+  flex: 1 1 180px;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-width input {
+  flex: 1;
+  min-inline-size: 60px;
+  inline-size: 100px;
+  block-size: 44px;
+  accent-color: var(--bmc-link, #005a9c);
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-width output {
+  inline-size: 36px;
+  white-space: nowrap;
+  color: var(--bmc-secondary, #495057);
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-status {
+  flex: 1 1 180px;
+  margin: 0 0 0 auto;
+  color: var(--bmc-secondary, #495057);
+  font-size: 12px;
+  line-height: 1.5;
+}
+html[data-bmc-study-assist='on']
+  :is(
+    .bmc-study-assist > summary,
+    .bmc-drawing-tools button,
+    .bmc-drawing-tools input
+  ):focus-visible {
+  outline: 2px solid var(--bmc-link, #005a9c) !important;
+  outline-offset: 2px;
+}
+@media (max-width: 600px) {
+  html[data-bmc-study-assist='on'] .bmc-drawing-tools {
+    inset-inline: 8px;
+    inline-size: calc(100% - 16px);
+    padding: 12px;
+  }
+  html[data-bmc-study-assist='on'] .bmc-drawing-colors {
+    gap: 2px;
+  }
 }
