@@ -6,7 +6,7 @@ Independent project; not an official Aalto University product.
 
 ## Install in Brave, Chrome or Edge
 
-1. Download **better-mycourses-1.10.0-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
+1. Download **better-mycourses-1.10.1-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
 2. Extract the ZIP into a permanent folder. Find the folder containing `manifest.json`.
 3. Open `brave://extensions`, `chrome://extensions` or `edge://extensions` and enable **Developer mode**.
 4. Choose **Load unpacked** and select that folder.
@@ -14,7 +14,7 @@ Independent project; not an official Aalto University product.
 
 For a source build, load `.output/chrome-mv3` after running `npm run build`.
 
-To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.10.0**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place.
+To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.10.1**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place.
 
 The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turning it off restores the native theme. **Study Assist** is a separate, optional switch; turn it off to remove its question drawers. There is no browser-store listing yet.
 
@@ -27,6 +27,7 @@ The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turni
 - Refined calendar toolbar, timeline spacing and course overflow-menu placement.
 - Dark assignment and Moodle/STACK quiz surfaces, styled Finish review controls, and padded light backgrounds sized to each quiz diagram. Inline equations, icons and interactive drag/drop assets are excluded.
 - More space between activity titles, separators and introduction boxes.
+- Dark authored course tables, including inline/legacy fills and merged cells; readable highlights, stripes and semantic status rows.
 - Aligned Clear my choice/Check actions with larger gaps, clearer answer fields, and green/yellow/red feedback driven by native site grading.
 - Adaptive multiple-choice feedback uses the site's latest grading badge, including questions with a neutral overall state.
 - Compact dark quiz timer with a larger selected-color countdown, Hide/Show inside the panel, and native deadline urgency preserved.
@@ -85,7 +86,7 @@ npm run test:theme
 npm run zip
 ```
 
-`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.10.0-chrome.zip`. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
+`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.10.1-chrome.zip`. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
 
 Install Playwright Chromium for browser tests:
 

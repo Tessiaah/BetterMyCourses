@@ -1,0 +1,136 @@
+/* Author/editor tables often have no Moodle table class, plus inline fills or
+   legacy bgcolor attributes. Recolor surfaces without changing table layout. */
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth) {
+  --bmc-table-surface: var(--bmc-panel);
+  color: var(--bmc-text);
+  background-color: var(--bmc-table-surface) !important;
+  border-color: var(--bmc-line) !important;
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :is(thead, tbody, tfoot, tr, th, td) {
+  background-color: var(--bmc-table-surface) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line) !important;
+}
+/* Bootstrap also paints cell fills using an inset shadow. This component owns
+   its colors in one place; authored widths, spans, padding and borders survive. */
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :is(th, td) {
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :where(thead) {
+  --bmc-table-surface: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth):where(.table-striped)
+  > :where(tbody)
+  > :where(tr:nth-of-type(odd)) {
+  --bmc-table-surface: var(--bmc-raised);
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :where(tr, th, td):where(
+    [bgcolor],
+    [style*='background' i],
+    .table-active,
+    .table-light
+  ) {
+  --bmc-table-surface: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth):where(.table-hover)
+  > :where(tbody)
+  > :where(tr:hover) {
+  --bmc-table-surface: var(--bmc-hover);
+}
+/* Equal-specificity modifiers let semantic states win over striping/hover. */
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :where(.table-success) {
+  --bmc-table-surface: var(--bmc-quiz-correct-bg);
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :where(.table-warning) {
+  --bmc-table-surface: var(--bmc-quiz-partial-bg);
+}
+html[data-better-my-courses='dark']
+  :where(
+    .path-course,
+    [id^='page-course-'],
+    #page-mod-page-view,
+    #page-mod-book-view
+  )
+  #region-main
+  table:not(.calendarmonth)
+  :where(.table-danger) {
+  --bmc-table-surface: var(--bmc-quiz-incorrect-bg);
+}

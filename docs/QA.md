@@ -183,3 +183,15 @@ Recorded 2026-10-03 for the requested replacement of Study Assist's answer viewe
 - Existing regressions pass for adaptive feedback grading, quiz input/action styling, native timer behavior, diagrams, course structure/icons, Home layout, chosen colors, fonts and banner editing.
 
 The production manifest remains MV3 with only `storage` and the exact MyCourses HTTPS host. Drawing uses existing bundled assets with no new dependency or remote service. Authenticated Aalto rendering and actual installed-extension/browser restart still require the user's manual check under the previously documented automation limitation. Production version: **1.10.0**; ZIP: `.output/better-mycourses-1.10.0-chrome.zip`.
+
+## Version 1.10.1 authored course tables
+
+Recorded 2026-10-03 for white authored schedule rows/merged cells. Desktop and phone fixture screenshots were visually reviewed. The change follows the established black theme and preserves the native table structure.
+
+- TypeScript, ESLint/formatting and all **26 unit tests** pass. All **four targeted browser fixtures** pass: authored tables, native course regression, course navigation and quiz controls. The full twelve-test suite passed for 1.10.0; this scoped color fix was checked with the affected course/quiz fixtures. `test:theme` now includes thirteen tests for future full runs.
+- Course, Page and Book views cover classless tables, inline table/row/cell fills, legacy bgcolor cells, merged footer/break cells, rowspans and colspans. Text remains readable, marked cells use a dark highlight, and links follow the selected color.
+- Bootstrap stripes, hover, light rows and green/yellow/red status rows render on dark surfaces. Semantic states take precedence over striping/hover; inset cell shadows no longer introduce pale fills.
+- Table display/collapse, padding, border widths, vertical alignment and spans remain unchanged. Removing the theme restores original white/pale fills and exact main-content markup.
+- The new authored-table component excludes calendar tables and does not match quiz routes. Existing course structure/icons, navigation, quiz controls/grading and diagram regressions pass. No JavaScript, storage or permissions changed.
+
+Authenticated Aalto markup and an actual installed-extension restart remain manual checks. Production version: **1.10.1**; ZIP: `.output/better-mycourses-1.10.1-chrome.zip`.
