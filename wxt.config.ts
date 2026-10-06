@@ -4,6 +4,15 @@ export default defineConfig({
   manifestVersion: 3,
   // Load the dev build in the user's chosen Brave/Chrome/Edge browser manually.
   webExt: { disabled: true },
+  // Chromium rejects literal noncharacters (KaTeX includes U+FFFF in its lexer).
+  // Escape via the code generator so runtime strings and regexes are preserved.
+  vite: () => ({
+    build: {
+      rolldownOptions: {
+        output: { minify: { codegen: { asciiOnly: true } } },
+      },
+    },
+  }),
   manifest: {
     name: 'BetterMyCourses',
     description:

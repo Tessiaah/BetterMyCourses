@@ -6,7 +6,7 @@ Independent project; not an official Aalto University product.
 
 ## Install in Brave, Chrome or Edge
 
-1. Download **better-mycourses-1.11.0-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
+1. Download **better-mycourses-1.11.1-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
 2. Extract the ZIP into a permanent folder. Find the folder containing `manifest.json`.
 3. Open `brave://extensions`, `chrome://extensions` or `edge://extensions` and enable **Developer mode**.
 4. Choose **Load unpacked** and select that folder.
@@ -14,7 +14,7 @@ Independent project; not an official Aalto University product.
 
 For a source build, load `.output/chrome-mv3` after running `npm run build`.
 
-To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.11.0**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place.
+To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.11.1**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place. Version 1.11.1 fixes the encoding error that prevented 1.11.0 from loading.
 
 The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turning it off restores the native theme. **Study Assist** is a separate, optional switch; turn it off to remove its question drawers. There is no browser-store listing yet.
 
@@ -90,7 +90,7 @@ npm run test:theme
 npm run zip
 ```
 
-`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.11.0-chrome.zip`. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
+`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.11.1-chrome.zip`. Both commands automatically run `verify:package`, which rejects malformed UTF-8 and literal Unicode noncharacters in generated text files, matching Chromium's stricter extension-loader check. The code generator escapes non-ASCII literals while preserving their runtime values. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
 
 Install Playwright Chromium for browser tests:
 
@@ -106,7 +106,14 @@ $env:BMC_BROWSER_PATH = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedg
 npm run test:theme
 ```
 
-This machine's Smart App Control blocks Playwright Chromium, and its installed Edge lacks the extension-loading API. The rendering/integration tests pass in signed Edge; actual installed-extension restart remains a manual check. No OS security settings were changed. See the [QA record](docs/QA.md) for measured scope and remaining checks.
+The actual installation smoke test also exercises formula rendering, bundled math fonts, saving a personal formula and persistence after restarting an isolated browser profile:
+
+```powershell
+$env:BMC_BROWSER_PATH = 'C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe'
+npm run test:install
+```
+
+This machine's Smart App Control blocks Playwright Chromium, and its installed Edge lacks the extension-loading API. The rendering/integration suite passes in signed Edge; actual extension loading and restart persistence now pass in signed Brave using local fixtures and an isolated profile. Brave uses the extension-loading startup flag and its Extensions page when the CDP loading method is unavailable. No OS security settings were changed. Authenticated Aalto behavior remains a live check. See the [QA record](docs/QA.md) for measured scope.
 
 ## Source structure
 
@@ -122,6 +129,7 @@ This machine's Smart App Control blocks Playwright Chromium, and its installed E
 | `src/features/`                                                         | Study Assist lifecycle, temporary drawing, formula model/storage/renderer/library, draggable cards and styles. |
 | `public/`                                                               | Bundled fonts, extension icons and third-party notices.                                                        |
 | `tests/`                                                                | Unit, actual-extension and simulated-API browser tests.                                                        |
+| `scripts/`                                                              | Generated extension text validation for build/release compatibility.                                           |
 | `docs/`, `UI Reference/`                                                | Design audit, QA evidence and the four original visual references.                                             |
 
 Every theme selector is gated by `html[data-better-my-courses='dark']`; independent Study Assist styles are gated by `html[data-bmc-study-assist='on']`. Component rules reuse shared tokens; ordinary links and buttons have one owner instead of page-specific focus workarounds. Disabled styles stop matching when their root attribute is removed. Explicit saved Off settings are honored on startup. A brief native-color flash can occur while browser storage loads.
