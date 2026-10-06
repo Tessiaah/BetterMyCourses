@@ -1,6 +1,7 @@
 import { chromium, expect, type BrowserContextOptions } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { withQuizSidebar } from './quiz-sidebar';
 
 const fixture =
   '<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/bootstrap.css"><style>body{margin:0}main{max-width:980px;margin:auto;padding:24px}.que{margin:24px 0}.info,.formulation,.outcome{padding:16px}.content{border:1px solid #aaa}</style></head><body class="path-mod-quiz" id="page-mod-quiz-attempt"><main id="region-main"><h1>Quiz workspace</h1><span id="site-math" class="katex">Native site math</span><form id="responseform"><div class="que numerical" id="question"><div class="info">Question 1</div><div class="content"><div class="formulation"><p>Use your own notes to work through this question.</p><label>Answer <input id="answer" name="answer" value="8.5"></label><button type="submit" class="btn btn-secondary">Check</button></div></div></div></form><div style="height:1200px"></div></main></body></html>';
@@ -88,7 +89,10 @@ export async function formulaFixture(options: BrowserContextOptions = {}) {
     const url = new URL(route.request().url());
     if (url.origin === 'https://mycourses.aalto.fi') {
       if (url.pathname === '/mod/quiz/attempt.php')
-        return route.fulfill({ contentType: 'text/html', body: fixture });
+        return route.fulfill({
+          contentType: 'text/html',
+          body: withQuizSidebar(fixture),
+        });
       if (url.pathname === '/bootstrap.css')
         return route.fulfill({
           contentType: 'text/css',

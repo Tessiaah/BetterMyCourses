@@ -167,6 +167,10 @@ test('native course geometry and icons survive theming; legacy headers, quiz var
           'color',
           'rgb(241, 239, 234)',
         );
+        for (const part of await page
+          .locator('.breadcrumb, .breadcrumb-item')
+          .all())
+          await expect(part).toHaveCSS('background-color', 'rgb(0, 0, 0)');
         expect(
           await page
             .locator('#page-header')
@@ -330,6 +334,12 @@ test('native course geometry and icons survive theming; legacy headers, quiz var
         await page.locator('#region-main').evaluate((el) => el.innerHTML),
       ).toBe(original);
       if (kind !== 'courses') {
+        await expect(page.locator('.breadcrumb')).toHaveCSS(
+          'background-color',
+          'rgb(32, 32, 32)',
+        );
+        for (const part of await page.locator('.breadcrumb-item').all())
+          await expect(part).toHaveCSS('background-color', 'rgb(48, 48, 48)');
         expect(await page.locator('#legacy-title').getAttribute('style')).toBe(
           originalTitleStyle,
         );

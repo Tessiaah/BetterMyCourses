@@ -2,12 +2,100 @@ import { test, expect, type Page } from '@playwright/test';
 import { formulaFixture } from './formula-fixture';
 
 async function workspace(page: Page) {
-  await page.locator('.bmc-study-assist summary').click();
+  await page.getByRole('button', { name: 'Study Assist', exact: true }).click();
   await page.getByRole('tab', { name: 'Formulas', exact: true }).click();
   const panel = page.locator('.bmc-formula-panel');
   await expect(panel.getByLabel('Search formulas')).toBeEnabled();
   return panel;
 }
+
+test('sidebar tools can close while formula references remain draggable, survive native updates and only dismiss through X', async () => {
+  const { browser, open, errors, unexpected } = await formulaFixture();
+  try {
+    const { page } = await open();
+    const panel = await workspace(page);
+    await expect(page.locator('.que .bmc-study-assist')).toHaveCount(0);
+    await expect(
+      page.locator('#mod_quiz_navblock .bmc-study-assist'),
+    ).toHaveCount(1);
+    await panel
+      .getByRole('button', { name: 'Place Resistance in series on screen' })
+      .click();
+    await page.getByRole('button', { name: 'Close', exact: true }).click();
+    const card = page.getByRole('region', {
+      name: 'Resistance in series reference',
+    });
+    await expect(card).toBeVisible();
+    await expect(
+      page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
+    const handle = card.getByRole('button', {
+      name: 'Move Resistance in series',
+      exact: true,
+    });
+    const before = (await card.boundingBox())!;
+    const grip = (await handle.boundingBox())!;
+    await page.mouse.move(grip.x + 30, grip.y + 20);
+    await page.mouse.down();
+    await page.mouse.move(grip.x + 60, grip.y + 100, { steps: 8 });
+    await page.mouse.up();
+    await expect
+      .poll(async () => (await card.boundingBox())!.x)
+      .toBeCloseTo(before.x + 30, 0);
+    await page.locator('#responseform').evaluate((el) =>
+      el.addEventListener('submit', (event) => {
+        event.preventDefault();
+        (el as HTMLElement).dataset.submitted = 'true';
+      }),
+    );
+    await page.locator('#answer').fill('9.1');
+    await page.getByRole('button', { name: 'Check', exact: true }).click();
+    await expect(page.locator('#responseform')).toHaveAttribute(
+      'data-submitted',
+      'true',
+    );
+    await page
+      .locator('#block-region-side-pre')
+      .evaluate((el) => ((el as HTMLElement).hidden = true));
+    await expect(card).toBeVisible();
+    await page
+      .locator('#block-region-side-pre')
+      .evaluate((el) => ((el as HTMLElement).hidden = false));
+    await page.locator('#mod_quiz_navblock').evaluate((el) => {
+      const copy = el.cloneNode(true) as Element;
+      copy.querySelector('.bmc-study-assist')?.remove();
+      el.replaceWith(copy);
+    });
+    await expect(
+      page.getByRole('button', { name: 'Study Assist', exact: true }),
+    ).toHaveCount(1);
+    await page
+      .locator('.que')
+      .evaluate((el) => el.replaceWith(el.cloneNode(true)));
+    await expect(card).toBeVisible();
+    await page.screenshot({ path: 'test-results/assist-formulas-closed.png' });
+    await page
+      .locator('#block-region-side-pre')
+      .screenshot({ path: 'test-results/assist-sidebar.png' });
+    const reopened = await workspace(page);
+    await reopened
+      .getByRole('button', { name: 'Place Resistance in series on screen' })
+      .click();
+    await expect(page.locator('.bmc-formula-card')).toHaveCount(1);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.bmc-drawing-tools')).toHaveCount(0);
+    await page.keyboard.press('Escape');
+    await expect(card).toBeVisible();
+    await card
+      .getByRole('button', { name: 'Remove Resistance in series from screen' })
+      .click();
+    await expect(card).toHaveCount(0);
+    expect(errors).toEqual([]);
+    expect(unexpected).toEqual([]);
+  } finally {
+    await browser.close();
+  }
+});
 
 test('personal formulas can be searched across subjects, saved, edited and placed as draggable temporary references', async () => {
   const { browser, open, errors, unexpected } = await formulaFixture();
@@ -162,7 +250,7 @@ test('personal formulas can be searched across subjects, saved, edited and place
       .getByRole('button', { name: 'Delete Energy of motion' })
       .click();
     await panel.getByRole('button', { name: 'Delete', exact: true }).click();
-    await expect(page.locator('.bmc-formula-card')).toHaveCount(0);
+    await expect(page.locator('.bmc-formula-card')).toHaveCount(1);
     await expect(
       secondPanel.getByRole('button', {
         name: 'Place Energy of motion on screen',
@@ -170,14 +258,31 @@ test('personal formulas can be searched across subjects, saved, edited and place
     ).toHaveCount(0);
     await expect(secondPanel).toContainText('No matching titles');
     await page.getByRole('button', { name: 'Close', exact: true }).click();
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(0);
+    await expect(
+      page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
+    await expect(page.locator('.bmc-formula-card')).toBeVisible();
+    const remainingHandle = page.getByRole('button', {
+      name: 'Move Energy of motion',
+      exact: true,
+    });
+    const closedPosition = (await page
+      .locator('.bmc-formula-card')
+      .boundingBox())!;
+    await remainingHandle.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect
+      .poll(
+        async () => (await page.locator('.bmc-formula-card').boundingBox())!.x,
+      )
+      .toBeCloseTo(closedPosition.x + 10, 0);
     expect(
       await page.evaluate(
         () =>
           [...document.fonts].filter((f) => f.family.startsWith('BMC_KaTeX_'))
             .length,
       ),
-    ).toBe(0);
+    ).toBeGreaterThan(0);
     const stored = await page.evaluate(() =>
       JSON.parse(localStorage.getItem('local:betterMyCourses.formulaLibrary')!),
     );
@@ -188,13 +293,16 @@ test('personal formulas can be searched across subjects, saved, edited and place
     expect(
       await page.locator('#responseform').evaluate((el) => {
         const copy = el.cloneNode(true) as Element;
-        copy.querySelector('.bmc-study-assist')?.remove();
         for (const empty of copy.querySelectorAll('[style=""]'))
           empty.removeAttribute('style');
         return copy.innerHTML;
       }),
     ).toBe(original);
     const reopened = await workspace(page);
+    await expect(page.locator('.bmc-formula-card')).toHaveCount(1);
+    await page
+      .getByRole('button', { name: 'Remove Energy of motion from screen' })
+      .click();
     await expect(page.locator('.bmc-formula-card')).toHaveCount(0);
     await expect(
       reopened
@@ -213,7 +321,9 @@ test('formula validation and storage failures retain drafts; simultaneous tabs r
   const { browser, open, errors, unexpected } = await formulaFixture();
   try {
     const { page } = await open();
-    await page.locator('.bmc-study-assist summary').click();
+    await page
+      .getByRole('button', { name: 'Study Assist', exact: true })
+      .click();
     await page.evaluate(
       () => (document.documentElement.dataset.failRead = 'true'),
     );

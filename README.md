@@ -6,7 +6,7 @@ Independent project; not an official Aalto University product.
 
 ## Install in Brave, Chrome or Edge
 
-1. Download **better-mycourses-1.11.1-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
+1. Download **better-mycourses-1.12.0-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
 2. Extract the ZIP into a permanent folder. Find the folder containing `manifest.json`.
 3. Open `brave://extensions`, `chrome://extensions` or `edge://extensions` and enable **Developer mode**.
 4. Choose **Load unpacked** and select that folder.
@@ -14,9 +14,9 @@ Independent project; not an official Aalto University product.
 
 For a source build, load `.output/chrome-mv3` after running `npm run build`.
 
-To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.11.1**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place. Version 1.11.1 fixes the encoding error that prevented 1.11.0 from loading.
+To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.12.0**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place. The encoding fix introduced in 1.11.1 is retained.
 
-The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turning it off restores the native theme. **Study Assist** is a separate, optional switch; turn it off to remove its question drawers. There is no browser-store listing yet.
+The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turning it off restores the native theme. **Study Assist** is a separate, optional switch; turn it off to remove its sidebar launcher, tools and placed references. There is no browser-store listing yet.
 
 ## Features
 
@@ -32,8 +32,8 @@ The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turni
 - Adaptive multiple-choice feedback uses the site's latest grading badge, including questions with a neutral overall state.
 - Compact dark quiz timer with a larger selected-color countdown, Hide/Show inside the panel, and native deadline urgency preserved.
 - Optional **Study Assist** in quiz attempts/reviews: Drawing and Formulas tabs, pen colors, stroke size, eraser, undo, clear and Browse mode. Off by default; works with either theme.
-- Personal formula library with subjects, global title search, live LaTeX previews, editing and deletion. Calculus and resistor starter references are included. Click a formula to place a draggable reference on screen; closing clears ink and placed cards while retaining the saved library.
-- Pure-black course-title panels and a consistent dark course navigation bar; Home retains its translucent photo overlay.
+- Personal formula library with subjects, global title search, live LaTeX previews, editing and deletion. Calculus and resistor starter references are included. Click a formula to place a draggable reference on screen; closing the tools clears ink while formulas stay until their X is clicked.
+- Pure-black course-title and breadcrumb backing, readable breadcrumb text, and a consistent dark course navigation bar; Home retains its translucent photo overlay.
 - Responsive Home banner and news panels, selected-color details and a translucent black title backing.
 - Separate Home/Dashboard banner settings: Original image, My image or Plain black.
 - Local banner editor with Fill/Fit/Stretch, drag framing, zoom, keyboard sliders, save/discard/reset and independent page drafts.
@@ -43,7 +43,7 @@ Banner uploads accept PNG, JPEG or WebP up to 10 MB. Images are decoded and re-e
 
 ## Study Assist
 
-Enable **Study Assist** in the extension popup, then open **Study Assist** below a quiz question. The floating toolbar has **Drawing** and **Formulas** tabs. It stays reachable while scrolling. Use a mouse, touch or pen to sketch over diagrams or work through a calculation.
+Enable **Study Assist** in the extension popup, then use **Study Assist** in the quiz side panel, below its native navigation/finish controls. There is one launcher per quiz page; no controls are added under questions. The floating toolbar has **Drawing** and **Formulas** tabs. It stays reachable while scrolling. Use a mouse, touch or pen to sketch over diagrams or work through a calculation.
 
 - **Pen**: your chosen extension color by default, presets, a custom color picker and adjustable 2–16px stroke size.
 - **Eraser** removes only your ink; **Undo** reverses the last stroke or erasure; **Clear** removes all ink.
@@ -51,9 +51,10 @@ Enable **Study Assist** in the extension popup, then open **Study Assist** below
 - **Formulas** starts with Math and Electrical Engineering subjects. Select a subject to browse, or search a title across every subject. **Add subject** creates your own category; select it to rename or delete it.
 - **Add formula** saves a title, subject and math LaTeX, with a live preview and syntax errors before saving. Enter `R_{\mathrm{eq}}=R_1+R_2` without `$` delimiters. Use each formula's edit/delete actions to maintain your library. Deleting a subject also deletes its formulas after confirmation.
 - Click a formula to place it on screen. Drag its title with a mouse, pen or touch; a focused title also accepts arrow keys (10px, or 1px with Shift). Up to eight references can stay visible while scrolling. Remove a card with its X action. Switching tabs retains ink and cards; Formulas lets you interact with the page.
-- **Close**, Escape, collapsing the drawer, opening another question's drawer, disabling Study Assist or leaving the page clears the drawings and placed cards. Reopening starts with a blank screen and your saved library. Escape within an editor first cancels that edit.
+- **Close**, Escape or the sidebar launcher closes the tools and clears drawings. Placed formulas remain visible and draggable; use each card's **X** to remove it. Reopening retains placed cards and starts with blank ink. Escape within an editor first cancels that edit. Native sidebar/question updates and deleting a saved formula do not dismiss its already placed reference.
+- Disabling Study Assist or leaving/reloading the page removes the temporary overlay. The saved formula library remains on this device.
 
-Only one workspace is active per tab. Ink follows the question while the page scrolls and resizes; cards stay within the visible viewport. Neither ink nor card positions are saved, synced, exported or sent to a service. Your subjects, titles and LaTeX are saved locally in this browser profile, shared by its MyCourses tabs. The library supports up to 60 subjects and 500 formulas (60-character subject names, 100-character titles, 2048-character LaTeX). It is a reference library with formatting checks; it does not solve, validate numerical answers or fetch quiz answers. Native grading, timers and submission behavior are unchanged.
+Only one drawing/tools session is active per tab, with a separate page-owned reference layer. Ink follows the quiz's main content while scrolling/resizing; cards stay within the visible viewport. Neither ink nor card positions are saved, synced, exported or sent to a service. Your subjects, titles and LaTeX are saved locally in this browser profile, shared by its MyCourses tabs. The library supports up to 60 subjects and 500 formulas (60-character subject names, 100-character titles, 2048-character LaTeX). It is a reference library with formatting checks; it does not solve, validate numerical answers or fetch quiz answers. Native grading, timers and submission behavior are unchanged.
 
 ## Privacy and permissions
 
@@ -66,7 +67,7 @@ The production Manifest V3 extension requests only:
 
 No background worker, analytics, telemetry, remote runtime code, remote fonts, external runtime requests, cookie/history access or course-content storage. Fonts are packaged and exposed only to MyCourses. Browser-managed sync applies only to the small theme/color/Study Assist preferences. MyCourses' own network behavior is unchanged.
 
-The content script uses bounded, reversible DOM enhancements for Home and legacy title panels, plus a ResizeObserver on the active custom banner. When explicitly enabled, Study Assist observes only the quiz form/main region to maintain drawers after native updates. Opening a drawer creates a transparent viewport canvas and toolbar. Pointer coordinates, colors, stroke widths and placed cards remain in page memory; history is bounded and removed on close/disable. Scroll/resize listeners and workspace/card ResizeObservers exist only while it is open and are removed on close. Formula storage contains only library metadata and user-entered titles/LaTeX; updates are coordinated between tabs. KaTeX, its styles and fonts are bundled locally and isolated from the site's own math. No question text, student answer values, hidden answer payloads or page image pixels are inspected. There is no document-wide observer or polling. The ZIP contains only the production extension; source, tests, references and development tools stay outside it.
+The content script uses bounded, reversible DOM enhancements for Home and legacy title panels, plus a ResizeObserver on the active custom banner. When enabled, Study Assist observes only the quiz sidebar's structure to maintain its one launcher. Question markup is untouched. Opening tools creates a transparent viewport canvas; its stroke history, scroll/resize listeners and main-content ResizeObserver are removed on close. The independent reference layer keeps card resize/viewport listeners and scoped math fonts until disable/page exit, so cards stay interactive after tools close. Formula storage contains only library metadata and user-entered titles/LaTeX; updates are coordinated between tabs. KaTeX, its styles and fonts are bundled locally and isolated from the site's own math. No question text, student answer values, hidden answer payloads or page image pixels are inspected. There is no document-wide observer or polling. The ZIP contains only the production extension; source, tests, references and development tools stay outside it.
 
 ## Development
 
@@ -90,7 +91,7 @@ npm run test:theme
 npm run zip
 ```
 
-`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.11.1-chrome.zip`. Both commands automatically run `verify:package`, which rejects malformed UTF-8 and literal Unicode noncharacters in generated text files, matching Chromium's stricter extension-loader check. The code generator escapes non-ASCII literals while preserving their runtime values. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
+`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.12.0-chrome.zip`. Both commands automatically run `verify:package`, which rejects malformed UTF-8 and literal Unicode noncharacters in generated text files, matching Chromium's stricter extension-loader check. The code generator escapes non-ASCII literals while preserving their runtime values. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
 
 Install Playwright Chromium for browser tests:
 

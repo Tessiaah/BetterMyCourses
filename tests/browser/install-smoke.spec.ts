@@ -1,6 +1,7 @@
 import { test, expect, chromium, type BrowserContext } from '@playwright/test';
 import { mkdir, mkdtemp, rm } from 'node:fs/promises';
 import path from 'node:path';
+import { withQuizSidebar } from './quiz-sidebar';
 
 test('actual unpacked extension loads, renders formulas and retains its library after browser restart', async () => {
   const root = path.resolve('.tools/browser-profiles');
@@ -32,7 +33,9 @@ test('actual unpacked extension loads, renders formulas and retains its library 
     await context.route('https://mycourses.aalto.fi/**', (route) =>
       route.fulfill({
         contentType: 'text/html',
-        body: '<!doctype html><html><body class="path-mod-quiz" id="page-mod-quiz-attempt"><main id="region-main"><form id="responseform"><div class="que numerical"><div class="content"><div class="formulation"><p>Fixture question</p><label>Answer <input value="8.5"></label><button type="submit">Check</button></div></div></div></form></main></body></html>',
+        body: withQuizSidebar(
+          '<!doctype html><html><body class="path-mod-quiz" id="page-mod-quiz-attempt"><main id="region-main"><form id="responseform"><div class="que numerical"><div class="content"><div class="formulation"><p>Fixture question</p><label>Answer <input value="8.5"></label><button type="submit">Check</button></div></div></div></form></main></body></html>',
+        ),
       }),
     );
     const manager = await context.newPage();
@@ -71,7 +74,9 @@ test('actual unpacked extension loads, renders formulas and retains its library 
   try {
     const first = await launch();
     await first.popup.getByRole('switch', { name: 'Study Assist' }).click();
-    await first.page.locator('.bmc-study-assist summary').click();
+    await first.page
+      .getByRole('button', { name: 'Study Assist', exact: true })
+      .click();
     await first.page
       .getByRole('tab', { name: 'Formulas', exact: true })
       .click();
@@ -115,7 +120,9 @@ test('actual unpacked extension loads, renders formulas and retains its library 
     await expect(
       restarted.popup.getByRole('switch', { name: 'Study Assist' }),
     ).toHaveAttribute('aria-checked', 'true');
-    await restarted.page.locator('.bmc-study-assist summary').click();
+    await restarted.page
+      .getByRole('button', { name: 'Study Assist', exact: true })
+      .click();
     await restarted.page
       .getByRole('tab', { name: 'Formulas', exact: true })
       .click();
@@ -135,7 +142,16 @@ test('actual unpacked extension loads, renders formulas and retains its library 
     await restarted.page
       .getByRole('button', { name: 'Close', exact: true })
       .click();
-    await expect(restarted.page.locator('.bmc-drawing-surface')).toHaveCount(0);
+    await expect(
+      restarted.page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
+    await expect(restarted.page.locator('.bmc-formula-card')).toBeVisible();
+    await restarted.page
+      .getByRole('button', {
+        name: 'Remove Saved install reference from screen',
+      })
+      .click();
+    await expect(restarted.page.locator('.bmc-formula-card')).toHaveCount(0);
     expect(restarted.errors).toEqual([]);
   } finally {
     await context?.close();

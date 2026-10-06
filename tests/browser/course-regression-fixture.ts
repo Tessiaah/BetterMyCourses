@@ -16,6 +16,7 @@ export function courseRegressionFixture(kind: 'course' | 'quiz' | 'courses') {
     body{margin:0}.main-inner{max-width:1100px;margin:auto;padding:24px}
     #page-header{background-image:url('${diagram}');padding:24px}
     #legacy-title{background-color:rgba(255,255,255,.85)!important}
+    .breadcrumb{background-color:#202020!important}.breadcrumb-item{background-color:#303030!important}
     .course-section{padding:16px 12px}.summary,.generalbox{padding:12px 16px;margin:16px 8px;line-height:1.5}
     .activity-item{padding:12px;margin:8px;border:0;border-radius:0}
     .icon{font-family:'Font Awesome 6 Free';font-size:16px}

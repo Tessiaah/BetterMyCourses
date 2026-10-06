@@ -6,9 +6,8 @@ import trash from '@phosphor-icons/core/assets/regular/trash.svg?raw';
 import x from '@phosphor-icons/core/assets/regular/x.svg?raw';
 import books from '@phosphor-icons/core/assets/regular/books.svg?raw';
 import { assistButton as button } from './assist-ui';
-import { createFormulaRenderer } from './formula-renderer';
 import { createFormulaPanel } from './formula-panel';
-import { createFormulaPins } from './formula-pins';
+import type { AssistWorkspace } from './assist-workspace';
 
 type Tool = 'pen' | 'eraser' | 'browse';
 type Point = { x: number; y: number };
@@ -19,14 +18,14 @@ type Stroke = {
   points: Point[];
 };
 
-/** One ephemeral viewport canvas. Coordinates follow the selected question. */
+/** One ephemeral viewport canvas. Coordinates follow the quiz's main content. */
 export function createDrawingSurface(
   anchor: HTMLElement,
   onClose: () => void,
   accent: string,
+  workspace: AssistWorkspace,
 ) {
-  const root = document.createElement('div');
-  root.className = 'bmc-drawing-surface';
+  const root = workspace.element;
   const canvas = document.createElement('canvas');
   canvas.className = 'bmc-drawing-canvas';
   canvas.setAttribute('aria-hidden', 'true');
@@ -39,7 +38,8 @@ export function createDrawingSurface(
   const heading = document.createElement('h2');
   heading.textContent = 'Study Assist';
   const close = button('Close', x);
-  close.title = 'Close and clear drawings and placed formulas (Escape)';
+  close.title =
+    'Close tools and clear drawings. Formulas stay on screen. (Escape)';
   close.addEventListener('click', onClose);
   header.append(heading, close);
 
@@ -140,7 +140,6 @@ export function createDrawingSurface(
   tablist.append(drawingTab, formulaTab);
   panel.append(header, tablist, drawingPage, formulaPage);
   root.append(canvas, panel);
-  document.body.append(root);
 
   const strokes: Stroke[] = [];
   let tool: Tool = 'pen';
@@ -149,8 +148,6 @@ export function createDrawingSurface(
   let frame = 0;
   let disposed = false;
   let formulaPanel: ReturnType<typeof createFormulaPanel> | undefined;
-  let formulaPins: ReturnType<typeof createFormulaPins> | undefined;
-  let formulaRenderer: ReturnType<typeof createFormulaRenderer> | undefined;
   // Bounded in-memory history; nothing is written to storage or sent anywhere.
   const maxStrokes = 300;
   const maxPoints = 40000;
@@ -170,18 +167,17 @@ export function createDrawingSurface(
     selectTool(formulas ? 'browse' : 'pen');
     if (formulas) {
       if (!formulaPanel) {
-        formulaRenderer = createFormulaRenderer();
-        formulaPins = createFormulaPins(root, formulaRenderer);
+        const references = workspace.formulas();
         formulaPanel = createFormulaPanel(
-          formulaRenderer,
-          (formula, subject) => formulaPins!.add(formula, subject),
-          (library) => formulaPins!.refresh(library),
+          references.renderer,
+          (formula, subject) => references.pins.add(formula, subject),
+          (library) => references.pins.refresh(library),
         );
         formulaPage.append(formulaPanel.element);
       }
       formulaPanel.focus();
     }
-    formulaPins?.layout();
+    workspace.layout();
   }
   drawingTab.addEventListener('click', () => selectPage(false));
   formulaTab.addEventListener('click', () => selectPage(true));
@@ -298,11 +294,6 @@ export function createDrawingSurface(
     const viewport = window.visualViewport;
     const viewWidth = viewport?.width ?? innerWidth;
     const viewHeight = viewport?.height ?? innerHeight;
-    root.style.width = viewWidth + 'px';
-    root.style.height = viewHeight + 'px';
-    root.style.left = (viewport?.offsetLeft ?? 0) + 'px';
-    root.style.top = (viewport?.offsetTop ?? 0) + 'px';
-    formulaPins?.layout();
     const scale = Math.min(
       devicePixelRatio || 1,
       2,
@@ -362,7 +353,6 @@ export function createDrawingSurface(
     passive: true,
   });
   document.addEventListener('keydown', keydown);
-  window.addEventListener('pagehide', onClose);
   const resize = new ResizeObserver(schedule);
   resize.observe(anchor);
   resize.observe(panel);
@@ -384,17 +374,16 @@ export function createDrawingSurface(
       cancelAnimationFrame(frame);
       resize.disconnect();
       formulaPanel?.dispose();
-      formulaPins?.dispose();
-      formulaRenderer?.dispose();
       document.removeEventListener('scroll', schedule, true);
       window.removeEventListener('resize', schedule);
       window.visualViewport?.removeEventListener('resize', schedule);
       window.visualViewport?.removeEventListener('scroll', schedule);
       document.removeEventListener('keydown', keydown);
-      window.removeEventListener('pagehide', onClose);
       strokes.length = 0;
       canvas.width = canvas.height = 0;
-      root.remove();
+      canvas.remove();
+      panel.remove();
+      workspace.layout();
     },
   };
 }

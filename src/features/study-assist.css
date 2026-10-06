@@ -1,29 +1,31 @@
 /* Independent opt-in; native light theme has its own readable fallbacks. */
 html[data-bmc-study-assist='on'] .bmc-study-assist {
-  margin-block: 20px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  inline-size: 100%;
+  min-block-size: 44px;
+  margin-block: 16px 0;
+  padding: 12px 16px;
   border: 1px solid var(--bmc-border, #adb5bd);
   border-radius: 8px;
   background: var(--bmc-control, #fff);
-  color: var(--bmc-text, #212529);
-  overflow: hidden;
-}
-html[data-bmc-study-assist='on'] .bmc-study-assist > summary {
-  padding: 12px 16px;
-  min-block-size: 44px;
   cursor: pointer;
   color: var(--bmc-link, #005a9c);
+  font: inherit;
   font-weight: 550;
   line-height: 1.5;
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist > summary:hover {
+html[data-bmc-study-assist='on'] .bmc-study-assist:hover,
+html[data-bmc-study-assist='on'] .bmc-study-assist[aria-expanded='true'] {
   background-color: var(--bmc-hover, #f0f1f2);
 }
-html[data-bmc-study-assist='on'] .bmc-study-assist > p {
-  margin: 0;
-  padding: 0 16px 16px;
-  color: var(--bmc-secondary, #495057);
-  font-size: 0.875rem;
-  line-height: 1.6;
+html[data-bmc-study-assist='on'] .bmc-study-assist svg {
+  display: block;
+  inline-size: 18px;
+  block-size: 18px;
+  fill: currentColor;
 }
 html[data-bmc-study-assist='on'] .bmc-drawing-surface {
   position: fixed;
@@ -172,7 +174,7 @@ html[data-bmc-study-assist='on'] .bmc-drawing-status {
 }
 html[data-bmc-study-assist='on']
   :is(
-    .bmc-study-assist > summary,
+    .bmc-study-assist,
     .bmc-drawing-tools button,
     .bmc-drawing-tools input
   ):focus-visible {

@@ -169,7 +169,7 @@ export function createFormulaPins(
           (s) => s.id === formula?.subjectId,
         );
         if (!formula || !subject) {
-          remove(id);
+          // A placed reference is the student's snapshot until its X is used.
           continue;
         }
         const text = pin.handle.lastChild;

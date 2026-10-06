@@ -1,6 +1,7 @@
 import { test, expect, chromium, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { withQuizSidebar } from './quiz-sidebar';
 
 const fixture =
   '<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/bootstrap.css"><style>body{margin:0}main{max-width:980px;margin:auto;padding:24px}.que{margin:24px 0}.info,.formulation,.outcome{padding:16px}.content{border:1px solid #aaa}#scroll-page{height:1200px}</style></head><body class="path-mod-quiz" id="page-mod-quiz-review"><main id="region-main"><h1>Quiz workspace</h1><form id="responseform"><div class="que multichoice adaptive answersaved" id="first"><div class="info">Question 1</div><div class="content"><div class="formulation"><p>Choose an answer.</p><label><input type="radio" id="answer" name="answer" value="b" checked> Second answer</label><button type="submit" class="btn btn-secondary">Check</button></div><div class="outcome"><div class="feedback"><div class="specificfeedback">Your answer is correct.</div><div class="rightanswer">Released reference answer must not be copied.</div></div><div class="im-feedback"><span class="correctness correct badge">Correct</span></div></div></div></div><div class="que numerical" id="second"><div class="info">Question 2</div><div class="content"><div class="formulation"><label>Value <input id="numeric" name="numeric" type="text" value="8.5"></label></div></div></div></form><div id="scroll-page"></div></main></body></html>';
@@ -70,7 +71,10 @@ async function setup(options = {}) {
         /^\/mod\/quiz\/(attempt|review)\.php$/.test(url.pathname) ||
         url.pathname === '/course/view.php'
       )
-        return route.fulfill({ contentType: 'text/html', body: fixture });
+        return route.fulfill({
+          contentType: 'text/html',
+          body: withQuizSidebar(fixture),
+        });
       if (url.pathname === '/bootstrap.css')
         return route.fulfill({
           contentType: 'text/css',
@@ -134,7 +138,7 @@ async function pixel(page: Page, x: number, y: number) {
   );
 }
 
-test('Study Assist replaces feedback with ephemeral drawing tools, preserves native grading and cleans up across settings changes', async () => {
+test('quiz-sidebar Study Assist preserves native forms, drawings and sidebar lifecycle', async () => {
   const { browser, context, open, errors, unexpected } = await setup();
   try {
     const page = await open();
@@ -176,12 +180,19 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
     );
     await toggle.click();
     for (const tab of [page, secondTab])
-      await expect(tab.locator('.bmc-study-assist')).toHaveCount(2);
+      await expect(tab.locator('.bmc-study-assist')).toHaveCount(1);
     expect(
       (await page.locator('.bmc-study-assist').allTextContents()).join(''),
     ).not.toContain('Released reference');
-    const drawer = page.locator('#first .bmc-study-assist');
-    await drawer.locator('summary').focus();
+    const drawer = page.getByRole('button', {
+      name: 'Study Assist',
+      exact: true,
+    });
+    await expect(page.locator('.que .bmc-study-assist')).toHaveCount(0);
+    await expect(
+      page.locator('#mod_quiz_navblock .bmc-study-assist'),
+    ).toHaveCount(1);
+    await drawer.focus();
     await page.keyboard.press('Enter');
     const toolbar = page.getByRole('region', { name: 'Drawing tools' });
     await expect(toolbar).toBeVisible();
@@ -194,7 +205,7 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
     await toolbar
       .getByRole('button', { name: 'Rose pen color', exact: true })
       .click();
-    const initialAnchor = (await page.locator('#first').boundingBox())!;
+    const initialAnchor = (await page.locator('#region-main').boundingBox())!;
     await page.mouse.move(200, 190);
     await page.mouse.down();
     await page.mouse.move(300, 190, { steps: 12 });
@@ -237,8 +248,8 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
       .toEqual([231, 149, 152, 255]);
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.setViewportSize({ width: 1000, height: 1000 });
-    // Question layout can reflow with the viewport; ink follows its anchor.
-    const resizedAnchor = (await page.locator('#first').boundingBox())!;
+    // The page workspace follows its main-content anchor when the viewport changes.
+    const resizedAnchor = (await page.locator('#region-main').boundingBox())!;
     await expect
       .poll(() =>
         pixel(
@@ -250,10 +261,12 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
       .toEqual([231, 149, 152, 255]);
     await page.screenshot({ path: 'test-results/drawing-desktop.png' });
     await toolbar.getByRole('button', { name: 'Close', exact: true }).click();
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(0);
-    await expect(drawer).not.toHaveAttribute('open');
-    await expect(drawer.locator('summary')).toBeFocused();
-    await drawer.locator('summary').click();
+    await expect(
+      page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
+    await expect(drawer).toHaveAttribute('aria-expanded', 'false');
+    await expect(drawer).toBeFocused();
+    await drawer.click();
     await expect
       .poll(
         async () =>
@@ -267,32 +280,36 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
       )
       .toBe(0);
     await toolbar.getByRole('button', { name: 'Browse', exact: true }).click();
-    await page.locator('#second .bmc-study-assist summary').click();
-    await expect(drawer).not.toHaveAttribute('open');
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(1);
-    await page.locator('#second').evaluate((el) => {
+    await page
+      .locator('#second')
+      .evaluate((el) => el.replaceWith(el.cloneNode(true)));
+    await expect(page.locator('.bmc-drawing-canvas')).toHaveCount(1);
+    await expect(page.locator('.que .bmc-study-assist')).toHaveCount(0);
+    await page.locator('#mod_quiz_navblock .content').evaluate((el) => {
       const copy = el.cloneNode(true) as Element;
       copy.querySelector('.bmc-study-assist')?.remove();
       el.replaceWith(copy);
     });
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(0);
-    await expect(page.locator('#second .bmc-study-assist')).toHaveCount(1);
-    await page.locator('#first .bmc-study-assist summary').click();
-    await toolbar.getByRole('button', { name: 'Browse', exact: true }).click();
-    await drawer.locator('summary').click();
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(0);
+    await expect(drawer).toHaveCount(1);
+    await expect(drawer).toHaveAttribute('aria-expanded', 'true');
+    await drawer.click();
+    await expect(
+      page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
     await popup.getByRole('button', { name: 'Sage', exact: true }).click();
     await popup.getByRole('switch', { name: 'Dark theme' }).click();
     await expect(page.locator('html')).not.toHaveAttribute(
       'data-better-my-courses',
     );
-    await drawer.locator('summary').click();
+    await drawer.click();
     await expect(toolbar).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     await expect(toolbar.getByLabel('Pen color', { exact: true })).toHaveValue(
       '#a8c7b5',
     );
     await page.keyboard.press('Escape');
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(0);
+    await expect(
+      page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
     await popup.reload();
     await expect(toggle).toHaveAttribute('aria-checked', 'true');
     await popup.evaluate(
@@ -306,7 +323,7 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
     await popup.evaluate(
       () => delete document.documentElement.dataset.failSave,
     );
-    await drawer.locator('summary').click();
+    await drawer.click();
     await expect(toolbar).toBeVisible();
     await toggle.click();
     for (const tab of [page, secondTab]) {
@@ -359,7 +376,9 @@ test('drawing supports touch, custom color, size, clear and phone controls witho
     );
     await page.addStyleTag({ content: css });
     await page.addScriptTag({ content: js });
-    await page.locator('#first .bmc-study-assist summary').click();
+    await page
+      .getByRole('button', { name: 'Study Assist', exact: true })
+      .click();
     const toolbar = page.getByRole('region', { name: 'Drawing tools' });
     await expect(toolbar).toBeVisible();
     const color = toolbar.getByLabel('Pen color', { exact: true });
@@ -402,7 +421,9 @@ test('drawing supports touch, custom color, size, clear and phone controls witho
       toolbar.getByRole('button', { name: 'Undo', exact: true }),
     ).toBeDisabled();
     await toolbar.getByRole('button', { name: 'Close', exact: true }).click();
-    await expect(page.locator('.bmc-drawing-surface')).toHaveCount(0);
+    await expect(
+      page.locator('.bmc-drawing-canvas, .bmc-drawing-tools'),
+    ).toHaveCount(0);
     const stored = await page.evaluate(() =>
       localStorage.getItem('betterMyCourses.settings'),
     );

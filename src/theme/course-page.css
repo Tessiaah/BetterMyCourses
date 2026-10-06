@@ -102,6 +102,18 @@ html[data-better-my-courses='dark']
 /* Only the requested activity title/separator/intro rhythm is adjusted.
    Weekly course structure and activity placements keep their native layout. */
 html[data-better-my-courses='dark']
+  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    #page-header,
+    #course-header,
+    .course-header,
+    .contextpage-context-header-content,
+    [data-bmc-course-title-panel]
+  )
+  :is(.breadcrumb, .breadcrumb-item) {
+  background-color: var(--bmc-page) !important;
+}
+html[data-better-my-courses='dark']
   :is(.path-mod, [id^='page-mod-'])
   #page-header {
   margin-bottom: 24px;
