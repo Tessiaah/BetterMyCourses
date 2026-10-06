@@ -12,7 +12,11 @@ export default defineConfig({
     host_permissions: ['https://mycourses.aalto.fi/*'],
     web_accessible_resources: [
       {
-        resources: ['fonts/lexend-variable.ttf', 'fonts/rubik-variable.ttf'],
+        resources: [
+          'fonts/lexend-variable.ttf',
+          'fonts/rubik-variable.ttf',
+          'fonts/katex/*.woff2',
+        ],
         matches: ['https://mycourses.aalto.fi/*'],
       },
     ],

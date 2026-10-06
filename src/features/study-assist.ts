@@ -2,7 +2,7 @@ import { createDrawingSurface } from './drawing-surface';
 
 const DRAWER_CLASS = 'bmc-study-assist';
 
-/** Optional drawing drawers. No question content or released answers are read. */
+/** Optional drawing/formula workspace. No question text or released answers are read. */
 export function createStudyAssist() {
   const drawers = new Map<Element, HTMLDetailsElement>();
   let observer: MutationObserver | undefined;
@@ -41,10 +41,10 @@ export function createStudyAssist() {
       const drawer = document.createElement('details');
       drawer.className = DRAWER_CLASS;
       const summary = document.createElement('summary');
-      summary.textContent = 'Study Assist · Drawing';
+      summary.textContent = 'Study Assist';
       const note = document.createElement('p');
       note.textContent =
-        'Draw over the page. Use Browse to interact with it. Closing clears your drawings.';
+        'Draw or place formulas over the page. Closing clears drawings and cards; your formula library stays saved.';
       drawer.append(summary, note);
       drawer.addEventListener('toggle', () => {
         if (!enabled || !drawer.isConnected) return;

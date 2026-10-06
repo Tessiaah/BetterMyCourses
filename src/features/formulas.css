@@ -1,0 +1,250 @@
+/* Formula UI belongs to the existing opt-in workspace, independent of theme. */
+html[data-bmc-study-assist='on'] .bmc-assist-page[hidden],
+html[data-bmc-study-assist='on'] .bmc-formula-panel [hidden] {
+  display: none !important;
+}
+html[data-bmc-study-assist='on'] .bmc-assist-tabs {
+  display: flex;
+  gap: 8px;
+  margin-block-end: 16px;
+  padding-block-end: 12px;
+  border-bottom: 1px solid var(--bmc-line, #dee2e6);
+}
+html[data-bmc-study-assist='on'] .bmc-assist-tabs [aria-selected='true'] {
+  border-color: var(--bmc-link, #005a9c);
+  color: var(--bmc-link, #005a9c);
+  background: var(--bmc-hover, #e9ecef);
+}
+html[data-bmc-study-assist='on'] .bmc-formula-panel {
+  display: grid;
+  gap: 12px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-actions > select {
+  flex: 1 1 200px;
+  min-inline-size: 0;
+}
+html[data-bmc-study-assist='on']
+  .bmc-formula-panel
+  :is(input, select, textarea) {
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--bmc-quiz-field-edge, #868e96);
+  border-radius: 7px;
+  background: var(--bmc-quiz-field, #fff);
+  color: var(--bmc-text, #212529);
+  font: inherit;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-panel textarea {
+  resize: vertical;
+  max-block-size: 160px;
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-panel :is(h3, h4) {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: inherit;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-panel h4 {
+  font-size: 13px;
+  font-weight: 500;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-form {
+  display: grid;
+  gap: 12px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-form label {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  font-size: 13px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-editor:not(:empty) {
+  padding: 16px;
+  border: 1px solid var(--bmc-border, #adb5bd);
+  border-radius: 8px;
+  background: var(--bmc-panel, #f8f9fa);
+}
+/* Keep the edit task compact; Cancel returns to the same library view. */
+html[data-bmc-study-assist='on']
+  .bmc-formula-panel:has(.bmc-formula-editor:not(:empty))
+  > :is(input, .bmc-formula-actions, .bmc-formula-note, .bmc-formula-results) {
+  display: none;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-editor > p {
+  margin: 0 0 12px;
+}
+html[data-bmc-study-assist='on']
+  :is(
+    .bmc-formula-note,
+    .bmc-formula-count,
+    .bmc-formula-empty,
+    .bmc-formula-notice
+  ) {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--bmc-secondary, #495057);
+}
+html[data-bmc-study-assist='on'] .bmc-formula-notice:empty,
+html[data-bmc-study-assist='on'] .bmc-formula-error:empty {
+  display: none;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-error,
+html[data-bmc-study-assist='on'] .bmc-formula-notice[data-error='true'] {
+  margin: 0;
+  font-size: 12px;
+  color: var(--bmc-danger, #a92323);
+  overflow-wrap: anywhere;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-results {
+  display: grid;
+  gap: 8px;
+  max-block-size: 32dvh;
+  overflow: auto;
+  padding: 3px;
+  overscroll-behavior: contain;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  min-inline-size: 0;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-tools .bmc-formula-place {
+  flex: 1;
+  min-inline-size: 0;
+  display: grid;
+  justify-content: stretch;
+  text-align: start;
+  gap: 6px;
+  padding: 12px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-place strong {
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-category {
+  font-size: 11px;
+  color: var(--bmc-secondary, #495057);
+}
+html[data-bmc-study-assist='on'] .bmc-formula-row-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-row-actions button,
+html[data-bmc-study-assist='on']
+  .bmc-formula-actions
+  button.bmc-assist-icon-only {
+  inline-size: 44px;
+  padding: 8px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-math {
+  min-inline-size: 0;
+  overflow: auto;
+  padding-block: 4px;
+  font-size: 16px;
+  color: inherit;
+  line-height: 1.5;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-preview {
+  min-block-size: 52px;
+  padding: 12px;
+  border: 1px solid var(--bmc-line, #dee2e6);
+  border-radius: 6px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card {
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  inline-size: min(320px, calc(100% - 16px));
+  max-block-size: calc(100% - 16px);
+  padding: 12px;
+  border: 1px solid var(--bmc-link, #005a9c);
+  border-radius: 10px;
+  background: var(--bmc-control, #fff);
+  color: var(--bmc-text, #212529);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 16%);
+  pointer-events: auto;
+  overflow: auto;
+  font: 400 14px/1.5 var(--bmc-font, system-ui, sans-serif);
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card-header {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card-header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 44px;
+  margin: 0;
+  padding: 6px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card-header .bmc-formula-handle {
+  flex: 1;
+  min-inline-size: 0;
+  text-align: start;
+  font-weight: 550;
+  cursor: grab;
+  touch-action: none;
+  overflow-wrap: anywhere;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-handle:active {
+  cursor: grabbing;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card-header .bmc-formula-remove {
+  inline-size: 44px;
+  justify-content: center;
+  cursor: pointer;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card-header button:hover {
+  background: var(--bmc-hover, #e9ecef);
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card svg {
+  flex: 0 0 16px;
+  inline-size: 16px;
+  block-size: 16px;
+  fill: currentColor;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card-subject {
+  margin: 0 6px 8px;
+  color: var(--bmc-secondary, #495057);
+  font-size: 11px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card .bmc-formula-math {
+  padding: 8px 6px;
+}
+html[data-bmc-study-assist='on'] .bmc-formula-card button:focus-visible {
+  outline: 2px solid var(--bmc-link, #005a9c) !important;
+  outline-offset: 2px;
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-tools {
+  z-index: 2;
+}
+html[data-bmc-study-assist='on']
+  .bmc-drawing-tools:has(.bmc-assist-page:not([hidden]) .bmc-formula-panel) {
+  max-block-size: min(76dvh, calc(100% - 32px));
+}
+html[data-bmc-study-assist='on'] .bmc-drawing-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--bmc-control, #fff);
+}

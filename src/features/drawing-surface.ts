@@ -4,6 +4,11 @@ import hand from '@phosphor-icons/core/assets/regular/hand.svg?raw';
 import undoIcon from '@phosphor-icons/core/assets/regular/arrow-counter-clockwise.svg?raw';
 import trash from '@phosphor-icons/core/assets/regular/trash.svg?raw';
 import x from '@phosphor-icons/core/assets/regular/x.svg?raw';
+import books from '@phosphor-icons/core/assets/regular/books.svg?raw';
+import { assistButton as button } from './assist-ui';
+import { createFormulaRenderer } from './formula-renderer';
+import { createFormulaPanel } from './formula-panel';
+import { createFormulaPins } from './formula-pins';
 
 type Tool = 'pen' | 'eraser' | 'browse';
 type Point = { x: number; y: number };
@@ -13,17 +18,6 @@ type Stroke = {
   width: number;
   points: Point[];
 };
-
-function button(label: string, asset: string): HTMLButtonElement {
-  const element = document.createElement('button');
-  element.type = 'button';
-  const icon = document.createElement('span');
-  icon.setAttribute('aria-hidden', 'true');
-  // Trusted bundled Phosphor SVG, not site/user HTML.
-  icon.innerHTML = asset;
-  element.append(icon, document.createTextNode(label));
-  return element;
-}
 
 /** One ephemeral viewport canvas. Coordinates follow the selected question. */
 export function createDrawingSurface(
@@ -43,9 +37,9 @@ export function createDrawingSurface(
   const header = document.createElement('div');
   header.className = 'bmc-drawing-header';
   const heading = document.createElement('h2');
-  heading.textContent = 'Draw on this page';
+  heading.textContent = 'Study Assist';
   const close = button('Close', x);
-  close.title = 'Close and clear drawings (Escape)';
+  close.title = 'Close and clear drawings and placed formulas (Escape)';
   close.addEventListener('click', onClose);
   header.append(heading, close);
 
@@ -121,7 +115,30 @@ export function createDrawingSurface(
   status.className = 'bmc-drawing-status';
   status.setAttribute('role', 'status');
   footer.append(undo, clear, status);
-  panel.append(header, tools, controls, footer);
+  const tablist = document.createElement('div');
+  tablist.className = 'bmc-assist-tabs';
+  tablist.setAttribute('role', 'tablist');
+  tablist.setAttribute('aria-label', 'Study Assist tools');
+  const drawingTab = button('Drawing', pencil);
+  const formulaTab = button('Formulas', books);
+  const drawingPage = document.createElement('div');
+  const formulaPage = document.createElement('div');
+  const sessionId = 'bmc-assist-' + crypto.randomUUID();
+  for (const [tab, page, name] of [
+    [drawingTab, drawingPage, 'drawing'],
+    [formulaTab, formulaPage, 'formulas'],
+  ] as const) {
+    tab.setAttribute('role', 'tab');
+    tab.id = sessionId + '-' + name + '-tab';
+    page.className = 'bmc-assist-page';
+    page.id = sessionId + '-' + name;
+    page.setAttribute('role', 'tabpanel');
+    page.setAttribute('aria-labelledby', tab.id);
+    tab.setAttribute('aria-controls', page.id);
+  }
+  drawingPage.append(tools, controls, footer);
+  tablist.append(drawingTab, formulaTab);
+  panel.append(header, tablist, drawingPage, formulaPage);
   root.append(canvas, panel);
   document.body.append(root);
 
@@ -131,10 +148,53 @@ export function createDrawingSurface(
   let pointer: number | undefined;
   let frame = 0;
   let disposed = false;
+  let formulaPanel: ReturnType<typeof createFormulaPanel> | undefined;
+  let formulaPins: ReturnType<typeof createFormulaPins> | undefined;
+  let formulaRenderer: ReturnType<typeof createFormulaRenderer> | undefined;
   // Bounded in-memory history; nothing is written to storage or sent anywhere.
   const maxStrokes = 300;
   const maxPoints = 40000;
   let pointCount = 0;
+
+  function selectPage(formulas: boolean): void {
+    panel.setAttribute(
+      'aria-label',
+      formulas ? 'Formula tools' : 'Drawing tools',
+    );
+    drawingPage.hidden = formulas;
+    formulaPage.hidden = !formulas;
+    drawingTab.setAttribute('aria-selected', String(!formulas));
+    formulaTab.setAttribute('aria-selected', String(formulas));
+    drawingTab.tabIndex = formulas ? -1 : 0;
+    formulaTab.tabIndex = formulas ? 0 : -1;
+    selectTool(formulas ? 'browse' : 'pen');
+    if (formulas) {
+      if (!formulaPanel) {
+        formulaRenderer = createFormulaRenderer();
+        formulaPins = createFormulaPins(root, formulaRenderer);
+        formulaPanel = createFormulaPanel(
+          formulaRenderer,
+          (formula, subject) => formulaPins!.add(formula, subject),
+          (library) => formulaPins!.refresh(library),
+        );
+        formulaPage.append(formulaPanel.element);
+      }
+      formulaPanel.focus();
+    }
+    formulaPins?.layout();
+  }
+  drawingTab.addEventListener('click', () => selectPage(false));
+  formulaTab.addEventListener('click', () => selectPage(true));
+  tablist.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const formulas =
+      event.key === 'End' ||
+      (event.key !== 'Home' &&
+        drawingTab.getAttribute('aria-selected') === 'true');
+    selectPage(formulas);
+    (formulas ? formulaTab : drawingTab).focus();
+  });
 
   function sync(): void {
     for (const [mode, control] of modes)
@@ -242,6 +302,7 @@ export function createDrawingSurface(
     root.style.height = viewHeight + 'px';
     root.style.left = (viewport?.offsetLeft ?? 0) + 'px';
     root.style.top = (viewport?.offsetTop ?? 0) + 'px';
+    formulaPins?.layout();
     const scale = Math.min(
       devicePixelRatio || 1,
       2,
@@ -304,7 +365,9 @@ export function createDrawingSurface(
   window.addEventListener('pagehide', onClose);
   const resize = new ResizeObserver(schedule);
   resize.observe(anchor);
+  resize.observe(panel);
   sync();
+  selectPage(false);
   schedule();
   modes.get('pen')!.focus({ preventScroll: true });
   if (!context) {
@@ -320,6 +383,9 @@ export function createDrawingSurface(
       finish();
       cancelAnimationFrame(frame);
       resize.disconnect();
+      formulaPanel?.dispose();
+      formulaPins?.dispose();
+      formulaRenderer?.dispose();
       document.removeEventListener('scroll', schedule, true);
       window.removeEventListener('resize', schedule);
       window.visualViewport?.removeEventListener('resize', schedule);

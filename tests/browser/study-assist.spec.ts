@@ -172,7 +172,7 @@ test('Study Assist replaces feedback with ephemeral drawing tools, preserves nat
     const toggle = popup.getByRole('switch', { name: 'Study Assist' });
     await expect(toggle).toHaveAttribute('aria-checked', 'false');
     await expect(popup.locator('#study-assist-description')).toContainText(
-      'drawing',
+      'formula library',
     );
     await toggle.click();
     for (const tab of [page, secondTab])
