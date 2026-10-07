@@ -2,6 +2,16 @@
 
 Read this file first when working on BetterMyCourses. It is the project reference for development, implementation details, validation and maintenance. Keep README.md focused on the extension and its user-facing features; put future technical guidance here or in the linked project documentation.
 
+## Current maintenance notes
+
+Current extension version: **1.12.4**. Keep the user-facing README free of architecture explanations. The migrated README below is a historical reference; append new implementation and validation guidance here and in `docs/`.
+
+The banner editor defaults to **Match open page** when it finds the selected Home/Dashboard banner in this browser window. `src/utils/banner-geometry.ts` queries only matching MyCourses tabs and requests the known wrapper's padding-box width/height through an own-extension, top-frame message. It returns no image pixels, page content, URLs or user data. It adds no permissions, storage keys, worker, polling or document observer. The message listener is disposed with the content-script context. Missing/unloaded tabs fall back to explicitly estimated shapes; Refresh size and editor window focus update measurements.
+
+`bannerBox` is shared by the editor and live layout. The preview's aspect ratio applies to its content box, so its border does not change the crop. Native banner heights and existing image/crop settings are preserved. The latest live size is transient, and saved coordinates stay relative for responsive behavior. Avoid replacing this with fixed preview ratios or fixed live banner heights.
+
+`npm run test:banner` uses a real unpacked extension in an isolated browser profile, checking Home/Dashboard source-rectangle equivalence for Fill/Fit/Stretch, non-default framing, resizing, missing-page fallback and reload. Use the same signed Brave path as `test:install`. The existing theme fixture suite retains editor upload/drag/keyboard/storage-failure coverage. Detailed design/QA records are in `docs/`.
+
 The complete former README is preserved below. Version-specific notes describe the project at the time of migration.
 
 ---

@@ -61,10 +61,12 @@ header p,
   color: #b3b0aa;
 }
 #preview {
-  width: 100%;
+  box-sizing: content-box;
+  width: calc(100% - 2px);
   aspect-ratio: 4.8;
   background: #000;
   background-repeat: no-repeat;
+  background-origin: padding-box;
   border: 1px solid #343537;
   border-radius: 8px;
   overflow: hidden;
@@ -72,6 +74,13 @@ header p,
   place-items: center;
   touch-action: none;
   cursor: grab;
+}
+#preview-size {
+  margin-bottom: 12px;
+}
+#refresh-preview {
+  font-size: 12px;
+  min-height: 44px;
 }
 #preview:active {
   cursor: grabbing;

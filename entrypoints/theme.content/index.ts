@@ -5,6 +5,7 @@ import { browser } from 'wxt/browser';
 import { readSettings, watchSettings } from '../../src/utils/preferences';
 import './style.css';
 import { createBannerLayout } from '../../src/utils/banner-layout';
+import { registerBannerGeometry } from '../../src/utils/banner-geometry';
 import { createHomeLayout } from '../../src/utils/home-layout';
 import { createCourseHeaderTheme } from '../../src/utils/course-header';
 import { createStudyAssist } from '../../src/features/study-assist';
@@ -22,6 +23,7 @@ export default defineContentScript({
     let banners = defaultBanners();
     let enabled = false;
     const bannerLayout = createBannerLayout();
+    const stopBannerGeometry = registerBannerGeometry();
     const homeLayout = createHomeLayout();
     const courseHeader = createCourseHeaderTheme();
     const studyAssist = createStudyAssist();
@@ -79,6 +81,7 @@ export default defineContentScript({
       removeFonts();
       stopBanners();
       bannerLayout.dispose();
+      stopBannerGeometry();
       homeLayout.dispose();
       courseHeader.dispose();
       studyAssist.dispose();

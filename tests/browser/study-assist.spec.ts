@@ -404,9 +404,13 @@ test('drawing supports touch, custom color, size, clear and phone controls witho
     await page.screenshot({ path: 'test-results/drawing-phone.png' });
     for (const width of [390, 320]) {
       await page.setViewportSize({ width, height: 844 });
-      const box = await toolbar.boundingBox();
-      expect(box!.x).toBeGreaterThanOrEqual(0);
-      expect(box!.x + box!.width).toBeLessThanOrEqual(width);
+      // The tools follow visualViewport resize on the next browser frame.
+      await expect
+        .poll(async () => {
+          const box = await toolbar.boundingBox();
+          return !!box && box.x >= 0 && box.x + box.width <= width;
+        })
+        .toBe(true);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth > innerWidth,

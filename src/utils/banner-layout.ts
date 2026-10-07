@@ -1,4 +1,5 @@
 import { bannerPlacement, type Banners } from './banners';
+import { bannerBox, pageBanner } from './banner-geometry';
 
 // Observe only the active custom banner's dimensions. No polling, content reads,
 // per-element recoloring, or observation of the rest of the Moodle document.
@@ -21,27 +22,20 @@ export function createBannerLayout() {
           ? 'dashboard'
           : undefined;
     if (!page || value[page].mode !== 'custom') return;
-    const element = document.querySelector<HTMLElement>(
-      page === 'home' ? '.aaltositepageheader' : '.aaltouserpageheader',
-    );
+    const element = pageBanner(page);
     if (!element) return;
     const image = new Image();
     image.onload = () => {
       if (disposed || revision !== generation) return;
       const render = () => {
         if (disposed || revision !== generation) return;
-        const box = element.getBoundingClientRect();
+        const box = bannerBox(element);
         if (!box.width || !box.height) return;
-        const style = getComputedStyle(element);
         const placement = bannerPlacement(
           image.naturalWidth,
           image.naturalHeight,
-          box.width -
-            parseFloat(style.borderLeftWidth) -
-            parseFloat(style.borderRightWidth),
-          box.height -
-            parseFloat(style.borderTopWidth) -
-            parseFloat(style.borderBottomWidth),
+          box.width,
+          box.height,
           value[page].crop,
         );
         document.documentElement.style.setProperty(

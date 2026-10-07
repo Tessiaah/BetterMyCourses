@@ -11,6 +11,11 @@ import {
   type BannerPage,
 } from '../../src/utils/banners';
 import './style.css';
+import {
+  bannerBox,
+  readOpenBannerGeometry,
+  type BannerGeometry,
+} from '../../src/utils/banner-geometry';
 
 registerTypography(document.fonts, (path) => browser.runtime.getURL(path));
 const get = <T extends HTMLElement>(id: string) =>
@@ -20,6 +25,8 @@ const preview = get<HTMLDivElement>('preview');
 const status = get<HTMLParagraphElement>('status');
 const file = get<HTMLInputElement>('file');
 const fit = get<HTMLSelectElement>('fit');
+const shape = get<HTMLSelectElement>('shape');
+const refreshPreview = get<HTMLButtonElement>('refresh-preview');
 const sliders = ['zoom', 'x', 'y'].map((id) => get<HTMLInputElement>(id));
 const save = get<HTMLButtonElement>('save');
 const cancel = get<HTMLButtonElement>('cancel');
@@ -30,7 +37,40 @@ let busy = true;
 let generation = 0;
 let activePage: BannerPage = 'home';
 const drafts = new Map<BannerPage, Banner>();
+let geometry: BannerGeometry | undefined;
+let sizeRevision = 0;
+let disposed = false;
+function renderShape() {
+  const matched =
+    shape.value === 'current' && geometry?.page === activePage
+      ? geometry
+      : undefined;
+  preview.style.aspectRatio = String(
+    matched ? matched.width / matched.height : Number(shape.value) || 4.8,
+  );
+  const name = activePage === 'home' ? 'Home' : 'Dashboard';
+  get('preview-size').textContent = matched
+    ? `${name} preview matches the open page (${Math.round(matched.width)} × ${Math.round(matched.height)}).`
+    : geometry?.page === activePage
+      ? 'Estimated shape. Choose Match open page to use your current banner size.'
+      : `Estimated shape. Open ${name} in this browser window, then choose Refresh size to match it.`;
+}
+async function refreshPreviewSize() {
+  const revision = ++sizeRevision;
+  const requestedPage = activePage;
+  refreshPreview.disabled = true;
+  const measured = await readOpenBannerGeometry(requestedPage);
+  if (disposed || revision !== sizeRevision || requestedPage !== activePage)
+    return;
+  geometry = measured;
+  shape.querySelector<HTMLOptionElement>('[value="current"]')!.disabled =
+    !measured;
+  shape.value = measured ? 'current' : '4.8';
+  refreshPreview.disabled = false;
+  render();
+}
 function render() {
+  renderShape();
   const crop = normalizeCrop(draft.crop);
   fit.value = crop.fit;
   sliders.forEach((input) => {
@@ -55,13 +95,12 @@ function render() {
     ? `url("${draft.image}")`
     : 'none';
   if (draft.image && image.naturalWidth) {
-    const box = preview.getBoundingClientRect();
-    // The CSS background painting area excludes the preview's one-pixel border.
+    const box = bannerBox(preview);
     const layout = bannerPlacement(
       image.naturalWidth,
       image.naturalHeight,
-      box.width - 2,
-      box.height - 2,
+      box.width,
+      box.height,
       crop,
     );
     preview.style.backgroundSize = layout.size;
@@ -79,11 +118,13 @@ async function decode() {
   }
 }
 async function load() {
+  activePage = page.value as BannerPage;
+  geometry = undefined;
+  void refreshPreviewSize();
   busy = true;
   render();
   try {
     const banners = await readBanners();
-    activePage = page.value as BannerPage;
     draft = { ...(drafts.get(activePage) ?? banners[activePage]) };
     dirty = drafts.has(activePage);
     await decode();
@@ -125,10 +166,16 @@ get('reset').addEventListener('click', () => {
   dirty = true;
   render();
 });
-get<HTMLSelectElement>('shape').addEventListener('change', (event) => {
-  preview.style.aspectRatio = (event.target as HTMLSelectElement).value;
+shape.addEventListener('change', () => {
+  sizeRevision++;
+  refreshPreview.disabled = false;
   render();
 });
+refreshPreview.addEventListener('click', () => void refreshPreviewSize());
+const refreshOnFocus = () => {
+  if (shape.value === 'current') void refreshPreviewSize();
+};
+window.addEventListener('focus', refreshOnFocus);
 file.addEventListener('change', async () => {
   const selected = file.files?.[0];
   if (!selected) return;
@@ -196,9 +243,7 @@ preview.addEventListener('pointerdown', (event) => {
 });
 preview.addEventListener('pointermove', (event) => {
   if (!drag || drag.pointer !== event.pointerId) return;
-  const box = preview.getBoundingClientRect();
-  const width = box.width - 2,
-    height = box.height - 2;
+  const { width, height } = bannerBox(preview);
   const layout = bannerPlacement(
     image.naturalWidth,
     image.naturalHeight,
@@ -227,9 +272,16 @@ preview.addEventListener('pointerup', (event) => {
 });
 const observer = new ResizeObserver(render);
 observer.observe(preview);
-window.addEventListener('pagehide', () => observer.disconnect(), {
-  once: true,
-});
+window.addEventListener(
+  'pagehide',
+  () => {
+    disposed = true;
+    sizeRevision++;
+    observer.disconnect();
+    window.removeEventListener('focus', refreshOnFocus);
+  },
+  { once: true },
+);
 window.addEventListener('beforeunload', (event) => {
   if (dirty || drafts.size) {
     event.preventDefault();

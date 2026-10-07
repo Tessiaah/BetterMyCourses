@@ -6,6 +6,7 @@ html[data-better-my-courses='dark'][data-bmc-home-banner='custom']
   background-image: var(--bmc-home-banner) !important;
   background-size: var(--bmc-home-banner-size, cover) !important;
   background-repeat: no-repeat !important;
+  background-origin: padding-box !important;
   background-color: var(--bmc-page) !important;
   background-position: var(--bmc-home-banner-position, center) !important;
 }
@@ -15,6 +16,7 @@ html[data-better-my-courses='dark'][data-bmc-dashboard-banner='custom']
   background-image: var(--bmc-dashboard-banner) !important;
   background-size: var(--bmc-dashboard-banner-size, cover) !important;
   background-repeat: no-repeat !important;
+  background-origin: padding-box !important;
   background-color: var(--bmc-page) !important;
   background-position: var(--bmc-dashboard-banner-position, center) !important;
 }

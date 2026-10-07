@@ -10,7 +10,7 @@ BetterMyCourses is a browser extension for **Brave, Chrome and Edge**. It makes 
 
 - **True-black dark theme** with softer text, readable tables and clearer grade reports.
 - **Personal link colors** with Champagne, Ivory, Sage and custom options.
-- **Custom Home and Dashboard banners** with your own images, adjustable framing and zoom.
+- **Custom Home and Dashboard banners** with your own images, adjustable framing and zoom, and a preview that matches your open page.
 - **Cleaner navigation** with consistent course tabs, comfortable spacing and clearer announcements.
 - **Easier quizzes** with visible answer fields, readable diagrams, a clearer timer and green, yellow or red feedback based on the site's grading.
 - **Quick theme controls** to switch between BetterMyCourses and the original appearance.
