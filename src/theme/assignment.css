@@ -1,0 +1,90 @@
+/* Native assignment status/feedback tables and legacy YUI file trees paint
+   their cells independently of the surrounding page. Keep their structure. */
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  :is(
+    .submissionstatustable,
+    .feedbacktable,
+    .assignsubmission_file,
+    [id^='assign_files_tree']
+  ) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  :is(.submissionsummarytable, .feedbacktable) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  table:is(.generaltable, .ygtvtable),
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  table:is(.generaltable, .ygtvtable)
+  :is(thead, tbody, tfoot, tr, th, td) {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line) !important;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  table.generaltable
+  thead
+  th {
+  background-color: var(--bmc-hover) !important;
+}
+/* Status meaning stays distinct without the native pastel cell backgrounds. */
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  table.generaltable
+  :is(.submissionstatussubmitted, .submissiongraded, .earlysubmission) {
+  color: var(--bmc-success) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  table.generaltable
+  :is(.submissionstatusdraft, .submissionlocked) {
+  color: var(--bmc-accent) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  table.generaltable
+  :is(.latesubmission, .submittedlate, .gradingreminder) {
+  color: var(--bmc-danger) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  [id^='assign_files_tree']
+  :is(.fileuploadsubmission, .fileuploadsubmissiontime, .ygtvlabel):where(
+    :not(a:any-link, [role='link'])
+  ) {
+  background-color: transparent !important;
+  color: var(--bmc-text) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  [id^='assign_files_tree']
+  .fileuploadsubmissiontime {
+  color: var(--bmc-secondary) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-assign, [id^='page-mod-assign-'])
+  #region-main
+  [id^='assign_files_tree']
+  :is(.icon, .fa, [class*='fa-']) {
+  color: var(--bmc-link) !important;
+}

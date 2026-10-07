@@ -4,7 +4,7 @@ Read this file first when working on BetterMyCourses. It is the project referenc
 
 ## Current maintenance notes
 
-Current extension version: **1.12.6**. Keep the user-facing README free of architecture explanations. The migrated README below is a historical reference; append new implementation and validation guidance here and in `docs/`.
+Current extension version: **1.12.7**. Keep the user-facing README free of architecture explanations. The migrated README below is a historical reference; append new implementation and validation guidance here and in `docs/`.
 
 The banner editor automatically matches the selected Home/Dashboard banner in this browser window. There are no preview-shape presets or refresh controls. Page selection, editor focus and window resize update measurements; their listeners are removed on pagehide. `src/utils/banner-geometry.ts` queries only matching MyCourses tabs and requests the known wrapper's padding-box width/height through an own-extension, top-frame message. It returns no image pixels, page content, URLs or user data. It adds no permissions, storage keys, worker, polling or document observer. The message listener is disposed with the content-script context. Missing/unloaded tabs show an approximate preview with guidance to open the corresponding page. The popup editor button fills its content column, has a 44px target and reserves 20px below it before the Home settings.
 
@@ -13,6 +13,8 @@ The banner editor automatically matches the selected Home/Dashboard banner in th
 `npm run test:banner` uses a real unpacked extension in an isolated browser profile, checking Home/Dashboard source-rectangle equivalence for Fill/Fit/Stretch, non-default framing, resizing, missing-page fallback and reload. Use the same signed Brave path as `test:install`. The existing theme fixture suite retains editor upload/drag/keyboard/storage-failure coverage. Detailed design/QA records are in `docs/`.
 
 Activity card/description paint is owned by `course-page.css`; nested description surfaces are transparent so hover stays uniform. Do not re-add these selectors to `refinements.css`. Known legacy neutral prose colors inherit surrounding text or the chosen link accent, with semantic colors, authored colored emphasis, code/math/icons and explicitly painted author content excluded. Shared dimmed utilities remain readable. `quiz.css` owns both native review and attempt-summary tables, including explicit cell fills/inset shadows, without changing the site's marks, statuses, links, spans or forms. `course-readability.spec.ts` checks those boundaries and theme Off restoration.
+
+Assignment report/file paint is owned by `assignment.css`, scoped to assignment routes and `#region-main`. Native generaltable and YUI file-tree cells lose slate/pastel/inset paint, while submitted/graded/early, draft/locked and late states keep readable semantic text. File labels, times and original glyphs retain native structure and links. Status/feedback wrappers contain horizontal scrolling on narrow screens. Old submission/file wrapper declarations were removed from the course/native override files; unrelated authored classless tables and file-manager widgets keep their owners. `assignment.spec.ts` covers values, links, expansion, form submission, geometry and Off restoration.
 
 The complete former README is preserved below. Version-specific notes describe the project at the time of migration.
 

@@ -113,12 +113,7 @@ html[data-better-my-courses='dark']
   :is(.date, .info, .head, .author) {
   color: var(--bmc-secondary);
 }
-html[data-better-my-courses='dark']
-  :is(
-    .forum-post-container,
-    .forumpost,
-    .path-mod-assign .submissionstatustable
-  ) {
+html[data-better-my-courses='dark'] :is(.forum-post-container, .forumpost) {
   background-color: var(--bmc-panel);
   color: var(--bmc-text);
   border-color: var(--bmc-line);

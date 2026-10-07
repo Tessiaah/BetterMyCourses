@@ -79,8 +79,6 @@ html[data-better-my-courses='dark']
 html[data-better-my-courses='dark']
   .path-mod-assign
   :is(
-    .submissionstatustable,
-    .assignsubmission_file,
     .filemanager,
     .fp-content,
     .filemanager-container,
