@@ -5,7 +5,9 @@
 @import '../../src/theme/navigation.css';
 @import '../../src/theme/courses.css';
 @import '../../src/theme/course-page.css';
+@import '../../src/theme/course-layout.css';
 @import '../../src/theme/course-tables.css';
+@import '../../src/theme/forum.css';
 @import '../../src/theme/dashboard.css';
 @import '../../src/theme/calendar.css';
 @import '../../src/theme/intelliboard.css';

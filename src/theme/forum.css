@@ -1,0 +1,176 @@
+/* Native forum tables paint cells independently from Bootstrap's table tokens.
+   Keep the table, controls and handlers, with room inside each control column. */
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  :is(.discussion-list, .forumheaderlist) {
+  --bmc-forum-surface: var(--bmc-panel);
+  --bs-table-bg: var(--bmc-forum-surface);
+  --bs-table-color: var(--bmc-text);
+  --bs-table-accent-bg: transparent;
+  background-color: var(--bmc-forum-surface) !important;
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  :is(.discussion-list, .forumheaderlist)
+  :is(thead, tbody, tr, th, td) {
+  color: var(--bmc-secondary) !important;
+  background-color: var(--bmc-forum-surface) !important;
+  border-color: var(--bmc-line) !important;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  :is(.discussion-list, .forumheaderlist)
+  thead {
+  --bmc-forum-surface: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  :is(.discussion-list, .forumheaderlist)
+  tbody
+  tr:nth-child(even) {
+  --bmc-forum-surface: var(--bmc-raised);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  :is(.discussion-list, .forumheaderlist)
+  tbody
+  tr:hover {
+  --bmc-forum-surface: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  :is(.discussion-list, .forumheaderlist)
+  :is(th, td) {
+  padding: 16px 12px !important;
+  vertical-align: middle;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  :is(th, td):first-child,
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  [data-container='discussion-summary-actions'] {
+  width: 64px !important;
+  min-width: 64px;
+  padding: 12px !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  :is(td:first-child, [data-container='discussion-summary-actions'])
+  :is(.btn, [role='button'], .dropdown-toggle) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  margin: 0;
+  color: var(--bmc-link) !important;
+  transform: none;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  :is(td:first-child, [data-container='discussion-summary-actions'])
+  .icon {
+  margin: 0;
+  color: inherit !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  .topic {
+  min-width: 220px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  .topic
+  > div {
+  padding: 0 !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  .topic
+  a {
+  overflow-wrap: anywhere;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  td
+  > .d-flex:has(.author-info) {
+  align-items: center;
+  gap: 10px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  .author-info {
+  min-width: 0;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  .userpicture {
+  flex-shrink: 0;
+  max-width: none;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-forum, [id^='page-mod-forum-'])
+  #region-main
+  .discussion-list
+  .d-flex
+  > div:has(> .userpicture) {
+  flex: 0 0 auto;
+}
+/* The sidebar's native .post/.head/.info structure needs breathing room too. */
+html[data-better-my-courses='dark'] .block_news_items .unlist {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+html[data-better-my-courses='dark'] .block_news_items .post {
+  padding-block: 16px;
+  border-bottom: 1px solid var(--bmc-line);
+}
+html[data-better-my-courses='dark'] .block_news_items .post:first-child {
+  padding-top: 0;
+}
+html[data-better-my-courses='dark'] .block_news_items .post:last-child {
+  border-bottom: 0;
+}
+html[data-better-my-courses='dark'] .block_news_items .post .head {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+html[data-better-my-courses='dark'] .block_news_items .post .info {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,197 @@
+/* Aalto uses 830px tabs, 1024px headings and 4em header gutters independently.
+   One column aligns course chrome; native sections/activities keep their flow. */
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll {
+  --bmc-course-width: 1200px;
+  --bmc-course-gutter: clamp(16px, 2vw, 32px);
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  :is(
+    .contextpage-context-header-content,
+    .breadcrumb-button,
+    .secondary-navigation,
+    #page-content
+  ) {
+  box-sizing: border-box;
+  width: calc(100% - 2 * var(--bmc-course-gutter));
+  max-width: var(--bmc-course-width) !important;
+  margin-inline: auto !important;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .contextpage-context-header-content {
+  padding: 20px 24px;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .contextpage-context-header-content
+  :is(.page-context-header, .page-header-headings) {
+  margin: 0 !important;
+  padding: 0;
+  min-width: 0;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .breadcrumb-button {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: var(--bmc-page) !important;
+  padding: 0;
+  margin-block: 16px;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .header-courseend:empty {
+  display: none;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .secondary-navigation {
+  padding: 4px;
+  margin-block: 16px 24px;
+  border: 1px solid var(--bmc-line);
+  border-radius: 8px;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .secondary-navigation
+  :is(.navigation, .moremenu, .nav-tabs) {
+  width: 100%;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0;
+  border: 0;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .secondary-navigation
+  .nav-tabs {
+  gap: 4px;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .secondary-navigation
+  .nav-link {
+  min-height: 48px;
+  padding: 11px 18px;
+  border: 0 !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 6px !important;
+  color: var(--bmc-secondary) !important;
+  background-color: transparent !important;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .secondary-navigation
+  .nav-link:is(:hover, :focus, :active, .active, [aria-current='page']) {
+  color: var(--bmc-link) !important;
+  background-color: var(--bmc-hover) !important;
+}
+html[data-better-my-courses='dark']
+  :is(
+    .path-course,
+    .path-mod-forum,
+    [id^='page-course-'],
+    [id^='page-mod-forum-']
+  )
+  #page.drawers
+  #topofscroll
+  .secondary-navigation
+  .nav-link:is(.active, [aria-current='page'], [aria-selected='true']) {
+  border-bottom-color: var(--bmc-link) !important;
+}
+@media (max-width: 575px) {
+  html[data-better-my-courses='dark']
+    :is(
+      .path-course,
+      .path-mod-forum,
+      [id^='page-course-'],
+      [id^='page-mod-forum-']
+    )
+    #page.drawers
+    #topofscroll
+    .contextpage-context-header-content {
+    padding: 16px;
+  }
+}
