@@ -1,0 +1,1 @@
+Before working on this project, read [AGENT.md](AGENT.md). It is the project guide for development, implementation details, validation and maintenance. Keep README.md focused on what BetterMyCourses offers its users, without architecture or implementation explanations.
