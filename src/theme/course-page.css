@@ -29,12 +29,68 @@ html[data-better-my-courses='dark']
     .description-inner,
     .activity-altcontent
   ) {
-  background-color: var(--bmc-panel);
-  color: var(--bmc-secondary);
-  border-color: var(--bmc-line);
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line) !important;
 }
 html[data-better-my-courses='dark'] .activity-item:hover {
-  background-color: var(--bmc-hover);
+  background-color: var(--bmc-hover) !important;
+}
+/* Description surfaces share their card's paint, including hover. */
+html[data-better-my-courses='dark']
+  .activity-item
+  :is(.activity-description, .activity-altcontent, .description-inner) {
+  background-color: transparent !important;
+}
+html[data-better-my-courses='dark']
+  .course-content
+  :is(.contentwithoutlink, .summary, .section-summary) {
+  color: var(--bmc-text) !important;
+}
+/* Legacy authored neutral colors otherwise override readable prose or link
+   colors. Inherit the surrounding text/accent; retain colored emphasis,
+   semantic states, code, math, icons and deliberately painted author content. */
+html[data-better-my-courses='dark']
+  :is(.summary, .section-summary, .activity-description, .activity-altcontent)
+  :is(
+    [style*='color: #000' i],
+    [style*='color:#000' i],
+    [style*='color: #212529' i],
+    [style*='color:#212529' i],
+    [style*='color: #333' i],
+    [style*='color:#333' i],
+    [style*='color: black' i],
+    [style*='color:black' i],
+    [style*='color: rgb(0, 0, 0)' i],
+    [style*='color:rgb(0,0,0)' i],
+    [style*='color: rgb(33, 37, 41)' i],
+    [style*='color:rgb(33,37,41)' i],
+    [style*='color: rgb(51, 51, 51)' i],
+    [style*='color:rgb(51,51,51)' i],
+    font[color='#000'],
+    font[color='#000000'],
+    font[color='#333'],
+    font[color='#333333'],
+    font[color='black' i]
+  ):not(
+    [style*='background' i],
+    .text-danger,
+    .text-success,
+    .text-warning,
+    .badge,
+    .icon,
+    .fa,
+    [class*='fa-'],
+    :is(.badge, .icon) *,
+    pre *,
+    code *,
+    svg *,
+    [class*='MathJax'],
+    [class*='MathJax'] *,
+    mjx-container,
+    mjx-container *
+  ) {
+  color: inherit !important;
 }
 html[data-better-my-courses='dark']
   :is(

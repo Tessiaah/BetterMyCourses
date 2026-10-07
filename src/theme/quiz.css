@@ -197,11 +197,22 @@ html[data-better-my-courses='dark'] .que .questionflag label:hover {
 }
 html[data-better-my-courses='dark']
   :is(.path-mod-quiz, [id^='page-mod-quiz-'])
-  table.quizreviewsummary
-  :is(th.cell, td.cell) {
+  table:is(.quizreviewsummary, .quizsummaryofattempt),
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  table:is(.quizreviewsummary, .quizsummaryofattempt)
+  :is(thead, tbody, tr, th, td) {
   background-color: var(--bmc-panel) !important;
   color: var(--bmc-text) !important;
-  border-color: var(--bmc-line);
+  border-color: var(--bmc-line) !important;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-mod-quiz, [id^='page-mod-quiz-'])
+  table:is(.quizreviewsummary, .quizsummaryofattempt)
+  thead
+  th {
+  background-color: var(--bmc-hover) !important;
 }
 
 /* The paper rectangle is sized automatically by the media's rendered box.

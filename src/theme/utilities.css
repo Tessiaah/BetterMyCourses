@@ -8,7 +8,13 @@ html[data-better-my-courses='dark']
   color: var(--bmc-text) !important;
 }
 html[data-better-my-courses='dark']
-  :is(.text-muted, .text-secondary, .text-body-secondary) {
+  :is(
+    .text-muted,
+    .text-secondary,
+    .text-body-secondary,
+    .dimmed_text,
+    .dimmed
+  ) {
   color: var(--bmc-secondary) !important;
 }
 html[data-better-my-courses='dark']

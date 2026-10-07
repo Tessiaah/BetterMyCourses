@@ -34,9 +34,6 @@ html[data-better-my-courses='dark']
     .card-header,
     .card-footer,
     .list-group-item,
-    .activity-item,
-    .activity-description,
-    .description-inner,
     .section-summary,
     .dropdown-menu,
     .modal-content,
@@ -54,12 +51,7 @@ html[data-better-my-courses='dark']
   border-color: var(--bmc-line);
 }
 html[data-better-my-courses='dark']
-  :is(
-    .list-group-item-action,
-    .activity-item,
-    .course-listitem,
-    .course-summaryitem
-  ):hover {
+  :is(.list-group-item-action, .course-listitem, .course-summaryitem):hover {
   background-color: var(--bmc-hover) !important;
 }
 
