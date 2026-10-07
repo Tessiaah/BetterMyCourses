@@ -74,7 +74,7 @@ html[data-better-my-courses='dark']
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  background-color: var(--bmc-page) !important;
+  background-color: transparent !important;
   padding: 0;
   margin-block: 16px;
 }
@@ -87,8 +87,8 @@ html[data-better-my-courses='dark']
   )
   #page.drawers
   #topofscroll
-  .header-courseend:empty {
-  display: none;
+  :is(.header-courseend:empty, [data-bmc-empty-course-header]) {
+  display: none !important;
 }
 html[data-better-my-courses='dark']
   :is(

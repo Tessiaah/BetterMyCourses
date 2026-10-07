@@ -19,6 +19,7 @@ export function courseRegressionFixture(kind: 'course' | 'quiz' | 'courses') {
     .breadcrumb{background-color:#202020!important}.breadcrumb-item{background-color:#303030!important}
     .course-section{padding:16px 12px}.summary,.generalbox{padding:12px 16px;margin:16px 8px;line-height:1.5}
     .activity-item{padding:12px;margin:8px;border:0;border-radius:0}
+    #empty-course-heading,#empty-course-end{min-height:64px;background:#000}
     .icon{font-family:'Font Awesome 6 Free';font-size:16px}
     .fas{font-family:'Font Awesome 6 Free';font-weight:900;color:#212529}
     .fa::before{content:'\\f15c'}.fas::before{content:'\\f201'}
@@ -38,6 +39,7 @@ export function courseRegressionFixture(kind: 'course' | 'quiz' | 'courses') {
     </section></div></header>`
         : ''
     }
+    ${kind === 'course' ? `<div id="page" class="drawers"><div id="topofscroll"><div id="empty-course-heading" class="contextpage-context-header-content"><div><div class="page-header-headings"><span style="display:none">Native hidden duplicate heading</span>\n </div></div><div class="header-actions-container"></div></div><div id="empty-course-end" class="header-courseend"><div>\n </div></div><div id="live-course-control" class="contextpage-context-header-content"><button aria-label="Course actions"></button></div></div></div>` : ''}
     <main id="region-main" class="main-inner">
     ${
       kind === 'course'

@@ -1,5 +1,6 @@
 // Aalto also has classless, inline-painted title wrappers. Inspect only the
-// title's ancestor chain, never course text, grades or question contents.
+// title's ancestor chain and known chrome wrappers, never course text, grades
+// or question contents.
 export function isLightHeaderSurface(color: string): boolean {
   const match = /^rgba?\(([^)]+)\)$/.exec(color);
   if (!match) return false;
@@ -28,6 +29,33 @@ export function createCourseHeaderTheme() {
       !/^page-(course|mod)-/.test(document.body.id)
     )
       return;
+    if (
+      document.body.matches(
+        ".path-course, .path-mod-forum, [id^='page-course-'], [id^='page-mod-forum-']",
+      )
+    ) {
+      // Empty headings still have nested divs/whitespace, so :empty misses them.
+      // Retain any native text, media or interactive controls in these wrappers.
+      for (const panel of document.querySelectorAll<HTMLElement>(
+        '#topofscroll .contextpage-context-header-content, #topofscroll .header-courseend',
+      )) {
+        if (
+          panel.innerText.trim() ||
+          panel.querySelector(
+            'a, button, input, select, textarea, img, svg, canvas, video, audio, iframe, ' +
+              '[role="button"], [role="link"], [contenteditable], [tabindex]',
+          )
+        )
+          continue;
+        const previous = panel.getAttribute('data-bmc-empty-course-header');
+        panel.setAttribute('data-bmc-empty-course-header', 'true');
+        undo.push(() => {
+          if (previous === null)
+            panel.removeAttribute('data-bmc-empty-course-header');
+          else panel.setAttribute('data-bmc-empty-course-header', previous);
+        });
+      }
+    }
     const titles = document.querySelectorAll<HTMLElement>(
       '#page-header h1, #course-header h1, .course-header h1, ' +
         '.aaltocoursepageheader h1, .page-context-header h1, .page-header-headings h1',

@@ -104,7 +104,7 @@ for (const kind of ['course', 'section', 'forum'] as const) {
         expect(bars[0]).toEqual(bars[1]);
         await expect(page.locator('.breadcrumb-button')).toHaveCSS(
           'background-color',
-          'rgb(0, 0, 0)',
+          'rgba(0, 0, 0, 0)',
         );
         const rows = page.locator('tr[data-region="discussion-list-item"]');
         await expect(rows.first().locator('td').first()).toHaveCSS(

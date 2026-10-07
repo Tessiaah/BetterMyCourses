@@ -183,6 +183,17 @@ test('native course geometry and icons survive theming; legacy headers, quiz var
       }
       expect(await geometry()).toEqual(nativeGeometry);
       if (kind === 'course') {
+        for (const selector of ['#empty-course-heading', '#empty-course-end']) {
+          await expect(page.locator(selector)).toBeHidden();
+          await expect(page.locator(selector)).toHaveAttribute(
+            'data-bmc-empty-course-header',
+            'true',
+          );
+        }
+        await expect(page.locator('#live-course-control')).toBeVisible();
+        await expect(
+          page.getByRole('button', { name: 'Course actions', exact: true }),
+        ).toBeVisible();
         for (const [hex, rgb] of [
           ['#a8c7b5', 'rgb(168, 199, 181)'],
           ['#e4a9ad', 'rgb(228, 169, 173)'],
@@ -348,6 +359,15 @@ test('native course geometry and icons survive theming; legacy headers, quiz var
         );
       }
       expect(await geometry()).toEqual(nativeGeometry);
+      if (kind === 'course') {
+        for (const selector of ['#empty-course-heading', '#empty-course-end']) {
+          await expect(page.locator(selector)).toBeVisible();
+          await expect(page.locator(selector)).not.toHaveAttribute(
+            'data-bmc-empty-course-header',
+          );
+          await expect(page.locator(selector)).toHaveCSS('min-height', '64px');
+        }
+      }
     }
   } finally {
     await browser.close();

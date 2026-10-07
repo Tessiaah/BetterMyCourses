@@ -6,7 +6,7 @@ Independent project; not an official Aalto University product.
 
 ## Install in Brave, Chrome or Edge
 
-1. Download **better-mycourses-1.12.1-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
+1. Download **better-mycourses-1.12.2-chrome.zip** from the [latest release](https://github.com/Tessiaah/BetterMyCourses/releases/latest).
 2. Extract the ZIP into a permanent folder. Find the folder containing `manifest.json`.
 3. Open `brave://extensions`, `chrome://extensions` or `edge://extensions` and enable **Developer mode**.
 4. Choose **Load unpacked** and select that folder.
@@ -14,7 +14,7 @@ Independent project; not an official Aalto University product.
 
 For a source build, load `.output/chrome-mv3` after running `npm run build`.
 
-To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.12.1**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place. The encoding fix introduced in 1.11.1 is retained.
+To update an existing installation, replace its extracted files, click the extension's **Reload** button, confirm **version 1.12.2**, then refresh MyCourses. Refreshing only the website does not reload an updated extension. Keep the installation folder in place. The encoding fix introduced in 1.11.1 is retained.
 
 The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turning it off restores the native theme. **Study Assist** is a separate, optional switch; turn it off to remove its sidebar launcher, tools and placed references. There is no browser-store listing yet.
 
@@ -33,7 +33,7 @@ The popup's **Dark theme** switch updates open MyCourses tabs immediately. Turni
 - Compact dark quiz timer with a larger selected-color countdown, Hide/Show inside the panel, and native deadline urgency preserved.
 - Optional **Study Assist** in quiz attempts/reviews: Drawing and Formulas tabs, pen colors, stroke size, eraser, undo, clear and Browse mode. Off by default; works with either theme.
 - Personal formula library with subjects, global title search, live LaTeX previews, editing and deletion. Calculus and resistor starter references are included. Click a formula to place a draggable reference on screen; closing the tools clears ink while formulas stay until their X is clicked.
-- Aligned course title, action, navigation and content bars with shared gutters; pure-black title/breadcrumb backing and selected-color course tabs. Home retains its translucent photo overlay.
+- Aligned course title, action, navigation and content bars with shared gutters; empty title strips are suppressed and feedback/syllabus buttons have transparent backing; pure-black title/breadcrumb backing and selected-color course tabs. Home retains its translucent photo overlay.
 - Dark announcement tables with inset star/menu controls, comfortable author spacing, and clearer sidebar news entries.
 - Responsive Home banner and news panels, selected-color details and a translucent black title backing.
 - Separate Home/Dashboard banner settings: Original image, My image or Plain black.
@@ -92,7 +92,7 @@ npm run test:theme
 npm run zip
 ```
 
-`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.12.1-chrome.zip`. Both commands automatically run `verify:package`, which rejects malformed UTF-8 and literal Unicode noncharacters in generated text files, matching Chromium's stricter extension-loader check. The code generator escapes non-ASCII literals while preserving their runtime values. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
+`build` writes `.output/chrome-mv3`; `zip` rebuilds and writes `.output/better-mycourses-1.12.2-chrome.zip`. Both commands automatically run `verify:package`, which rejects malformed UTF-8 and literal Unicode noncharacters in generated text files, matching Chromium's stricter extension-loader check. The code generator escapes non-ASCII literals while preserving their runtime values. `format` applies Prettier. If PowerShell blocks npm wrappers, use `npm.cmd`/`npx.cmd`.
 
 Install Playwright Chromium for browser tests:
 
