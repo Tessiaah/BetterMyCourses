@@ -248,3 +248,13 @@ Native Bootstrap dropdown opening/Escape and keyboard focus were exercised. Body
 ## Version 1.12.2: empty header and action backing
 
 Checked 7 October 2026. TypeScript, lint/formatting, all 37 unit tests and five focused course/section/forum/navigation browser tests passed. The production content-script regression covers empty nested wrappers with whitespace and a hidden native label, confirms they collapse, and preserves an otherwise empty wrapper containing a native course-action button. Off restores the empty wrappers and their 64px native minimum height. Existing header colors, banners, course geometry/icons, quiz surfaces, links and navigation are retained. Action backing is transparent, with the feedback/syllabus buttons still visible and aligned. Desktop/phone fixture screenshots remain the verification scope; authenticated Aalto variations remain a live check.
+
+## Version 1.12.3: student grades and consistent course tabs
+
+Checked 7 October 2026. TypeScript, ESLint/Prettier and all 37 unit tests pass. The complete 21-test browser fixture suite passes against the production bundle, including existing course, announcement, quiz, drawing, formula, Home and banner checks. Desktop and phone grade-report screenshots were visually reviewed.
+
+The new grade regression navigates through real fixture links from Course to Grades, Activities and Course feedback. It asserts identical tab geometry, padding, radius and selected-color states across distinct course, grade, report and module body classes. Native dropdown opening/Escape and keyboard focus work. Rose-to-Sage updates reach selected tabs and grade glyphs. At 390px, the table scrolls within its wrapper without page overflow, including access to the final item's grade menu.
+
+Synthetic nested grade categories keep their rowspans, colspans, header associations, values, unavailable marks, feedback and native hidden-row behavior. Category collapse/reopen and grade menus remain usable. Pale wrapper/slate cell fills become dark; native pass/fail colors remain distinct. Theme Off restores the original report surround, table colors and square tab styling without body markup changes. The source content script is unchanged; this release only changes styles and the manifest version. Authenticated Aalto variants remain a live verification limit.
+
+The ZIP retains 40 production files and passes generated-text encoding verification. Every entry matches the checked build. MV3 permissions remain storage and the exact MyCourses HTTPS host; there is no background worker, new dependency, storage change or grade-data processing. Package: `.output/better-mycourses-1.12.3-chrome.zip`, 631,443 bytes.

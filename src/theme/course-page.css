@@ -70,7 +70,16 @@ html[data-better-my-courses='dark']
 /* Color only: retain Moodle's course/header/text geometry. Aalto's title
    wrapper differs between full course, section and resource views. */
 html[data-better-my-courses='dark']
-  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    .path-course,
+    .path-mod,
+    .path-grade,
+    .path-report,
+    [id^='page-course-'],
+    [id^='page-mod-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
+  )
   :is(
     .contextpage-context-header-content,
     .page-context-header,
@@ -81,7 +90,16 @@ html[data-better-my-courses='dark']
   color: var(--bmc-text) !important;
 }
 html[data-better-my-courses='dark']
-  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    .path-course,
+    .path-mod,
+    .path-grade,
+    .path-report,
+    [id^='page-course-'],
+    [id^='page-mod-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
+  )
   :is(
     #page-header,
     #course-header,
@@ -94,7 +112,16 @@ html[data-better-my-courses='dark']
   background-color: transparent !important;
 }
 html[data-better-my-courses='dark']
-  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    .path-course,
+    .path-mod,
+    .path-grade,
+    .path-report,
+    [id^='page-course-'],
+    [id^='page-mod-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
+  )
   :is(.contextpage-context-header-content, [data-bmc-course-title-panel])
   :is(.breadcrumb-item, .breadcrumb-item::before) {
   color: var(--bmc-secondary) !important;
@@ -102,7 +129,16 @@ html[data-better-my-courses='dark']
 /* Only the requested activity title/separator/intro rhythm is adjusted.
    Weekly course structure and activity placements keep their native layout. */
 html[data-better-my-courses='dark']
-  :is(.path-course, .path-mod, [id^='page-course-'], [id^='page-mod-'])
+  :is(
+    .path-course,
+    .path-mod,
+    .path-grade,
+    .path-report,
+    [id^='page-course-'],
+    [id^='page-mod-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
+  )
   :is(
     #page-header,
     #course-header,

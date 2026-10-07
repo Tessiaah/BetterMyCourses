@@ -1,14 +1,6 @@
 /* Aalto uses 830px tabs, 1024px headings and 4em header gutters independently.
    One column aligns course chrome; native sections/activities keep their flow. */
-html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
-  #page.drawers
-  #topofscroll {
+html[data-better-my-courses='dark'] #page.drawers #topofscroll {
   --bmc-course-width: 1200px;
   --bmc-course-gutter: clamp(16px, 2vw, 32px);
 }
@@ -16,17 +8,16 @@ html[data-better-my-courses='dark']
   :is(
     .path-course,
     .path-mod-forum,
+    .path-grade,
+    .path-report,
     [id^='page-course-'],
-    [id^='page-mod-forum-']
+    [id^='page-mod-forum-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
   )
   #page.drawers
   #topofscroll
-  :is(
-    .contextpage-context-header-content,
-    .breadcrumb-button,
-    .secondary-navigation,
-    #page-content
-  ) {
+  :is(.contextpage-context-header-content, .breadcrumb-button, #page-content) {
   box-sizing: border-box;
   width: calc(100% - 2 * var(--bmc-course-gutter));
   max-width: var(--bmc-course-width) !important;
@@ -36,8 +27,12 @@ html[data-better-my-courses='dark']
   :is(
     .path-course,
     .path-mod-forum,
+    .path-grade,
+    .path-report,
     [id^='page-course-'],
-    [id^='page-mod-forum-']
+    [id^='page-mod-forum-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
   )
   #page.drawers
   #topofscroll
@@ -48,8 +43,12 @@ html[data-better-my-courses='dark']
   :is(
     .path-course,
     .path-mod-forum,
+    .path-grade,
+    .path-report,
     [id^='page-course-'],
-    [id^='page-mod-forum-']
+    [id^='page-mod-forum-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
   )
   #page.drawers
   #topofscroll
@@ -63,8 +62,12 @@ html[data-better-my-courses='dark']
   :is(
     .path-course,
     .path-mod-forum,
+    .path-grade,
+    .path-report,
     [id^='page-course-'],
-    [id^='page-mod-forum-']
+    [id^='page-mod-forum-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
   )
   #page.drawers
   #topofscroll
@@ -82,36 +85,33 @@ html[data-better-my-courses='dark']
   :is(
     .path-course,
     .path-mod-forum,
+    .path-grade,
+    .path-report,
     [id^='page-course-'],
-    [id^='page-mod-forum-']
+    [id^='page-mod-forum-'],
+    [id^='page-grade-'],
+    [id^='page-report-']
   )
   #page.drawers
   #topofscroll
   :is(.header-courseend:empty, [data-bmc-empty-course-header]) {
   display: none !important;
 }
+/* A shared Moodle component: page destinations must not change its styling. */
 html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
   #page.drawers
   #topofscroll
   .secondary-navigation {
+  box-sizing: border-box;
+  width: calc(100% - 2 * var(--bmc-course-gutter));
+  max-width: var(--bmc-course-width) !important;
+  margin-inline: auto !important;
   padding: 4px;
   margin-block: 16px 24px;
   border: 1px solid var(--bmc-line);
   border-radius: 8px;
 }
 html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
   #page.drawers
   #topofscroll
   .secondary-navigation
@@ -123,12 +123,6 @@ html[data-better-my-courses='dark']
   border: 0;
 }
 html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
   #page.drawers
   #topofscroll
   .secondary-navigation
@@ -136,12 +130,6 @@ html[data-better-my-courses='dark']
   gap: 4px;
 }
 html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
   #page.drawers
   #topofscroll
   .secondary-navigation
@@ -155,26 +143,21 @@ html[data-better-my-courses='dark']
   background-color: transparent !important;
 }
 html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
   #page.drawers
   #topofscroll
   .secondary-navigation
-  .nav-link:is(:hover, :focus, :active, .active, [aria-current='page']) {
+  .nav-link:is(
+    :hover,
+    :focus,
+    :active,
+    .active,
+    [aria-current='page'],
+    [aria-selected='true']
+  ) {
   color: var(--bmc-link) !important;
   background-color: var(--bmc-hover) !important;
 }
 html[data-better-my-courses='dark']
-  :is(
-    .path-course,
-    .path-mod-forum,
-    [id^='page-course-'],
-    [id^='page-mod-forum-']
-  )
   #page.drawers
   #topofscroll
   .secondary-navigation
@@ -186,8 +169,12 @@ html[data-better-my-courses='dark']
     :is(
       .path-course,
       .path-mod-forum,
+      .path-grade,
+      .path-report,
       [id^='page-course-'],
-      [id^='page-mod-forum-']
+      [id^='page-mod-forum-'],
+      [id^='page-grade-'],
+      [id^='page-report-']
     )
     #page.drawers
     #topofscroll

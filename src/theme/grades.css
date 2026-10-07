@@ -1,0 +1,95 @@
+/* Moodle's student report paints its wrapper, hierarchy gutters and cells
+   independently. Keep rowspans, category toggles and grade actions intact. */
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-report-container {
+  background-color: var(--bmc-panel) !important;
+  color: var(--bmc-text);
+  border-color: var(--bmc-line);
+  max-width: 100%;
+  overflow-x: auto;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade {
+  --bmc-grade-surface: var(--bmc-panel);
+  --bs-table-bg: var(--bmc-grade-surface);
+  --bs-table-accent-bg: transparent;
+  background-color: var(--bmc-grade-surface) !important;
+  color: var(--bmc-text);
+  border-color: var(--bmc-line) !important;
+  min-width: 640px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  :is(thead, tbody, tfoot, tr, th, td) {
+  background-color: var(--bmc-grade-surface) !important;
+  color: var(--bmc-text) !important;
+  border-color: var(--bmc-line) !important;
+  box-shadow: none !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  :is(thead, .category, .baggt, .baggb) {
+  --bmc-grade-surface: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  tbody
+  tr:hover {
+  --bmc-grade-surface: var(--bmc-hover);
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  :is(.b1l, .spacer) {
+  --bmc-grade-surface: var(--bmc-page);
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  :is(.small, .dimmed_text) {
+  color: var(--bmc-muted) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  .category-content {
+  justify-content: flex-start !important;
+  text-align: start;
+  gap: 8px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  :is(.toggle-category, .icon) {
+  color: var(--bmc-link) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  :is(.column-grade, .column-percentage, .column-range) {
+  font-variant-numeric: tabular-nums;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  .column-grade
+  .action-menu {
+  margin-inline-start: 8px;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  .gradepass {
+  color: var(--bmc-success) !important;
+}
+html[data-better-my-courses='dark']
+  :is(.path-grade, [id^='page-grade-'], .grade-report-user)
+  .user-grade
+  .gradefail {
+  color: var(--bmc-danger) !important;
+}
