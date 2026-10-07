@@ -77,6 +77,15 @@ body {
   background: #29292b;
   border-color: #eeece7;
 }
+#banner-editor {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  margin: 4px 0 20px;
+  padding: 10px 12px;
+  font-size: 12px;
+}
 .banner-settings input[type='file'] {
   position: absolute;
   width: 1px;

@@ -25,8 +25,6 @@ const preview = get<HTMLDivElement>('preview');
 const status = get<HTMLParagraphElement>('status');
 const file = get<HTMLInputElement>('file');
 const fit = get<HTMLSelectElement>('fit');
-const shape = get<HTMLSelectElement>('shape');
-const refreshPreview = get<HTMLButtonElement>('refresh-preview');
 const sliders = ['zoom', 'x', 'y'].map((id) => get<HTMLInputElement>(id));
 const save = get<HTMLButtonElement>('save');
 const cancel = get<HTMLButtonElement>('cancel');
@@ -41,32 +39,22 @@ let geometry: BannerGeometry | undefined;
 let sizeRevision = 0;
 let disposed = false;
 function renderShape() {
-  const matched =
-    shape.value === 'current' && geometry?.page === activePage
-      ? geometry
-      : undefined;
+  const matched = geometry?.page === activePage ? geometry : undefined;
   preview.style.aspectRatio = String(
-    matched ? matched.width / matched.height : Number(shape.value) || 4.8,
+    matched ? matched.width / matched.height : 4.8,
   );
   const name = activePage === 'home' ? 'Home' : 'Dashboard';
   get('preview-size').textContent = matched
     ? `${name} preview matches the open page (${Math.round(matched.width)} × ${Math.round(matched.height)}).`
-    : geometry?.page === activePage
-      ? 'Estimated shape. Choose Match open page to use your current banner size.'
-      : `Estimated shape. Open ${name} in this browser window, then choose Refresh size to match it.`;
+    : `Open ${name} in this browser window to preview its exact crop. Showing an approximate size until then.`;
 }
 async function refreshPreviewSize() {
   const revision = ++sizeRevision;
   const requestedPage = activePage;
-  refreshPreview.disabled = true;
   const measured = await readOpenBannerGeometry(requestedPage);
   if (disposed || revision !== sizeRevision || requestedPage !== activePage)
     return;
   geometry = measured;
-  shape.querySelector<HTMLOptionElement>('[value="current"]')!.disabled =
-    !measured;
-  shape.value = measured ? 'current' : '4.8';
-  refreshPreview.disabled = false;
   render();
 }
 function render() {
@@ -166,16 +154,9 @@ get('reset').addEventListener('click', () => {
   dirty = true;
   render();
 });
-shape.addEventListener('change', () => {
-  sizeRevision++;
-  refreshPreview.disabled = false;
-  render();
-});
-refreshPreview.addEventListener('click', () => void refreshPreviewSize());
-const refreshOnFocus = () => {
-  if (shape.value === 'current') void refreshPreviewSize();
-};
-window.addEventListener('focus', refreshOnFocus);
+const refreshGeometry = () => void refreshPreviewSize();
+window.addEventListener('focus', refreshGeometry);
+window.addEventListener('resize', refreshGeometry, { passive: true });
 file.addEventListener('change', async () => {
   const selected = file.files?.[0];
   if (!selected) return;
@@ -278,7 +259,8 @@ window.addEventListener(
     disposed = true;
     sizeRevision++;
     observer.disconnect();
-    window.removeEventListener('focus', refreshOnFocus);
+    window.removeEventListener('focus', refreshGeometry);
+    window.removeEventListener('resize', refreshGeometry);
   },
   { once: true },
 );

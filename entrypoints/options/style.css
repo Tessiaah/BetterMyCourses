@@ -45,21 +45,6 @@ header p,
   gap: 40px;
   margin-top: 32px;
 }
-.preview-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-.preview-heading h2 {
-  margin: 0;
-}
-.preview-heading label {
-  font-size: 12px;
-  color: #b3b0aa;
-}
 #preview {
   box-sizing: content-box;
   width: calc(100% - 2px);
@@ -77,10 +62,6 @@ header p,
 }
 #preview-size {
   margin-bottom: 12px;
-}
-#refresh-preview {
-  font-size: 12px;
-  min-height: 44px;
 }
 #preview:active {
   cursor: grabbing;

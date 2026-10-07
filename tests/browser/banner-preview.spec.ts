@@ -132,7 +132,12 @@ test('installed banner editor matches the open Home and Dashboard crop', async (
         // CSS layout rounds fractional preview sizes to subpixels.
         .toBeLessThan(0.5);
     }
-    await expect(editor.locator('#shape')).toHaveValue('current');
+    await expect(
+      editor.getByText('Preview shape', { exact: true }),
+    ).toHaveCount(0);
+    await expect(
+      editor.getByRole('button', { name: 'Refresh size' }),
+    ).toHaveCount(0);
     await expectMatching(home);
     await editor.locator('#page').selectOption('dashboard');
     await expect(editor.locator('#preview-size')).toContainText(
@@ -182,18 +187,13 @@ test('installed banner editor matches the open Home and Dashboard crop', async (
       path: 'test-results/banner-matched-site-desktop.png',
     });
     await dashboard.setViewportSize({ width: 1366, height: 900 });
-    await editor
-      .getByRole('button', { name: 'Refresh size', exact: true })
-      .click();
+    await editor.evaluate(() => window.dispatchEvent(new Event('focus')));
     await expect(editor.locator('#preview-size')).toContainText('(1350 × 296)');
     await expectMatching(dashboard);
     await expect(editor.locator('#zoom')).toHaveValue('1.4');
     await expect(editor.locator('#y')).toHaveValue('58');
     await editor.setViewportSize({ width: 390, height: 844 });
     await expectMatching(dashboard);
-    expect(
-      (await editor.locator('#refresh-preview').boundingBox())!.height,
-    ).toBeGreaterThanOrEqual(44);
     expect(
       await editor.evaluate(
         () => document.documentElement.scrollWidth > innerWidth,
@@ -203,16 +203,8 @@ test('installed banner editor matches the open Home and Dashboard crop', async (
       path: 'test-results/banner-matched-editor-phone.png',
       fullPage: true,
     });
-    await editor.locator('#shape').selectOption('8.5');
-    await expect(editor.locator('#preview-size')).toContainText(
-      'Estimated shape',
-    );
-    await editor.locator('#shape').selectOption('current');
-    await expectMatching(dashboard);
     await dashboard.setViewportSize({ width: 390, height: 844 });
-    await editor
-      .getByRole('button', { name: 'Refresh size', exact: true })
-      .click();
+    await editor.evaluate(() => window.dispatchEvent(new Event('focus')));
     await expect(editor.locator('#preview-size')).toContainText('(374 × 296)');
     await expectMatching(dashboard);
     await editor.screenshot({
@@ -228,11 +220,30 @@ test('installed banner editor matches the open Home and Dashboard crop', async (
     await expect(editor.locator('#preview-size')).toContainText(
       'Open Home in this browser window',
     );
-    await expect(editor.locator('#shape')).toHaveValue('4.8');
-    await expect(
-      editor.locator('#shape option[value=current]'),
-    ).toHaveAttribute('disabled', '');
     await expect(editor.locator('#file')).toBeEnabled();
+    const popup = await context.newPage();
+    popup.on('pageerror', (error) => errors.push(error.message));
+    await popup.setViewportSize({ width: 320, height: 600 });
+    await popup.goto(`chrome-extension://${id}/popup.html`);
+    await popup
+      .locator('.banner-settings')
+      .evaluate((el) => ((el as HTMLDetailsElement).open = true));
+    const editorButton = popup.getByRole('button', {
+      name: 'Open banner editor',
+      exact: true,
+    });
+    await editorButton.scrollIntoViewIfNeeded();
+    const buttonBox = (await editorButton.boundingBox())!;
+    const legendBox = (await popup
+      .locator('[data-banner-page="home"] legend')
+      .boundingBox())!;
+    expect(legendBox.y - buttonBox.y - buttonBox.height).toBeGreaterThanOrEqual(
+      16,
+    );
+    expect(buttonBox.x).toBe(24);
+    expect(buttonBox.width).toBe(272);
+    expect(buttonBox.height).toBeGreaterThanOrEqual(44);
+    await popup.screenshot({ path: 'test-results/banner-popup-spacing.png' });
     const manifest = JSON.parse(
       await readFile(path.join(extension, 'manifest.json'), 'utf8'),
     );

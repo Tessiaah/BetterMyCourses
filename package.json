@@ -1,6 +1,6 @@
 {
   "name": "better-mycourses",
-  "version": "1.12.4",
+  "version": "1.12.5",
   "private": true,
   "type": "module",
   "description": "A privacy-friendly, inky black theme for Aalto MyCourses.",
